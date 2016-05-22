@@ -131,6 +131,16 @@ Public Class Pitter
 
     End Sub
 
+    Private Sub Pitter_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
+
+    End Sub
+
+    Private Sub Pitter_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
+        Me.WindowState = FormWindowState.Minimized
+        Me.ShowInTaskbar = False
+        e.Cancel = True
+    End Sub
+
     Private Sub Pitter_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.Show()
 
@@ -314,6 +324,8 @@ Public Class Pitter
     End Sub
 
     Private Sub TaskbarIcon_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles TaskbarIcon.MouseDoubleClick
-        Me.Show()
+        Me.WindowState = FormWindowState.Normal
+        Me.ShowInTaskbar = True
+
     End Sub
 End Class
