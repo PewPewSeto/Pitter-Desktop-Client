@@ -328,4 +328,8 @@ Public Class Pitter
         Me.ShowInTaskbar = True
 
     End Sub
+
+    Private Sub PitterToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PitterToolStripMenuItem.Click
+
+    End Sub
 End Class

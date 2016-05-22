@@ -28,12 +28,12 @@ Partial Class Pitter
         Me.BrowserEventListener = New System.Windows.Forms.Timer(Me.components)
         Me.DesktopEventListener = New System.Windows.Forms.Timer(Me.components)
         Me.TaskbarIcon = New System.Windows.Forms.NotifyIcon(Me.components)
-        Me.Passive = New System.Windows.Forms.Timer(Me.components)
-        Me.Cleaner = New System.Windows.Forms.Timer(Me.components)
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.PitterToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
+        Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Passive = New System.Windows.Forms.Timer(Me.components)
+        Me.Cleaner = New System.Windows.Forms.Timer(Me.components)
         Me.ContextMenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -62,6 +62,30 @@ Partial Class Pitter
         Me.TaskbarIcon.Icon = CType(resources.GetObject("TaskbarIcon.Icon"), System.Drawing.Icon)
         Me.TaskbarIcon.Visible = True
         '
+        'ContextMenuStrip1
+        '
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PitterToolStripMenuItem, Me.ToolStripSeparator1, Me.ExitToolStripMenuItem})
+        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(153, 76)
+        '
+        'PitterToolStripMenuItem
+        '
+        Me.PitterToolStripMenuItem.Enabled = False
+        Me.PitterToolStripMenuItem.Name = "PitterToolStripMenuItem"
+        Me.PitterToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.PitterToolStripMenuItem.Text = "Pitter"
+        '
+        'ToolStripSeparator1
+        '
+        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(149, 6)
+        '
+        'ExitToolStripMenuItem
+        '
+        Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ExitToolStripMenuItem.Text = "Exit"
+        '
         'Passive
         '
         Me.Passive.Enabled = True
@@ -71,30 +95,6 @@ Partial Class Pitter
         '
         Me.Cleaner.Enabled = True
         Me.Cleaner.Interval = 60000
-        '
-        'ContextMenuStrip1
-        '
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PitterToolStripMenuItem, Me.ToolStripSeparator1, Me.ExitToolStripMenuItem})
-        Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(103, 54)
-        '
-        'PitterToolStripMenuItem
-        '
-        Me.PitterToolStripMenuItem.Enabled = False
-        Me.PitterToolStripMenuItem.Name = "PitterToolStripMenuItem"
-        Me.PitterToolStripMenuItem.Size = New System.Drawing.Size(102, 22)
-        Me.PitterToolStripMenuItem.Text = "Pitter"
-        '
-        'ExitToolStripMenuItem
-        '
-        Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(102, 22)
-        Me.ExitToolStripMenuItem.Text = "Exit"
-        '
-        'ToolStripSeparator1
-        '
-        Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(99, 6)
         '
         'Pitter
         '

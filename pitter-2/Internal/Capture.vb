@@ -103,7 +103,10 @@ Public Class Capture
                 Pitter.isCurrentlyUploading = False
 
             End If
-
+        ElseIf My.Computer.Clipboard.ContainsFileDropList And My.Computer.Clipboard.GetFileDropList.Count = 1 Then
+            Pitter.isCurrentlyUploading = True
+            Networking.upload(My.Computer.Clipboard.GetFileDropList.Item(0))
+            Pitter.isCurrentlyUploading = False
         Else
             'ERROR OCCURED WHILE UPLOADING
             Pitter.notification("Invalid File in Clipboard", "Pitter cannot upload the file located in your clipboard.", 5000, ToolTipIcon.Error, False)
