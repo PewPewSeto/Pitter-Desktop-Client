@@ -1,6 +1,6 @@
 ﻿Imports System.Runtime.InteropServices
 Imports System.IO
-
+Imports System.IO.Compression
 Public Class Capture
     Dim Encryption As Encryption
     Dim Settings As Settings
@@ -36,7 +36,7 @@ Public Class Capture
         Dim H As Integer = My.Computer.Screen.Bounds.Height
         Dim simg As New Bitmap(W, H)
         Dim g As Graphics = Graphics.FromImage(simg)
-        If stringtool.parse_boolean(Settings.getvalue("use all monitors for fullscreen")) = True Then
+        If stringtool.parse_boolean(Settings.getValue("use all monitors for fullscreen")) = True Then
             g.CopyFromScreen(0, 0, 0, 0, New Size(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Width), CopyPixelOperation.SourceCopy)
         Else
             g.CopyFromScreen(0, 0, 0, 0, New Size(My.Computer.Screen.Bounds.Width, My.Computer.Screen.Bounds.Height), CopyPixelOperation.SourceCopy)
@@ -103,10 +103,27 @@ Public Class Capture
                 Pitter.isCurrentlyUploading = False
 
             End If
-        ElseIf My.Computer.Clipboard.ContainsFileDropList And My.Computer.Clipboard.GetFileDropList.Count = 1 Then
-            Pitter.isCurrentlyUploading = True
-            Networking.upload(My.Computer.Clipboard.GetFileDropList.Item(0))
-            Pitter.isCurrentlyUploading = False
+        ElseIf My.Computer.Clipboard.ContainsFileDropList Then
+            If My.Computer.Clipboard.GetFileDropList.Count = 1 Then
+                Pitter.isCurrentlyUploading = True
+                Networking.upload(My.Computer.Clipboard.GetFileDropList.Item(0))
+                Pitter.isCurrentlyUploading = False
+            ElseIf My.Computer.Clipboard.GetFileDropList.Count > 1 Then
+                Pitter.isCurrentlyUploading = True
+                Pitter.notification("Files will be compressed", "You have multiple files in your clipboard. They will be compressed into a single .zip", 5000, ToolTipIcon.Info, False)
+                If My.Computer.FileSystem.FileExists(Pitter.save_location + "temp.zip") Then My.Computer.FileSystem.DeleteFile(Pitter.save_location + "temp.zip")
+                If My.Computer.FileSystem.FileExists(Pitter.save_location + "zipdir") = False Then MkDir(Pitter.save_location + "zipdir")
+                For Each File In My.Computer.Clipboard.GetFileDropList
+                    Dim fn() As String = File.ToString.Split("\")
+                    Dim fnl As Integer = fn.Length - 1
+                    My.Computer.FileSystem.CopyFile(File, Pitter.save_location + "zipdir\" + fn(fnl))
+                Next
+                ZipFile.CreateFromDirectory(Pitter.save_location + "zipdir\", Pitter.save_location + "temp.zip")
+                Networking.upload(Pitter.save_location + "temp.zip")
+                My.Computer.FileSystem.DeleteDirectory(Pitter.save_location + "zipdir\", FileIO.DeleteDirectoryOption.DeleteAllContents)
+                Pitter.isCurrentlyUploading = False
+            End If
+
         Else
             'ERROR OCCURED WHILE UPLOADING
             Pitter.notification("Invalid File in Clipboard", "Pitter cannot upload the file located in your clipboard.", 5000, ToolTipIcon.Error, False)
