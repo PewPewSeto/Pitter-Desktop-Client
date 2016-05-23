@@ -34,6 +34,15 @@ Partial Class Pitter
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Passive = New System.Windows.Forms.Timer(Me.components)
         Me.Cleaner = New System.Windows.Forms.Timer(Me.components)
+        Me.UploadToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.PauseInputListenerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ClipboardToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
+        Me.CurrentWindowToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FullscreenToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SelectionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -64,26 +73,26 @@ Partial Class Pitter
         '
         'ContextMenuStrip1
         '
-        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PitterToolStripMenuItem, Me.ToolStripSeparator1, Me.ExitToolStripMenuItem})
+        Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PitterToolStripMenuItem, Me.ToolStripSeparator1, Me.UploadToolStripMenuItem, Me.ToolStripSeparator2, Me.PauseInputListenerToolStripMenuItem, Me.ExitToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(153, 76)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(181, 126)
         '
         'PitterToolStripMenuItem
         '
         Me.PitterToolStripMenuItem.Enabled = False
         Me.PitterToolStripMenuItem.Name = "PitterToolStripMenuItem"
-        Me.PitterToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.PitterToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.PitterToolStripMenuItem.Text = "Pitter"
         '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
-        Me.ToolStripSeparator1.Size = New System.Drawing.Size(149, 6)
+        Me.ToolStripSeparator1.Size = New System.Drawing.Size(177, 6)
         '
         'ExitToolStripMenuItem
         '
         Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.ExitToolStripMenuItem.Text = "Exit"
         '
         'Passive
@@ -95,6 +104,59 @@ Partial Class Pitter
         '
         Me.Cleaner.Enabled = True
         Me.Cleaner.Interval = 60000
+        '
+        'UploadToolStripMenuItem
+        '
+        Me.UploadToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.ClipboardToolStripMenuItem, Me.ToolStripSeparator3, Me.CurrentWindowToolStripMenuItem, Me.FullscreenToolStripMenuItem, Me.SelectionToolStripMenuItem})
+        Me.UploadToolStripMenuItem.Name = "UploadToolStripMenuItem"
+        Me.UploadToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.UploadToolStripMenuItem.Text = "Upload"
+        '
+        'ToolStripSeparator2
+        '
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(177, 6)
+        '
+        'PauseInputListenerToolStripMenuItem
+        '
+        Me.PauseInputListenerToolStripMenuItem.Name = "PauseInputListenerToolStripMenuItem"
+        Me.PauseInputListenerToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.PauseInputListenerToolStripMenuItem.Text = "Pause Input Listener"
+        '
+        'ClipboardToolStripMenuItem
+        '
+        Me.ClipboardToolStripMenuItem.Name = "ClipboardToolStripMenuItem"
+        Me.ClipboardToolStripMenuItem.Size = New System.Drawing.Size(161, 22)
+        Me.ClipboardToolStripMenuItem.Text = "Clipboard"
+        '
+        'FileToolStripMenuItem
+        '
+        Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(161, 22)
+        Me.FileToolStripMenuItem.Text = "File Upload"
+        '
+        'ToolStripSeparator3
+        '
+        Me.ToolStripSeparator3.Name = "ToolStripSeparator3"
+        Me.ToolStripSeparator3.Size = New System.Drawing.Size(158, 6)
+        '
+        'CurrentWindowToolStripMenuItem
+        '
+        Me.CurrentWindowToolStripMenuItem.Name = "CurrentWindowToolStripMenuItem"
+        Me.CurrentWindowToolStripMenuItem.Size = New System.Drawing.Size(161, 22)
+        Me.CurrentWindowToolStripMenuItem.Text = "Current Window"
+        '
+        'FullscreenToolStripMenuItem
+        '
+        Me.FullscreenToolStripMenuItem.Name = "FullscreenToolStripMenuItem"
+        Me.FullscreenToolStripMenuItem.Size = New System.Drawing.Size(161, 22)
+        Me.FullscreenToolStripMenuItem.Text = "Fullscreen"
+        '
+        'SelectionToolStripMenuItem
+        '
+        Me.SelectionToolStripMenuItem.Name = "SelectionToolStripMenuItem"
+        Me.SelectionToolStripMenuItem.Size = New System.Drawing.Size(161, 22)
+        Me.SelectionToolStripMenuItem.Text = "Selection"
         '
         'Pitter
         '
@@ -118,4 +180,13 @@ Partial Class Pitter
     Friend WithEvents PitterToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents ExitToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents UploadToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents FileToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ClipboardToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator3 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents CurrentWindowToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents FullscreenToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents SelectionToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator2 As System.Windows.Forms.ToolStripSeparator
+    Friend WithEvents PauseInputListenerToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 End Class

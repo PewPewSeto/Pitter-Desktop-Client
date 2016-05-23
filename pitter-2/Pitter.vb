@@ -332,4 +332,28 @@ Public Class Pitter
     Private Sub PitterToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PitterToolStripMenuItem.Click
 
     End Sub
+
+    Private Sub FileToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FileToolStripMenuItem.Click
+        Capture_.uploadFile()
+    End Sub
+
+    Private Sub ClipboardToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ClipboardToolStripMenuItem.Click
+        Capture_.captureClipboard()
+    End Sub
+
+    Private Sub CurrentWindowToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles CurrentWindowToolStripMenuItem.Click
+        Capture_.CaptureWindow(Nothing)
+    End Sub
+
+    Private Sub FullscreenToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FullscreenToolStripMenuItem.Click
+        Capture_.captureFullScreen()
+    End Sub
+
+    Private Sub SelectionToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SelectionToolStripMenuItem.Click
+        If StringTool.parse_boolean(Settings_.getValue("use old selector")) = False Then
+            Modern.Show()
+        Else
+            Legacy.Show()
+        End If
+    End Sub
 End Class
