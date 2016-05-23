@@ -39,6 +39,16 @@ Public Class Networking
                     Select Case response_split(0)
                         Case "success"
                             My.Computer.Clipboard.SetText(response_split(1) + ":" + response_split(2))
+
+                            Dim fns1 As String() = response_split(2).Split("/")
+                            Dim fnc = fns1.Length - 1
+
+
+                            Dim bfn = Path.GetFileName(filepath)
+                            Dim wrkdir = filepath.Substring(0, filepath.Length - bfn.Length)
+
+                            My.Computer.FileSystem.MoveFile(filepath, wrkdir + fns1(fnc))
+
                             Pitter.notification("Upload Complete", "A link to the uploaded file has been added to your clipboard.", 5000, ToolTipIcon.Info, True)
 
                         Case "failed"
