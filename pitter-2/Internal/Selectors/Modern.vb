@@ -12,7 +12,10 @@
     Dim p1 As New Panel
     Dim move As Boolean = Nothing
     Public Sub upload()
-
+        Pitter.DesktopEventListener.Start()
+        Pitter.BrowserEventListener.Start()
+        Pitter.Passive.Start()
+        Pitter.Cleaner.Start()
         Try
             Dim client As New Net.WebClient
             Dim simg As New Bitmap(x2 - x1, y2 - y1)
@@ -62,7 +65,7 @@
             move = False
             Me.Hide()
             Me.Visible = False
-
+            
             upload()
         End If
         click = Val(click) + 1
@@ -82,6 +85,14 @@
         Me.TopMost = True
         Me.BringToFront()
         Me.Opacity = 0.5
+
+
+        Pitter.DesktopEventListener.Stop()
+        Pitter.BrowserEventListener.Stop()
+        Pitter.Passive.Stop()
+        Pitter.Cleaner.Stop()
+
+
         Me.Show()
     End Sub
     Private Sub selector_resize(sender As Object, e As EventArgs) Handles MyBase.Resize
