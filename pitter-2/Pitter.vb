@@ -168,7 +168,6 @@ Public Class Pitter
         End If
     End Sub
 
-
     Private Sub WebControl1_MouseClick(sender As Object, e As MouseEventArgs) Handles WebControl1.MouseClick
         Try
             Dim element_id = (WebControl1.ExecuteJavascriptWithResult("document.elementFromPoint(parseInt(" + e.X.ToString + "), parseInt(" + e.Y.ToString + ")).id;").ToString)
@@ -190,7 +189,6 @@ Public Class Pitter
             'Check if loading
             If WebControl1.IsLoading = False Then 'Make sure we are not loading
                 'Clear memory footprint
-
 
                 'Hidden Login Check
                 If WebControl1.Source = New Uri("https://panel.pitter.us/") Or WebControl1.Source = New Uri("https://panel.pitter.us/login.php") Then 'Check for login url
@@ -366,7 +364,7 @@ Public Class Pitter
     End Sub
 
     Private Sub ForceUpdateToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ForceUpdateToolStripMenuItem.Click
-         Dim client As New Net.WebClient
+        Dim client As New Net.WebClient
         client.DownloadFile("https://download.pitter.us/pitter-webapp-updater.exe", Settings_.working_directory + "update.exe")
         Process.Start(Settings_.working_directory + "update.exe")
         killproc()

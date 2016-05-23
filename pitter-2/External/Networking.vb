@@ -32,9 +32,7 @@ Public Class Networking
 
                     Dim resp = mpf.ResponseText.ToString
 
-
                     Dim response_split As String() = resp.Split(":")
-
 
                     Select Case response_split(0)
                         Case "success"
@@ -42,7 +40,6 @@ Public Class Networking
 
                             Dim fns1 As String() = response_split(2).Split("/")
                             Dim fnc = fns1.Length - 1
-
 
                             Dim bfn = Path.GetFileName(filepath)
                             Dim wrkdir = filepath.Substring(0, filepath.Length - bfn.Length)
@@ -54,10 +51,8 @@ Public Class Networking
                         Case "failed"
                             Pitter.notification("Upload Failed", "An unknown error occured while uploading the file.", 5000, ToolTipIcon.Error, False)
 
-
                         Case "restricted"
                             Pitter.notification("Account Suspended", "The file you attempted to upload has been discarded.", 5000, ToolTipIcon.Warning, False)
-
 
                         Case "invalid"
                             Pitter.notification("Invalid Credentials", "Pitter failed to exchange credentials to the server.", 5000, ToolTipIcon.Error, False)
