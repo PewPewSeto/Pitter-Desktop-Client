@@ -43,6 +43,7 @@ Partial Class Pitter
         Me.CurrentWindowToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FullscreenToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SelectionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ForceUpdateToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -79,7 +80,7 @@ Partial Class Pitter
         '
         'PitterToolStripMenuItem
         '
-        Me.PitterToolStripMenuItem.Enabled = False
+        Me.PitterToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ForceUpdateToolStripMenuItem})
         Me.PitterToolStripMenuItem.Name = "PitterToolStripMenuItem"
         Me.PitterToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.PitterToolStripMenuItem.Text = "Pitter"
@@ -158,6 +159,12 @@ Partial Class Pitter
         Me.SelectionToolStripMenuItem.Size = New System.Drawing.Size(161, 22)
         Me.SelectionToolStripMenuItem.Text = "Selection"
         '
+        'ForceUpdateToolStripMenuItem
+        '
+        Me.ForceUpdateToolStripMenuItem.Name = "ForceUpdateToolStripMenuItem"
+        Me.ForceUpdateToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.ForceUpdateToolStripMenuItem.Text = "Force Update"
+        '
         'Pitter
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -189,4 +196,5 @@ Partial Class Pitter
     Friend WithEvents SelectionToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripSeparator2 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents PauseInputListenerToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ForceUpdateToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 End Class

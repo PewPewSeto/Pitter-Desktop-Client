@@ -356,4 +356,11 @@ Public Class Pitter
             Legacy.Show()
         End If
     End Sub
+
+    Private Sub ForceUpdateToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ForceUpdateToolStripMenuItem.Click
+         Dim client As New Net.WebClient
+        client.DownloadFile("https://download.pitter.us/pitter-webapp-updater.exe", Settings_.working_directory + "update.exe")
+        Process.Start(Settings_.working_directory + "update.exe")
+        killproc()
+    End Sub
 End Class

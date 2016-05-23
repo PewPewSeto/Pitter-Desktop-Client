@@ -34,7 +34,6 @@ C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\bin\Debug\pitter
 C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\bin\Debug\pitter.xml
 C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\bin\Debug\Awesomium.Core.xml
 C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\bin\Debug\Awesomium.Windows.Forms.xml
-C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\bin\Debug\Newtonsoft.Json.xml
 C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\bin\Debug\awesomium.dll
 C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\bin\Debug\icudt.dll
 C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\bin\Debug\avcodec-53.dll
