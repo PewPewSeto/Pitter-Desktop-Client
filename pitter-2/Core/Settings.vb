@@ -9,13 +9,7 @@ Public Class Settings
     Public settings_location = working_directory + "pitter.config"
 
     Public locked As Boolean = False
-    Private Sub directorycheck()
-        If My.Computer.FileSystem.DirectoryExists(working_directory) = False Then
-            MkDir(working_directory)
-        End If
-    End Sub
     Private Sub lock(ByVal lockee As String)
-        directorycheck()
 recheck:
         'recheck will be used to check if the settings file is locked
         If locked Then

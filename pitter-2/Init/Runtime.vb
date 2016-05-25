@@ -1,6 +1,9 @@
-﻿Public Class Runtime
-
+﻿Imports System.IO
+Imports System.Environment
+Public Class Runtime
+    Public working_directory = GetFolderPath(SpecialFolder.ApplicationData) + "\Pitter\"
     Private Sub Runtime_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        dircheck()
         processcheck()
         decision()
         Me.Close()
@@ -29,5 +32,11 @@
             Application.Exit()
         End If
 
+    End Sub
+
+    Public Sub dircheck()
+        If My.Computer.FileSystem.DirectoryExists(working_directory) = False Then
+            MkDir(working_directory)
+        End If
     End Sub
 End Class
