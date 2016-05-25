@@ -23,7 +23,7 @@ Public Class Networking
             infoReader = My.Computer.FileSystem.GetFileInfo(filepath)
             If infoReader.Length < 104857600 Then
                 Try
-                    Dim mpf As New MultipartForm("https://api.WebApp.us/scalar.php")
+                    Dim mpf As New MultipartForm("https://api.pitter.us/scalar.php")
                     mpf.setField("username", Encryption.base64_encode(username))
                     mpf.setField("password", Encryption.base64_encode(password))
                     mpf.setField("command", "upload")
@@ -61,7 +61,7 @@ Public Class Networking
                 Catch ex As Exception
                     Dim ex_f As String() = ex.ToString.Split(vbNewLine)
                     WebApp.notification("Ambigious Error while Uploading", ex_f(0), 5000, ToolTipIcon.Error, False)
-
+                    MsgBox(ex.ToString)
                 End Try
             Else
                 WebApp.notification("Max Filesize Exceeded", "The uploaded file exceeds 100MB in size, and cannot be processed.", 5000, ToolTipIcon.Error, False)
