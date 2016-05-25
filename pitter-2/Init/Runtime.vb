@@ -3,7 +3,8 @@
     Private Sub Runtime_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         processcheck()
         decision()
-        Application.Exit()
+        Me.Close()
+
     End Sub
     Public Sub decision()
         If My.Computer.FileSystem.FileExists(Environment.CurrentDirectory + "\Awesomium.dll") Then

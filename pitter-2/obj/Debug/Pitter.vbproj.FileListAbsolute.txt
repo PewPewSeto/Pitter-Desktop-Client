@@ -20,10 +20,12 @@ C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\pitter
 C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\pitter_2.Legacy.resources
 C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\pitter_2.Modern.resources
 C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\pitter_2.Resources.resources
-C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\pitter_2.Pitter.resources
 C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\Pitter.vbproj.GenerateResource.Cache
 C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\pitter.exe
 C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\pitter.xml
 C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\pitter.pdb
 C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\bin\Debug\pitter.exe.config
 C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\pitter_2.WebApp.resources
+C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\bin\Debug\pitter.exe
+C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\bin\Debug\pitter.pdb
+C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\bin\Debug\pitter.xml
