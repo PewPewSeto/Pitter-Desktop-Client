@@ -86,12 +86,10 @@
         Me.BringToFront()
         Me.Opacity = 0.5
 
-
         WebApp.DesktopEventListener.Stop()
         WebApp.BrowserEventListener.Stop()
         WebApp.Passive.Stop()
         WebApp.Cleaner.Stop()
-
 
         Me.Show()
     End Sub

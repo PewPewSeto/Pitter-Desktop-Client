@@ -6,6 +6,7 @@ Imports Pitter.norvanco.http
 
 Public Class Networking
     Dim Encryption As New Encryption
+    Dim fd As New FormDecision
 
     Dim username As String
     Dim password As String
@@ -46,27 +47,27 @@ Public Class Networking
 
                             My.Computer.FileSystem.MoveFile(filepath, wrkdir + fns1(fnc))
 
-                            WebApp.notification("Upload Complete", "A link to the uploaded file has been added to your clipboard.", 5000, ToolTipIcon.Info, True)
+                            fd.choice.notification("Upload Complete", "A link to the uploaded file has been added to your clipboard.", 5000, ToolTipIcon.Info, True)
 
                         Case "failed"
-                            WebApp.notification("Upload Failed", "An unknown error occured while uploading the file.", 5000, ToolTipIcon.Error, False)
+                            fd.choice.notification("Upload Failed", "An unknown error occured while uploading the file.", 5000, ToolTipIcon.Error, False)
 
                         Case "restricted"
-                            WebApp.notification("Account Suspended", "The file you attempted to upload has been discarded.", 5000, ToolTipIcon.Warning, False)
+                            fd.choice.notification("Account Suspended", "The file you attempted to upload has been discarded.", 5000, ToolTipIcon.Warning, False)
 
                         Case "invalid"
-                            WebApp.notification("Invalid Credentials", "Pitter failed to exchange credentials to the server.", 5000, ToolTipIcon.Error, False)
+                            fd.choice.notification("Invalid Credentials", "Pitter failed to exchange credentials to the server.", 5000, ToolTipIcon.Error, False)
                     End Select
 
                 Catch ex As Exception
                     Dim ex_f As String() = ex.ToString.Split(vbNewLine)
-                    WebApp.notification("Ambigious Error while Uploading", ex_f(0), 5000, ToolTipIcon.Error, False)
+                    fd.choice.notification("Ambigious Error while Uploading", ex_f(0), 5000, ToolTipIcon.Error, False)
                     MsgBox(ex.ToString)
                 End Try
             Else
-                WebApp.notification("Max Filesize Exceeded", "The uploaded file exceeds 100MB in size, and cannot be processed.", 5000, ToolTipIcon.Error, False)
+                fd.choice.notification("Max Filesize Exceeded", "The uploaded file exceeds 100MB in size, and cannot be processed.", 5000, ToolTipIcon.Error, False)
             End If
         End If
-        WebApp.isCurrentlyUploading = False
+        fd.choice.isCurrentlyUploading = False
     End Sub
 End Class
