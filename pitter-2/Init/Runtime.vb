@@ -23,13 +23,6 @@ Public Class Runtime
         'Process Check
         Dim p = Process.GetProcessesByName("pitter")
         If p.Length > 1 Then
-            Dim di As New NotifyIcon
-            di.BalloonTipIcon = ToolTipIcon.Error
-            di.BalloonTipTitle = "Pitter is already running"
-            di.BalloonTipText = "Your system has indicated that pitter is already running in the background."
-            di.Icon = My.Resources.norm
-            di.ShowBalloonTip(5000)
-            Threading.Thread.Sleep(5000)
             Application.Exit()
         End If
 
