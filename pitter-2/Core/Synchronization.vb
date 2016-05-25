@@ -24,6 +24,6 @@ Public Class Synchronization
         Settings_super.setValue("use control and shift", l_json.GetValue("ucas"))
         Settings_super.setValue("image format", l_json.GetValue("image_format"))
 
-        Pitter.notification("Settings Synchronized", "Settings from thee cloud have been saved to this machine.", 5000, ToolTipIcon.Info, True)
+        WebApp.notification("Settings Synchronized", "Settings from thee cloud have been saved to this machine.", 5000, ToolTipIcon.Info, True)
     End Sub
 End Class

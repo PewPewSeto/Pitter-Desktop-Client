@@ -32,7 +32,7 @@ Namespace My
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = Global.pitter_2.Pitter
+            Me.MainForm = Global.pitter_2.Runtime
         End Sub
     End Class
 End Namespace

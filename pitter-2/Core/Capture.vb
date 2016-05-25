@@ -12,6 +12,7 @@ Public Class Capture
         Settings = set_c
         Networking = net_c
         stringtool = str_c
+
     End Sub
 
     Public Structure RECT
@@ -31,7 +32,7 @@ Public Class Capture
     Public Shared Function GetActiveWindowHandle() As System.IntPtr
     End Function
     Public Sub captureFullScreen()
-        Pitter.isCurrentlyUploading = True
+        WebApp.isCurrentlyUploading = True
         Dim W As Integer = My.Computer.Screen.Bounds.Width
         Dim H As Integer = My.Computer.Screen.Bounds.Height
         Dim simg As New Bitmap(W, H)
@@ -43,9 +44,9 @@ Public Class Capture
         End If
 
         g.Save()
-        simg.Save(Pitter.save_location + "temp." + Pitter.get_image_save_type(True), Pitter.get_image_save_type(False))
+        simg.Save(WebApp.save_location + "temp." + WebApp.get_image_save_type(True), WebApp.get_image_save_type(False))
         g.Dispose()
-        Networking.upload(Pitter.save_location + "temp." + Pitter.get_image_save_type(True))
+        Networking.upload(WebApp.save_location + "temp." + WebApp.get_image_save_type(True))
     End Sub
 
     Public Sub CaptureWindow(ByVal r As Rectangle)
@@ -76,18 +77,18 @@ Public Class Capture
         gr.CopyFromScreen(windowRect.left, windowRect.top, 0, 0, New Size(width, height))
         gr.Save()
         gr.Save()
-        img.Save(Pitter.save_location + "temp." + Pitter.get_image_save_type(True), Pitter.get_image_save_type(False))
+        img.Save(WebApp.save_location + "temp." + WebApp.get_image_save_type(True), WebApp.get_image_save_type(False))
 
         gr.Dispose()
 
-        Networking.upload(Pitter.save_location + "temp." + Pitter.get_image_save_type(True))
+        Networking.upload(WebApp.save_location + "temp." + WebApp.get_image_save_type(True))
     End Sub
     Public Sub captureClipboard()
         Dim client As New Net.WebClient
         If My.Computer.Clipboard.ContainsText Then
             'Save file and upload
-            File.WriteAllText(Pitter.save_location + "temp.txt", My.Computer.Clipboard.GetText)
-            Networking.upload(Pitter.save_location + "temp.txt")
+            File.WriteAllText(WebApp.save_location + "temp.txt", My.Computer.Clipboard.GetText)
+            Networking.upload(WebApp.save_location + "temp.txt")
 
         ElseIf My.Computer.Clipboard.ContainsImage Then
             'Save Image and upload
@@ -96,42 +97,42 @@ Public Class Capture
             If oDataObj.GetDataPresent(System.Windows.Forms.DataFormats.Bitmap) Then
 
                 Dim oImgObj As System.Drawing.Image = oDataObj.GetData(DataFormats.Bitmap, True)
-                oImgObj.Save(Pitter.save_location + "temp." + Pitter.get_image_save_type(True), Pitter.get_image_save_type(False))
+                oImgObj.Save(WebApp.save_location + "temp." + WebApp.get_image_save_type(True), WebApp.get_image_save_type(False))
 
-                Pitter.isCurrentlyUploading = True
-                Networking.upload(Pitter.save_location + "temp." + Pitter.get_image_save_type(True))
-                Pitter.isCurrentlyUploading = False
+                WebApp.isCurrentlyUploading = True
+                Networking.upload(WebApp.save_location + "temp." + WebApp.get_image_save_type(True))
+                WebApp.isCurrentlyUploading = False
 
             End If
         ElseIf My.Computer.Clipboard.ContainsFileDropList Then
             If My.Computer.Clipboard.GetFileDropList.Count = 1 Then
-                Pitter.isCurrentlyUploading = True
+                WebApp.isCurrentlyUploading = True
                 Networking.upload(My.Computer.Clipboard.GetFileDropList.Item(0))
-                Pitter.isCurrentlyUploading = False
+                WebApp.isCurrentlyUploading = False
             ElseIf My.Computer.Clipboard.GetFileDropList.Count > 1 Then
-                Pitter.isCurrentlyUploading = True
-                Pitter.notification("Files will be compressed", "You have multiple files in your clipboard. They will be compressed into a single .zip", 5000, ToolTipIcon.Info, False)
-                If My.Computer.FileSystem.FileExists(Pitter.save_location + "temp.zip") Then My.Computer.FileSystem.DeleteFile(Pitter.save_location + "temp.zip")
-                If My.Computer.FileSystem.FileExists(Pitter.save_location + "zipdir") = False Then MkDir(Pitter.save_location + "zipdir")
+                WebApp.isCurrentlyUploading = True
+                WebApp.notification("Files will be compressed", "You have multiple files in your clipboard. They will be compressed into a single .zip", 5000, ToolTipIcon.Info, False)
+                If My.Computer.FileSystem.FileExists(WebApp.save_location + "temp.zip") Then My.Computer.FileSystem.DeleteFile(WebApp.save_location + "temp.zip")
+                If My.Computer.FileSystem.FileExists(WebApp.save_location + "zipdir") = False Then MkDir(WebApp.save_location + "zipdir")
                 For Each File In My.Computer.Clipboard.GetFileDropList
                     Dim fn() As String = File.ToString.Split("\")
                     Dim fnl As Integer = fn.Length - 1
-                    My.Computer.FileSystem.CopyFile(File, Pitter.save_location + "zipdir\" + fn(fnl))
+                    My.Computer.FileSystem.CopyFile(File, WebApp.save_location + "zipdir\" + fn(fnl))
                 Next
-                ZipFile.CreateFromDirectory(Pitter.save_location + "zipdir\", Pitter.save_location + "temp.zip")
-                Networking.upload(Pitter.save_location + "temp.zip")
-                My.Computer.FileSystem.DeleteDirectory(Pitter.save_location + "zipdir\", FileIO.DeleteDirectoryOption.DeleteAllContents)
-                Pitter.isCurrentlyUploading = False
+                ZipFile.CreateFromDirectory(WebApp.save_location + "zipdir\", WebApp.save_location + "temp.zip")
+                Networking.upload(WebApp.save_location + "temp.zip")
+                My.Computer.FileSystem.DeleteDirectory(WebApp.save_location + "zipdir\", FileIO.DeleteDirectoryOption.DeleteAllContents)
+                WebApp.isCurrentlyUploading = False
             End If
 
         Else
             'ERROR OCCURED WHILE UPLOADING
-            Pitter.notification("Invalid File in Clipboard", "Pitter cannot upload the file located in your clipboard.", 5000, ToolTipIcon.Error, False)
+            WebApp.notification("Invalid File in Clipboard", "Pitter cannot upload the file located in your clipboard.", 5000, ToolTipIcon.Error, False)
         End If
     End Sub
     Public Sub uploadFile()
         Dim ofd As New OpenFileDialog
-        ofd.ShowDialog(Pitter)
+        ofd.ShowDialog(WebApp)
         Networking.upload(ofd.FileName)
     End Sub
 End Class

@@ -12,10 +12,10 @@
     Dim p1 As New Panel
     Dim move As Boolean = Nothing
     Public Sub upload()
-        Pitter.DesktopEventListener.Start()
-        Pitter.BrowserEventListener.Start()
-        Pitter.Passive.Start()
-        Pitter.Cleaner.Start()
+        WebApp.DesktopEventListener.Start()
+        WebApp.BrowserEventListener.Start()
+        WebApp.Passive.Start()
+        WebApp.Cleaner.Start()
         Try
             Dim client As New Net.WebClient
             Dim simg As New Bitmap(x2 - x1, y2 - y1)
@@ -23,16 +23,16 @@
 
             g.CopyFromScreen(x1, y1, 0, 0, New Size(x2 - x1, y2 - y1), CopyPixelOperation.SourceCopy)
 
-            simg.Save(Pitter.save_location + "temp." + Pitter.get_image_save_type(True), Pitter.get_image_save_type(False))
+            simg.Save(WebApp.save_location + "temp." + WebApp.get_image_save_type(True), WebApp.get_image_save_type(False))
 
             'upload
-            Networking.upload(Pitter.save_location + "temp." + Pitter.get_image_save_type(True))
-            Pitter.isCurrentlyUploading = False
+            Networking.upload(WebApp.save_location + "temp." + WebApp.get_image_save_type(True))
+            WebApp.isCurrentlyUploading = False
             Me.Close()
 
         Catch ex As Exception
-            Pitter.notification("Invalid Selection Region", "You attempted to select an invalid region of the screen, please work diagnally down from the top left to the bottom right.", 5000, ToolTipIcon.Info, False)
-            Pitter.isCurrentlyUploading = False
+            WebApp.notification("Invalid Selection Region", "You attempted to select an invalid region of the screen, please work diagnally down from the top left to the bottom right.", 5000, ToolTipIcon.Info, False)
+            WebApp.isCurrentlyUploading = False
             Me.Close()
         End Try
 
@@ -65,15 +65,15 @@
             move = False
             Me.Hide()
             Me.Visible = False
-            
+
             upload()
         End If
         click = Val(click) + 1
     End Sub
     Private Sub selector_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         If e.KeyCode = Keys.Escape Then
-            Pitter.listeningForInput = True
-            Pitter.isCurrentlyUploading = False
+            WebApp.listeningForInput = True
+            WebApp.isCurrentlyUploading = False
             Me.Close()
         End If
     End Sub
@@ -87,10 +87,10 @@
         Me.Opacity = 0.5
 
 
-        Pitter.DesktopEventListener.Stop()
-        Pitter.BrowserEventListener.Stop()
-        Pitter.Passive.Stop()
-        Pitter.Cleaner.Stop()
+        WebApp.DesktopEventListener.Stop()
+        WebApp.BrowserEventListener.Stop()
+        WebApp.Passive.Stop()
+        WebApp.Cleaner.Stop()
 
 
         Me.Show()

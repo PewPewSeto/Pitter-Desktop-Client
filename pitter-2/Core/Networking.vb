@@ -23,7 +23,7 @@ Public Class Networking
             infoReader = My.Computer.FileSystem.GetFileInfo(filepath)
             If infoReader.Length < 104857600 Then
                 Try
-                    Dim mpf As New MultipartForm("https://api.pitter.us/scalar.php")
+                    Dim mpf As New MultipartForm("https://api.WebApp.us/scalar.php")
                     mpf.setField("username", Encryption.base64_encode(username))
                     mpf.setField("password", Encryption.base64_encode(password))
                     mpf.setField("command", "upload")
@@ -46,27 +46,27 @@ Public Class Networking
 
                             My.Computer.FileSystem.MoveFile(filepath, wrkdir + fns1(fnc))
 
-                            Pitter.notification("Upload Complete", "A link to the uploaded file has been added to your clipboard.", 5000, ToolTipIcon.Info, True)
+                            WebApp.notification("Upload Complete", "A link to the uploaded file has been added to your clipboard.", 5000, ToolTipIcon.Info, True)
 
                         Case "failed"
-                            Pitter.notification("Upload Failed", "An unknown error occured while uploading the file.", 5000, ToolTipIcon.Error, False)
+                            WebApp.notification("Upload Failed", "An unknown error occured while uploading the file.", 5000, ToolTipIcon.Error, False)
 
                         Case "restricted"
-                            Pitter.notification("Account Suspended", "The file you attempted to upload has been discarded.", 5000, ToolTipIcon.Warning, False)
+                            WebApp.notification("Account Suspended", "The file you attempted to upload has been discarded.", 5000, ToolTipIcon.Warning, False)
 
                         Case "invalid"
-                            Pitter.notification("Invalid Credentials", "Pitter failed to exchange credentials to the server.", 5000, ToolTipIcon.Error, False)
+                            WebApp.notification("Invalid Credentials", "Pitter failed to exchange credentials to the server.", 5000, ToolTipIcon.Error, False)
                     End Select
 
                 Catch ex As Exception
                     Dim ex_f As String() = ex.ToString.Split(vbNewLine)
-                    Pitter.notification("Ambigious Error while Uploading", ex_f(0), 5000, ToolTipIcon.Error, False)
+                    WebApp.notification("Ambigious Error while Uploading", ex_f(0), 5000, ToolTipIcon.Error, False)
 
                 End Try
             Else
-                Pitter.notification("Max Filesize Exceeded", "The uploaded file exceeds 100MB in size, and cannot be processed.", 5000, ToolTipIcon.Error, False)
+                WebApp.notification("Max Filesize Exceeded", "The uploaded file exceeds 100MB in size, and cannot be processed.", 5000, ToolTipIcon.Error, False)
             End If
         End If
-        Pitter.isCurrentlyUploading = False
+        WebApp.isCurrentlyUploading = False
     End Sub
 End Class

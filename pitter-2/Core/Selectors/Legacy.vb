@@ -20,29 +20,29 @@
             Me.Opacity = 0.0
 
             g.CopyFromScreen(x1, y1, 0, 0, New Size(wx, wy), CopyPixelOperation.SourceCopy)
-            simg.Save(Pitter.save_location + "temp." + Pitter.get_image_save_type(True), Pitter.get_image_save_type(False))
+            simg.Save(WebApp.save_location + "temp." + WebApp.get_image_save_type(True), WebApp.get_image_save_type(False))
             g.Dispose()
 
-            Pitter.isCurrentlyUploading = True
+            WebApp.isCurrentlyUploading = True
 
-            Networking.upload(Pitter.save_location + "temp." + Pitter.get_image_save_type(True))
+            Networking.upload(WebApp.save_location + "temp." + WebApp.get_image_save_type(True))
 
-            Pitter.listeningForInput = True
-            Pitter.isCurrentlyUploading = False
+            WebApp.listeningForInput = True
+            WebApp.isCurrentlyUploading = False
 
             Me.Close()
 
         ElseIf e.KeyCode = Keys.Escape Then
 
-            Pitter.listeningForInput = True
-            Pitter.isCurrentlyUploading = False
+            WebApp.listeningForInput = True
+            WebApp.isCurrentlyUploading = False
             Me.Close()
 
         End If
     End Sub
 
     Private Sub selector_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Pitter.listeningForInput = False
+        WebApp.listeningForInput = False
 
         Me.Size = New Size(470, 300)
         Me.Opacity = 0.6

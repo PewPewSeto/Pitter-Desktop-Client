@@ -90,28 +90,33 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationEvents.vb" />
     <Compile Include="External\include\MultipartForm.vb" />
-    <Compile Include="External\Networking.vb" />
-    <Compile Include="Internal\Authentication.vb" />
-    <Compile Include="Internal\Capture.vb" />
-    <Compile Include="Internal\Encryption.vb" />
-    <Compile Include="Internal\Selectors\Legacy.Designer.vb">
+    <Compile Include="Core\Networking.vb" />
+    <Compile Include="Init\Runtime.Designer.vb">
+      <DependentUpon>Runtime.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Init\Runtime.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Core\Authentication.vb" />
+    <Compile Include="Core\Capture.vb" />
+    <Compile Include="Core\Encryption.vb" />
+    <Compile Include="Core\Selectors\Legacy.Designer.vb">
       <DependentUpon>Legacy.vb</DependentUpon>
     </Compile>
-    <Compile Include="Internal\Selectors\Legacy.vb">
+    <Compile Include="Core\Selectors\Legacy.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Internal\Selectors\Modern.Designer.vb">
+    <Compile Include="Core\Selectors\Modern.Designer.vb">
       <DependentUpon>Modern.vb</DependentUpon>
     </Compile>
-    <Compile Include="Internal\Selectors\Modern.vb">
+    <Compile Include="Core\Selectors\Modern.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Internal\Settings.vb" />
-    <Compile Include="Internal\Synchronization.vb" />
-    <Compile Include="Internal\Utils\CharacterMapping.vb" />
-    <Compile Include="Internal\Utils\StringTool.vb" />
+    <Compile Include="Core\Settings.vb" />
+    <Compile Include="Core\Synchronization.vb" />
+    <Compile Include="Utils\CharacterMapping.vb" />
+    <Compile Include="Utils\StringTool.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -127,19 +132,22 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Pitter.Designer.vb">
-      <DependentUpon>Pitter.vb</DependentUpon>
+    <Compile Include="App-Web\Pitter.Designer.vb">
+      <DependentUpon>WebApp.vb</DependentUpon>
     </Compile>
-    <Compile Include="Pitter.vb">
+    <Compile Include="App-Web\WebApp.vb">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Internal\Selectors\Legacy.resx">
+    <EmbeddedResource Include="Init\Runtime.resx">
+      <DependentUpon>Runtime.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Core\Selectors\Legacy.resx">
       <DependentUpon>Legacy.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Internal\Selectors\Modern.resx">
+    <EmbeddedResource Include="Core\Selectors\Modern.resx">
       <DependentUpon>Modern.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -149,8 +157,8 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Pitter.resx">
-      <DependentUpon>Pitter.vb</DependentUpon>
+    <EmbeddedResource Include="App-Web\Pitter.resx">
+      <DependentUpon>WebApp.vb</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
@@ -175,16 +183,7 @@
     <None Include="Resources\norm.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\Debug\Awesomium.Core.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\Debug\awesomium.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\Debug\Awesomium.Windows.Forms.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\Debug\Newtonsoft.Json.dll" />
+    <Folder Include="App-Mini\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

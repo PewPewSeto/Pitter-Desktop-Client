@@ -3,7 +3,7 @@ Imports System.Environment
 Imports System.IO
 Imports System.Net
 
-Public Class Pitter
+Public Class WebApp
 
     Dim Auth_ As New Authentication
     Dim Encryption_ As New Encryption
@@ -142,14 +142,6 @@ Public Class Pitter
     End Sub
 
     Private Sub Pitter_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'Process Check
-        Dim p = Process.GetProcessesByName("pitter")
-        If p.Length > 1 Then
-            notification("Pitter is already ruinning", "Your system has indicated that pitter is already running in the background.", 5000, ToolTipIcon.Error, False)
-            Threading.Thread.Sleep(5000)
-            killproc()
-        End If
-
         Me.Show()
 
         'Check to see if the save directory exists
