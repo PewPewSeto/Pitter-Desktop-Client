@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{77C88F21-EA1E-4DCC-B8B7-4C65FCA7C7B4}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>pitter_2.My.MyApplication</StartupObject>
-    <RootNamespace>pitter_2</RootNamespace>
+    <StartupObject>Pitter.My.MyApplication</StartupObject>
+    <RootNamespace>Pitter</RootNamespace>
     <AssemblyName>pitter</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>

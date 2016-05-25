@@ -2,7 +2,7 @@
 Imports System.Collections.Specialized
 Imports System.IO
 Imports System.Text
-Imports pitter_2.norvanco.http
+Imports Pitter.norvanco.http
 
 Public Class Networking
     Dim Encryption As New Encryption
