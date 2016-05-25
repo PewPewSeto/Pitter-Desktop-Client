@@ -15,7 +15,7 @@ Public Class Runtime
             WebApp.Show()
         Else
             'Mini
-            MsgBox("The Mini Version of Pitter is still in development, and is not accessable at this time.")
+            LoginMini.Show()
         End If
     End Sub
 

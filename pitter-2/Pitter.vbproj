@@ -90,6 +90,12 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App-Mini\LoginMini.Designer.vb">
+      <DependentUpon>LoginMini.vb</DependentUpon>
+    </Compile>
+    <Compile Include="App-Mini\LoginMini.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="App-Mini\PitterMini.Designer.vb">
       <DependentUpon>PitterMini.vb</DependentUpon>
     </Compile>
@@ -147,6 +153,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="App-Mini\LoginMini.resx">
+      <DependentUpon>LoginMini.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="App-Mini\PitterMini.resx">
+      <DependentUpon>PitterMini.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Init\Runtime.resx">
       <DependentUpon>Runtime.vb</DependentUpon>
     </EmbeddedResource>
@@ -189,7 +201,15 @@
   <ItemGroup>
     <None Include="Resources\norm.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\bg-2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\256x256.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -22,8 +22,16 @@ Partial Class PitterMini
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        components = New System.ComponentModel.Container
+        Me.SuspendLayout()
+        '
+        'PitterMini
+        '
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.ClientSize = New System.Drawing.Size(599, 261)
+        Me.Name = "PitterMini"
         Me.Text = "PitterMini"
+        Me.ResumeLayout(False)
+
     End Sub
 End Class
