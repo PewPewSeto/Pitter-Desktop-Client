@@ -2,6 +2,7 @@
     Dim Encryption_ As New Encryption
     Dim Settings_ As New Settings
     Dim Networking As New Networking(Encryption_.DPAPI_decrpyt(Settings_.getValue("username")), Encryption_.DPAPI_decrpyt(Settings_.getValue("password")))
+    Dim fd As New FormDecision
 
     Private Sub selector_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
         If e.KeyCode = Keys.Return Then
@@ -20,29 +21,29 @@
             Me.Opacity = 0.0
 
             g.CopyFromScreen(x1, y1, 0, 0, New Size(wx, wy), CopyPixelOperation.SourceCopy)
-            simg.Save(WebApp.save_location + "temp." + WebApp.get_image_save_type(True), WebApp.get_image_save_type(False))
+            simg.Save(fd.choice.save_location + "temp." + fd.choice.get_image_save_type(True), fd.choice.get_image_save_type(False))
             g.Dispose()
 
-            WebApp.isCurrentlyUploading = True
+            fd.choice.isCurrentlyUploading = True
 
-            Networking.upload(WebApp.save_location + "temp." + WebApp.get_image_save_type(True))
+            Networking.upload(fd.choice.save_location + "temp." + fd.choice.get_image_save_type(True))
 
-            WebApp.listeningForInput = True
-            WebApp.isCurrentlyUploading = False
+            fd.choice.listeningForInput = True
+            fd.choice.isCurrentlyUploading = False
 
             Me.Close()
 
         ElseIf e.KeyCode = Keys.Escape Then
 
-            WebApp.listeningForInput = True
-            WebApp.isCurrentlyUploading = False
+            fd.choice.listeningForInput = True
+            fd.choice.isCurrentlyUploading = False
             Me.Close()
 
         End If
     End Sub
 
     Private Sub selector_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        WebApp.listeningForInput = False
+        fd.choice.listeningForInput = False
 
         Me.Size = New Size(470, 300)
         Me.Opacity = 0.6

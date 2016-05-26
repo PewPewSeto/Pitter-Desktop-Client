@@ -23,27 +23,26 @@ Partial Class WebApp
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(WebApp))
         Me.WebControl1 = New Awesomium.Windows.Forms.WebControl(Me.components)
         Me.BrowserEventListener = New System.Windows.Forms.Timer(Me.components)
         Me.DesktopEventListener = New System.Windows.Forms.Timer(Me.components)
         Me.TaskbarIcon = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.PitterToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ForceUpdateToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator1 = New System.Windows.Forms.ToolStripSeparator()
-        Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.Passive = New System.Windows.Forms.Timer(Me.components)
-        Me.Cleaner = New System.Windows.Forms.Timer(Me.components)
         Me.UploadToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
-        Me.PauseInputListenerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ClipboardToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FileToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ClipboardToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolStripSeparator3 = New System.Windows.Forms.ToolStripSeparator()
         Me.CurrentWindowToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.FullscreenToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.SelectionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ForceUpdateToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
+        Me.PauseInputListenerToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.Passive = New System.Windows.Forms.Timer(Me.components)
+        Me.Cleaner = New System.Windows.Forms.Timer(Me.components)
         Me.ContextMenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -69,14 +68,13 @@ Partial Class WebApp
         'TaskbarIcon
         '
         Me.TaskbarIcon.ContextMenuStrip = Me.ContextMenuStrip1
-        Me.TaskbarIcon.Icon = CType(resources.GetObject("TaskbarIcon.Icon"), System.Drawing.Icon)
         Me.TaskbarIcon.Visible = True
         '
         'ContextMenuStrip1
         '
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PitterToolStripMenuItem, Me.ToolStripSeparator1, Me.UploadToolStripMenuItem, Me.ToolStripSeparator2, Me.PauseInputListenerToolStripMenuItem, Me.ExitToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(181, 126)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(181, 104)
         '
         'PitterToolStripMenuItem
         '
@@ -85,26 +83,16 @@ Partial Class WebApp
         Me.PitterToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.PitterToolStripMenuItem.Text = "Pitter"
         '
+        'ForceUpdateToolStripMenuItem
+        '
+        Me.ForceUpdateToolStripMenuItem.Name = "ForceUpdateToolStripMenuItem"
+        Me.ForceUpdateToolStripMenuItem.Size = New System.Drawing.Size(144, 22)
+        Me.ForceUpdateToolStripMenuItem.Text = "Force Update"
+        '
         'ToolStripSeparator1
         '
         Me.ToolStripSeparator1.Name = "ToolStripSeparator1"
         Me.ToolStripSeparator1.Size = New System.Drawing.Size(177, 6)
-        '
-        'ExitToolStripMenuItem
-        '
-        Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
-        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.ExitToolStripMenuItem.Text = "Exit"
-        '
-        'Passive
-        '
-        Me.Passive.Enabled = True
-        Me.Passive.Interval = 10
-        '
-        'Cleaner
-        '
-        Me.Cleaner.Enabled = True
-        Me.Cleaner.Interval = 60000
         '
         'UploadToolStripMenuItem
         '
@@ -113,28 +101,17 @@ Partial Class WebApp
         Me.UploadToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.UploadToolStripMenuItem.Text = "Upload"
         '
-        'ToolStripSeparator2
+        'FileToolStripMenuItem
         '
-        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
-        Me.ToolStripSeparator2.Size = New System.Drawing.Size(177, 6)
-        '
-        'PauseInputListenerToolStripMenuItem
-        '
-        Me.PauseInputListenerToolStripMenuItem.Name = "PauseInputListenerToolStripMenuItem"
-        Me.PauseInputListenerToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.PauseInputListenerToolStripMenuItem.Text = "Pause Input Listener"
+        Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
+        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(161, 22)
+        Me.FileToolStripMenuItem.Text = "File Upload"
         '
         'ClipboardToolStripMenuItem
         '
         Me.ClipboardToolStripMenuItem.Name = "ClipboardToolStripMenuItem"
         Me.ClipboardToolStripMenuItem.Size = New System.Drawing.Size(161, 22)
         Me.ClipboardToolStripMenuItem.Text = "Clipboard"
-        '
-        'FileToolStripMenuItem
-        '
-        Me.FileToolStripMenuItem.Name = "FileToolStripMenuItem"
-        Me.FileToolStripMenuItem.Size = New System.Drawing.Size(161, 22)
-        Me.FileToolStripMenuItem.Text = "File Upload"
         '
         'ToolStripSeparator3
         '
@@ -159,31 +136,46 @@ Partial Class WebApp
         Me.SelectionToolStripMenuItem.Size = New System.Drawing.Size(161, 22)
         Me.SelectionToolStripMenuItem.Text = "Selection"
         '
-        'ForceUpdateToolStripMenuItem
+        'ToolStripSeparator2
         '
-        Me.ForceUpdateToolStripMenuItem.Name = "ForceUpdateToolStripMenuItem"
-        Me.ForceUpdateToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
-        Me.ForceUpdateToolStripMenuItem.Text = "Force Update"
+        Me.ToolStripSeparator2.Name = "ToolStripSeparator2"
+        Me.ToolStripSeparator2.Size = New System.Drawing.Size(177, 6)
         '
-        'Pitter
+        'PauseInputListenerToolStripMenuItem
+        '
+        Me.PauseInputListenerToolStripMenuItem.Name = "PauseInputListenerToolStripMenuItem"
+        Me.PauseInputListenerToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.PauseInputListenerToolStripMenuItem.Text = "Pause Input Listener"
+        '
+        'ExitToolStripMenuItem
+        '
+        Me.ExitToolStripMenuItem.Name = "ExitToolStripMenuItem"
+        Me.ExitToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.ExitToolStripMenuItem.Text = "Exit"
+        '
+        'Passive
+        '
+        Me.Passive.Enabled = True
+        Me.Passive.Interval = 10
+        '
+        'Cleaner
+        '
+        Me.Cleaner.Enabled = True
+        Me.Cleaner.Interval = 60000
+        '
+        'WebApp
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(935, 523)
         Me.Controls.Add(Me.WebControl1)
-        Me.Name = "Pitter"
+        Me.Name = "WebApp"
         Me.Text = "Pitter"
         Me.ContextMenuStrip1.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
     Private WithEvents WebControl1 As Awesomium.Windows.Forms.WebControl
-    Friend WithEvents BrowserEventListener As System.Windows.Forms.Timer
-    Friend WithEvents DesktopEventListener As System.Windows.Forms.Timer
-    Friend WithEvents TaskbarIcon As System.Windows.Forms.NotifyIcon
-    Friend WithEvents Passive As System.Windows.Forms.Timer
-    Friend WithEvents Cleaner As System.Windows.Forms.Timer
-    Friend WithEvents ContextMenuStrip1 As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents PitterToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ToolStripSeparator1 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents ExitToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
@@ -197,4 +189,10 @@ Partial Class WebApp
     Friend WithEvents ToolStripSeparator2 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents PauseInputListenerToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ForceUpdateToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Public WithEvents BrowserEventListener As System.Windows.Forms.Timer
+    Public WithEvents DesktopEventListener As System.Windows.Forms.Timer
+    Public WithEvents TaskbarIcon As System.Windows.Forms.NotifyIcon
+    Public WithEvents Passive As System.Windows.Forms.Timer
+    Public WithEvents Cleaner As System.Windows.Forms.Timer
+    Public WithEvents ContextMenuStrip1 As System.Windows.Forms.ContextMenuStrip
 End Class

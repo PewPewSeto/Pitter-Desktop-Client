@@ -8,7 +8,6 @@ Public Class Runtime
         processcheck()
         decision()
         Me.Close()
-
     End Sub
     Public Sub decision()
         If My.Computer.FileSystem.FileExists(Environment.CurrentDirectory + "\Awesomium.dll") Then

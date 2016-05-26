@@ -134,11 +134,28 @@ Public Class WebApp
     Private Sub Pitter_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
 
     End Sub
-
+    Public Sub killproc()
+        Settings_.locked = True
+        'kill proc
+        Dim location As String = System.Environment.GetCommandLineArgs()(0)
+        Dim appName As String = System.IO.Path.GetFileName(location)
+        Dim proc = Process.GetProcessesByName(appName.Substring(0, appName.Length - 4))
+        For i As Integer = 0 To proc.Count - 1
+            proc(i).Kill()
+        Next i
+    End Sub
     Private Sub Pitter_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
-        Me.WindowState = FormWindowState.Minimized
-        Me.ShowInTaskbar = False
-        e.Cancel = True
+        'PROCESS CHECK
+
+        Dim p = Process.GetProcessesByName("explorer")
+        If p.Length = 0 Then
+            killproc()
+        Else
+            Me.WindowState = FormWindowState.Minimized
+            Me.ShowInTaskbar = False
+            e.Cancel = True
+        End If
+
     End Sub
 
     Private Sub Pitter_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -298,7 +315,12 @@ Public Class WebApp
     End Sub
 
     Private Sub Cleaner_Tick(sender As Object, e As EventArgs) Handles Cleaner.Tick
-        WebControl1.ReduceMemoryUsage()
+        Try
+            WebControl1.ReduceMemoryUsage()
+        Catch ex As Exception
+            'This function will sometimes be called, but it is safe to suppress.
+        End Try
+
     End Sub
 
     Private Sub Pitter_Move(sender As Object, e As EventArgs) Handles Me.Move
@@ -307,16 +329,7 @@ Public Class WebApp
             Settings_.setValue("form y location", Me.Location.Y.ToString)
         End If
     End Sub
-    Public Sub killproc()
-        Settings_.locked = True
-        'kill proc
-        Dim location As String = System.Environment.GetCommandLineArgs()(0)
-        Dim appName As String = System.IO.Path.GetFileName(location)
-        Dim proc = Process.GetProcessesByName(appName.Substring(0, appName.Length - 4))
-        For i As Integer = 0 To proc.Count - 1
-            proc(i).Kill()
-        Next i
-    End Sub
+
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
         killproc()
     End Sub
