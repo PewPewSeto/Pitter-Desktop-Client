@@ -14,12 +14,9 @@
     Dim p1 As New Panel
     Dim move As Boolean = Nothing
     Public Sub upload()
-        fd.choice.DesktopEventListener.Start()
         fd.choice.Passive.Start()
-
         Try
             fd.choice.BrowserEventListener.Start()
-            fd.choice.Cleaner.Start()
         Catch ex As Exception
             'We're not using the webapp then
         End Try
@@ -95,12 +92,9 @@
         Me.Opacity = 0.5
 
 
-        fd.choice.DesktopEventListener.Stop()
         fd.choice.Passive.Stop()
-
         Try
             fd.choice.BrowserEventListener.Stop()
-            fd.choice.Cleaner.Stop()
         Catch ex As Exception
             'We're not using the webapp then
         End Try

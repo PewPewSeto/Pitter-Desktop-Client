@@ -78,7 +78,9 @@
         If loginResult Then
             'We logged in
             'Save Login Information
-
+            save_login()
+            PitterMini.Show()
+            Me.Close()
         Else
             'Invalid username or password
             em.Text = "Invalid Username or Password"
