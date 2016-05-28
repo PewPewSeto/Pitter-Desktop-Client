@@ -90,9 +90,12 @@ recheck:
         setValue("printscreen key means fullscreen", "false")
         setValue("use control and shift", "true")
         setValue("image format", "jpg")
-        setValue("form x location", "30")
-        setValue("form y location", "30")
         setValue("config version", "0")
+        setValue("chime", "true")
+        setValue("fullscreen means all monitors", "true")
+        setValue("synchronize files between clients", "true")
+        setValue("custom server", "https://i.pitter.us/")
+        setValue("use custom server", "")
         locked = False
     End Sub
 End Class

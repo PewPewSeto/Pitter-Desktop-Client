@@ -30,7 +30,7 @@ Public Class WebApp
         TaskbarIcon.BalloonTipTitle = title 'Title
         TaskbarIcon.BalloonTipText = message 'Body
         TaskbarIcon.ShowBalloonTip(time) 'Time we should dispaly for
-        If chime Then 'Chime was true
+        If chime And StringTool.parse_boolean(Settings_.getValue("chime")) = True Then 'Chime was true
             If osInfo.Version.Major <> 10 Then 'Check if we're running 10
                 'If we're not 10, then we should chime.
                 'Windows 10 has a built in chime, and would be bad if we used redundancy.
@@ -73,11 +73,7 @@ Public Class WebApp
 
     Public Sub init_resize()
         Me.Size = New Size(My.Computer.Screen.WorkingArea.Width * 0.85, My.Computer.Screen.WorkingArea.Height * 0.85)
-        If Settings_.getValue("form x location") = "-32000" Then
-            Settings_.setValue("form x location", 0)
-            Settings_.setValue("form y location", 0)
-        End If
-        Me.Location = New Point(Integer.Parse(Settings_.getValue("form x location")), Integer.Parse(Settings_.getValue("form y location")))
+
     End Sub
     Public Function login_routine()
         If Settings_.getValue("username") <> "" And Settings_.getValue("password") <> "" Then
@@ -159,6 +155,9 @@ Public Class WebApp
     End Sub
 
     Private Sub Pitter_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'synchronize settings
+        Synchronization.sync()
+
         Me.Show()
 
         'Check to see if the save directory exists
@@ -283,7 +282,14 @@ Public Class WebApp
                         End If
                     End If
 
-                    If StringTool.parse_boolean(Settings_.getValue("printscreen key means selection")) = True Then
+                    If Integer.Parse(Settings_.getValue("printscreen key means")) = 1 Then
+                        'Fullscreen
+                        If GetAsyncKeyState(Keys.PrintScreen) Then 'PrintScreen Key
+                            'Fullscreen
+                            Capture_.captureFullScreen()
+                        End If
+                    ElseIf Integer.Parse(Settings_.getValue("printscreen key means")) = 2 Then
+                        'Selector
                         If GetAsyncKeyState(Keys.PrintScreen) Then 'PrintScreen Key
                             'Selector
                             If StringTool.parse_boolean(Settings_.getValue("use old selector")) = False Then
@@ -293,12 +299,7 @@ Public Class WebApp
                             End If
                         End If
                     End If
-                    If StringTool.parse_boolean(Settings_.getValue("printscreen key means fullscreen")) = True Then
-                        If GetAsyncKeyState(Keys.PrintScreen) Then 'PrintScreen Key
-                            'Fullscreen
-                            Capture_.captureFullScreen()
-                        End If
-                    End If
+
                     '1 END
                 End If
             Next
@@ -324,10 +325,7 @@ Public Class WebApp
     End Sub
 
     Private Sub Pitter_Move(sender As Object, e As EventArgs) Handles Me.Move
-        If listeningForInput Then
-            Settings_.setValue("form x location", Me.Location.X.ToString)
-            Settings_.setValue("form y location", Me.Location.Y.ToString)
-        End If
+   
     End Sub
 
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
@@ -373,5 +371,9 @@ Public Class WebApp
         client.DownloadFile("https://download.pitter.us/pitter-webapp-updater.exe", Settings_.working_directory + "update.exe")
         Process.Start(Settings_.working_directory + "update.exe")
         killproc()
+    End Sub
+
+    Private Sub SynchronizeSettingsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SynchronizeSettingsToolStripMenuItem.Click
+        Synchronization.sync()
     End Sub
 End Class

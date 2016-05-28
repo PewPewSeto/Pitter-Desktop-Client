@@ -11,11 +11,21 @@ Public Class Networking
     Dim username As String
     Dim password As String
 
+
+
     Sub New(ByVal passed_username As String, ByVal passed_password As String)
         username = passed_username
         password = passed_password
     End Sub
     Public Function get_settings()
+
+        Using client As New Net.WebClient
+            Dim reqparm As New Specialized.NameValueCollection
+            reqparm.Add("username", Encryption.base64_encode(username))
+            reqparm.Add("password", Encryption.base64_encode(password))
+            Dim responsebytes = client.UploadValues("https://api.pitter.us/settings.php", "POST", reqparm)
+            Return (New System.Text.UTF8Encoding).GetString(responsebytes)
+        End Using
 
     End Function
     Public Sub upload(ByVal filepath As String)

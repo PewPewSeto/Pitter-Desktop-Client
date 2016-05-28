@@ -166,7 +166,14 @@ Public Class PitterMini
                         End If
                     End If
 
-                    If StringTool.parse_boolean(Settings_.getValue("printscreen key means selection")) = True Then
+                    If Integer.Parse(Settings_.getValue("printscreen key means")) = 1 Then
+                        'Fullscreen
+                        If GetAsyncKeyState(Keys.PrintScreen) Then 'PrintScreen Key
+                            'Fullscreen
+                            Capture_.captureFullScreen()
+                        End If
+                    ElseIf Integer.Parse(Settings_.getValue("printscreen key means")) = 2 Then
+                        'Selector
                         If GetAsyncKeyState(Keys.PrintScreen) Then 'PrintScreen Key
                             'Selector
                             If StringTool.parse_boolean(Settings_.getValue("use old selector")) = False Then
@@ -174,12 +181,6 @@ Public Class PitterMini
                             Else
                                 Legacy.Show()
                             End If
-                        End If
-                    End If
-                    If StringTool.parse_boolean(Settings_.getValue("printscreen key means fullscreen")) = True Then
-                        If GetAsyncKeyState(Keys.PrintScreen) Then 'PrintScreen Key
-                            'Fullscreen
-                            Capture_.captureFullScreen()
                         End If
                     End If
                     '1 END

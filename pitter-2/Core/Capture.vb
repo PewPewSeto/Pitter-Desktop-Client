@@ -35,11 +35,19 @@ Public Class Capture
         fd.choice.isCurrentlyUploading = True
         Dim W As Integer = My.Computer.Screen.Bounds.Width
         Dim H As Integer = My.Computer.Screen.Bounds.Height
-        Dim simg As New Bitmap(W, H)
-        Dim g As Graphics = Graphics.FromImage(simg)
-        If stringtool.parse_boolean(Settings.getValue("use all monitors for fullscreen")) = True Then
-            g.CopyFromScreen(0, 0, 0, 0, New Size(Screen.PrimaryScreen.WorkingArea.Width, Screen.PrimaryScreen.WorkingArea.Width), CopyPixelOperation.SourceCopy)
+        Dim simg As Bitmap
+        Dim g As Graphics
+        If stringtool.parse_boolean(Settings.getValue("fullscreen means all monitors")) = True Then
+            simg = New Bitmap( _
+                        Screen.AllScreens.Sum(Function(s As Screen) s.Bounds.Width),
+                        Screen.AllScreens.Max(Function(s As Screen) s.Bounds.Height))
+            g = Graphics.FromImage(simg)
+            g.CopyFromScreen(SystemInformation.VirtualScreen.X,
+                       SystemInformation.VirtualScreen.Y,
+                       0, 0, SystemInformation.VirtualScreen.Size)
         Else
+            simg = New Bitmap(W, H)
+            g = Graphics.FromImage(simg)
             g.CopyFromScreen(0, 0, 0, 0, New Size(My.Computer.Screen.Bounds.Width, My.Computer.Screen.Bounds.Height), CopyPixelOperation.SourceCopy)
         End If
 
