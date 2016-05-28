@@ -22,6 +22,7 @@ Public Class WebApp
 
     Public save_location As String = "C:\Users\" + Environment.UserName + "\My Documents\Pitter\"
     Dim osInfo As System.OperatingSystem = System.Environment.OSVersion
+    Public passbackSettingsUpdated As Boolean = False
 
     <DllImport("user32.dll")> Shared Function GetAsyncKeyState(ByVal vKey As System.Windows.Forms.Keys) As Short
     End Function
@@ -155,9 +156,6 @@ Public Class WebApp
     End Sub
 
     Private Sub Pitter_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        'synchronize settings
-        Synchronization.sync()
-
         Me.Show()
 
         'Check to see if the save directory exists
@@ -174,6 +172,10 @@ Public Class WebApp
         If login_routine() = False Then
             WebControl1.Source = New Uri("https://panel.pitter.us/")
         End If
+
+        'Start Sync Thread
+        Synchronization.sync()
+        Synchronization.updateThread()
     End Sub
 
     Private Sub WebControl1_MouseClick(sender As Object, e As MouseEventArgs) Handles WebControl1.MouseClick
@@ -313,6 +315,11 @@ Public Class WebApp
     Private Sub Passive_Tick(sender As Object, e As EventArgs) Handles Passive.Tick
         'This timer should only be used for passive variables or any other form of background processes
         settings_locked = Settings_.locked
+
+        If StringTool.parse_boolean(Settings_.getValue("notify sync")) Then
+            Settings_.setValue("notify sync", "false")
+            notification("Settings Synchronized", "Settings from thee cloud have been saved to this machine.", 5000, ToolTipIcon.Info, False)
+        End If
     End Sub
 
     Private Sub Cleaner_Tick(sender As Object, e As EventArgs) Handles Cleaner.Tick
