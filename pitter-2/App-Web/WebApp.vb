@@ -318,7 +318,7 @@ Public Class WebApp
 
         If StringTool.parse_boolean(Settings_.getValue("notify sync")) Then
             Settings_.setValue("notify sync", "false")
-            notification("Settings Synchronized", "Settings from thee cloud have been saved to this machine.", 5000, ToolTipIcon.Info, False)
+            notification("Settings Synchronized", "Settings from the cloud have been saved to this machine.", 5000, ToolTipIcon.Info, False)
         End If
     End Sub
 
