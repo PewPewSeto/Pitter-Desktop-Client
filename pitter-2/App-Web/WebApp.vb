@@ -104,9 +104,11 @@ Public Class WebApp
                 'we have a valid auth token
                 WebControl1.Source = New Uri("https://panel.pitter.us/login.php?token=" + auth_token)
                 listeningForInput = True
+
                 'Start Sync Thread
                 Synchronization.sync()
                 Synchronization.updateThread()
+
                 Return True
             End If
         Else
@@ -176,7 +178,6 @@ Public Class WebApp
             WebControl1.Source = New Uri("https://panel.pitter.us/")
         End If
 
-        
     End Sub
 
     Private Sub WebControl1_MouseClick(sender As Object, e As MouseEventArgs) Handles WebControl1.MouseClick
@@ -333,7 +334,7 @@ Public Class WebApp
     End Sub
 
     Private Sub Pitter_Move(sender As Object, e As EventArgs) Handles Me.Move
-   
+
     End Sub
 
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click

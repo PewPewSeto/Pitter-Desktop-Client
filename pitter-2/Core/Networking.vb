@@ -13,12 +13,10 @@ Public Class Networking
     Dim username As String
     Dim password As String
 
-
-
     Sub New(ByVal passed_username As String, ByVal passed_password As String, ByVal settings As Settings)
         username = passed_username
         password = passed_password
-        settings_parent = Settings
+        settings_parent = settings
     End Sub
     Public Function get_settings()
 
@@ -32,7 +30,7 @@ Public Class Networking
 
     End Function
     Public Sub upload(ByVal filepath As String)
-        If filepath <> "" Then
+        If filepath <> "" And My.Computer.FileSystem.FileExists(filepath) Then
             Dim infoReader As System.IO.FileInfo
             infoReader = My.Computer.FileSystem.GetFileInfo(filepath)
             If infoReader.Length < 104857600 Then
@@ -50,16 +48,9 @@ Public Class Networking
                     Dim fns1 As String() = response_split(2).Split("/")
                     Dim fnc = fns1.Length - 1
 
-
-
                     Dim bfn = Path.GetFileName(filepath)
 
-
-
-
-
                     Dim wrkdir = filepath.Substring(0, filepath.Length - bfn.Length)
-
 
                     Select Case response_split(0)
                         Case "success"
