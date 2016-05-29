@@ -233,21 +233,47 @@ Public Class WebApp
 
                     '1 START
                     'Check if we need to check for CTRL and SHIFT
-                    If StringTool.parse_boolean(Settings_.getValue("use control and shift")) = True Then
-                        'We need CTRL and SHIFT
-                        If (My.Computer.Keyboard.CtrlKeyDown AndAlso My.Computer.Keyboard.ShiftKeyDown) Then
+                    Try
+                        If StringTool.parse_boolean(Settings_.getValue("use control and shift")) = True Then
+                            'We need CTRL and SHIFT
+                            If (My.Computer.Keyboard.CtrlKeyDown AndAlso My.Computer.Keyboard.ShiftKeyDown) Then
 
+                                If GetAsyncKeyState(Character.formkeys(Character.ASCIIDESCtokey(Integer.Parse(Settings_.getValue("key 1"))))) <> 0 Then
+                                    Capture_.uploadFile()
+                                End If
+                                If GetAsyncKeyState(Character.formkeys(Character.ASCIIDESCtokey(Integer.Parse(Settings_.getValue("key 2"))))) Then
+                                    Capture_.CaptureWindow(Nothing)
+                                End If
+                                If GetAsyncKeyState(Character.formkeys(Character.ASCIIDESCtokey(Integer.Parse(Settings_.getValue("key 3"))))) And StringTool.parse_boolean(Settings_.getValue("printscreen key means fullscreen")) = False Then
+                                    'fullscreen
+                                    Capture_.captureFullScreen()
+                                End If
+                                If GetAsyncKeyState(Character.formkeys(Character.ASCIIDESCtokey(Integer.Parse(Settings_.getValue("key 4"))))) And StringTool.parse_boolean(Settings_.getValue("printscreen key means selection")) = False Then
+                                    'Selector
+                                    If StringTool.parse_boolean(Settings_.getValue("use old selector")) = False Then
+                                        Modern.Show()
+                                    Else
+                                        Legacy.Show()
+                                    End If
+                                End If
+
+                                If GetAsyncKeyState(Character.formkeys(Character.ASCIIDESCtokey(Integer.Parse(Settings_.getValue("key 5"))))) Then
+                                    Capture_.captureClipboard()
+                                End If
+                            End If
+                        Else
+                            'We do not need CTRL and SHIFT
                             If GetAsyncKeyState(Character.formkeys(Character.ASCIIDESCtokey(Integer.Parse(Settings_.getValue("key 1"))))) <> 0 Then
                                 Capture_.uploadFile()
                             End If
-                            If GetAsyncKeyState(Character.formkeys(Character.ASCIIDESCtokey(Integer.Parse(Settings_.getValue("key 2"))))) Then
+                            If GetAsyncKeyState(Character.formkeys(Character.ASCIIDESCtokey(Integer.Parse(Settings_.getValue("key 2"))))) <> 0 Then
                                 Capture_.CaptureWindow(Nothing)
                             End If
-                            If GetAsyncKeyState(Character.formkeys(Character.ASCIIDESCtokey(Integer.Parse(Settings_.getValue("key 3"))))) And StringTool.parse_boolean(Settings_.getValue("printscreen key means fullscreen")) = False Then
+                            If GetAsyncKeyState(Character.formkeys(Character.ASCIIDESCtokey(Integer.Parse(Settings_.getValue("key 3"))))) <> 0 And StringTool.parse_boolean(Settings_.getValue("printscreen key means fullscreen")) = False Then
                                 'fullscreen
                                 Capture_.captureFullScreen()
                             End If
-                            If GetAsyncKeyState(Character.formkeys(Character.ASCIIDESCtokey(Integer.Parse(Settings_.getValue("key 4"))))) And StringTool.parse_boolean(Settings_.getValue("printscreen key means selection")) = False Then
+                            If GetAsyncKeyState(Character.formkeys(Character.ASCIIDESCtokey(Integer.Parse(Settings_.getValue("key 4"))))) <> 0 And StringTool.parse_boolean(Settings_.getValue("printscreen key means selection")) = False Then
                                 'Selector
                                 If StringTool.parse_boolean(Settings_.getValue("use old selector")) = False Then
                                     Modern.Show()
@@ -256,53 +282,31 @@ Public Class WebApp
                                 End If
                             End If
 
-                            If GetAsyncKeyState(Character.formkeys(Character.ASCIIDESCtokey(Integer.Parse(Settings_.getValue("key 5"))))) Then
+                            If GetAsyncKeyState(Character.formkeys(Character.ASCIIDESCtokey(Integer.Parse(Settings_.getValue("key 5"))))) <> 0 Then
                                 Capture_.captureClipboard()
                             End If
                         End If
-                    Else
-                        'We do not need CTRL and SHIFT
-                        If GetAsyncKeyState(Character.formkeys(Character.ASCIIDESCtokey(Integer.Parse(Settings_.getValue("key 1"))))) <> 0 Then
-                            Capture_.uploadFile()
-                        End If
-                        If GetAsyncKeyState(Character.formkeys(Character.ASCIIDESCtokey(Integer.Parse(Settings_.getValue("key 2"))))) <> 0 Then
-                            Capture_.CaptureWindow(Nothing)
-                        End If
-                        If GetAsyncKeyState(Character.formkeys(Character.ASCIIDESCtokey(Integer.Parse(Settings_.getValue("key 3"))))) <> 0 And StringTool.parse_boolean(Settings_.getValue("printscreen key means fullscreen")) = False Then
-                            'fullscreen
-                            Capture_.captureFullScreen()
-                        End If
-                        If GetAsyncKeyState(Character.formkeys(Character.ASCIIDESCtokey(Integer.Parse(Settings_.getValue("key 4"))))) <> 0 And StringTool.parse_boolean(Settings_.getValue("printscreen key means selection")) = False Then
-                            'Selector
-                            If StringTool.parse_boolean(Settings_.getValue("use old selector")) = False Then
-                                Modern.Show()
-                            Else
-                                Legacy.Show()
-                            End If
-                        End If
 
-                        If GetAsyncKeyState(Character.formkeys(Character.ASCIIDESCtokey(Integer.Parse(Settings_.getValue("key 5"))))) <> 0 Then
-                            Capture_.captureClipboard()
-                        End If
-                    End If
-
-                    If Integer.Parse(Settings_.getValue("printscreen key means")) = 1 Then
-                        'Fullscreen
-                        If GetAsyncKeyState(Keys.PrintScreen) Then 'PrintScreen Key
+                        If Integer.Parse(Settings_.getValue("printscreen key means")) = 1 Then
                             'Fullscreen
-                            Capture_.captureFullScreen()
-                        End If
-                    ElseIf Integer.Parse(Settings_.getValue("printscreen key means")) = 2 Then
-                        'Selector
-                        If GetAsyncKeyState(Keys.PrintScreen) Then 'PrintScreen Key
+                            If GetAsyncKeyState(Keys.PrintScreen) Then 'PrintScreen Key
+                                'Fullscreen
+                                Capture_.captureFullScreen()
+                            End If
+                        ElseIf Integer.Parse(Settings_.getValue("printscreen key means")) = 2 Then
                             'Selector
-                            If StringTool.parse_boolean(Settings_.getValue("use old selector")) = False Then
-                                Modern.Show()
-                            Else
-                                Legacy.Show()
+                            If GetAsyncKeyState(Keys.PrintScreen) Then 'PrintScreen Key
+                                'Selector
+                                If StringTool.parse_boolean(Settings_.getValue("use old selector")) = False Then
+                                    Modern.Show()
+                                Else
+                                    Legacy.Show()
+                                End If
                             End If
                         End If
-                    End If
+                    Catch ex As Exception
+                        Synchronization.sync() 'We might not have settings yet, download them.
+                    End Try
 
                     '1 END
                 End If
