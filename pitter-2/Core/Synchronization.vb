@@ -13,22 +13,26 @@ Public Class Synchronization
     End Sub
 
     Public Sub sync()
-        Dim json_string As String = Networking_super.get_settings()
-        Dim l_json As JObject = JObject.Parse(json_string)
-        Dim updated As Boolean = False
+        Try
+            Dim json_string As String = Networking_super.get_settings()
+            Dim l_json As JObject = JObject.Parse(json_string)
+            Dim updated As Boolean = False
 
 
-        Dim keys As IList(Of String) = l_json.Properties().[Select](Function(p) p.Name).ToList()
+            Dim keys As IList(Of String) = l_json.Properties().[Select](Function(p) p.Name).ToList()
 
-        For Each key As String In keys
+            For Each key As String In keys
 
-            If Settings_super.getValue(key.Replace("_", " ")) <> l_json.GetValue(key).ToString Then
-                Settings_super.setValue(key.Replace("_", " "), l_json.GetValue(key).ToString)
-                updated = True
+                If Settings_super.getValue(key.Replace("_", " ")) <> l_json.GetValue(key).ToString Then
+                    Settings_super.setValue(key.Replace("_", " "), l_json.GetValue(key).ToString)
+                    updated = True
 
-            End If
-        Next
-        If updated Then Settings_super.setValue("notify sync", "true")
+                End If
+            Next
+            If updated Then Settings_super.setValue("notify sync", "true")
+        Catch ex As Exception
+            'Well, TRY AGAIN!
+        End Try
 
     End Sub
 
