@@ -47,11 +47,17 @@ Public Class Networking
                     Dim resp = mpf.ResponseText.ToString
 
                     Dim response_split As String() = resp.Split(":")
-
                     Dim fns1 As String() = response_split(2).Split("/")
                     Dim fnc = fns1.Length - 1
 
+
+
                     Dim bfn = Path.GetFileName(filepath)
+
+
+
+
+
                     Dim wrkdir = filepath.Substring(0, filepath.Length - bfn.Length)
 
 
@@ -64,11 +70,11 @@ Public Class Networking
 
                             If (st.parse_boolean(settings_parent.getValue("endpoint caching"))) Then
                                 'Cache
-                                My.Computer.Clipboard.SetText("https://c.pitter.us/" + bfn)
+                                My.Computer.Clipboard.SetText("https://c.pitter.us/" + fns1(fnc))
                             Else
                                 'No Cache
                                 If (st.parse_boolean(settings_parent.getValue("use custom server"))) Then
-                                    My.Computer.Clipboard.SetText(settings_parent.getValue("custom server address") + bfn)
+                                    My.Computer.Clipboard.SetText(settings_parent.getValue("custom server address") + fns1(fnc))
                                 Else
                                     'don't use custom server
                                     My.Computer.Clipboard.SetText(response_split(1) + ":" + response_split(2))
