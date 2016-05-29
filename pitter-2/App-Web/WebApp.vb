@@ -20,7 +20,7 @@ Public Class WebApp
 
     Public settings_locked As Boolean
 
-    Public save_location As String = "C:\Users\" + Environment.UserName + "\My Documents\Pitter\"
+    Public save_location As String = My.Computer.FileSystem.SpecialDirectories.MyDocuments + "\Pitter\"
     Dim osInfo As System.OperatingSystem = System.Environment.OSVersion
     Public passbackSettingsUpdated As Boolean = False
 
