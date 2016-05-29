@@ -9,7 +9,7 @@ Public Class PitterMini
     Dim Settings_ As New Settings
     Dim Character As New CharacterMapping
     Dim StringTool As New StringTool
-    Dim Networking As New Networking(Encryption_.DPAPI_decrpyt(Settings_.getValue("username")), Encryption_.DPAPI_decrpyt(Settings_.getValue("password")))
+    Dim Networking As New Networking(Encryption_.DPAPI_decrpyt(Settings_.getValue("username")), Encryption_.DPAPI_decrpyt(Settings_.getValue("password")), Settings_)
     Dim Capture_ As New Capture(Encryption_, Settings_, Networking, StringTool)
     Dim Synchronization As New Synchronization(Networking, Settings_)
 

@@ -10,7 +10,7 @@ Public Class WebApp
     Dim Settings_ As New Settings
     Dim Character As New CharacterMapping
     Dim StringTool As New StringTool
-    Dim Networking As New Networking(Encryption_.DPAPI_decrpyt(Settings_.getValue("username")), Encryption_.DPAPI_decrpyt(Settings_.getValue("password")))
+    Dim Networking As New Networking(Encryption_.DPAPI_decrpyt(Settings_.getValue("username")), Encryption_.DPAPI_decrpyt(Settings_.getValue("password")), Settings_)
     Dim Capture_ As New Capture(Encryption_, Settings_, Networking, StringTool)
     Dim Synchronization As New Synchronization(Networking, Settings_)
 
@@ -104,6 +104,9 @@ Public Class WebApp
                 'we have a valid auth token
                 WebControl1.Source = New Uri("https://panel.pitter.us/login.php?token=" + auth_token)
                 listeningForInput = True
+                'Start Sync Thread
+                Synchronization.sync()
+                Synchronization.updateThread()
                 Return True
             End If
         Else
@@ -173,9 +176,7 @@ Public Class WebApp
             WebControl1.Source = New Uri("https://panel.pitter.us/")
         End If
 
-        'Start Sync Thread
-        Synchronization.sync()
-        Synchronization.updateThread()
+        
     End Sub
 
     Private Sub WebControl1_MouseClick(sender As Object, e As MouseEventArgs) Handles WebControl1.MouseClick

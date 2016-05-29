@@ -6,16 +6,19 @@ Imports Pitter.norvanco.http
 
 Public Class Networking
     Dim Encryption As New Encryption
+    Dim settings_parent As Settings
     Dim fd As New FormDecision
+    Dim st As New StringTool
 
     Dim username As String
     Dim password As String
 
 
 
-    Sub New(ByVal passed_username As String, ByVal passed_password As String)
+    Sub New(ByVal passed_username As String, ByVal passed_password As String, ByVal settings As Settings)
         username = passed_username
         password = passed_password
+        settings_parent = Settings
     End Sub
     Public Function get_settings()
 
@@ -45,15 +48,32 @@ Public Class Networking
 
                     Dim response_split As String() = resp.Split(":")
 
+                    Dim fns1 As String() = response_split(2).Split("/")
+                    Dim fnc = fns1.Length - 1
+
+                    Dim bfn = Path.GetFileName(filepath)
+                    Dim wrkdir = filepath.Substring(0, filepath.Length - bfn.Length)
+
+
                     Select Case response_split(0)
                         Case "success"
-                            My.Computer.Clipboard.SetText(response_split(1) + ":" + response_split(2))
 
-                            Dim fns1 As String() = response_split(2).Split("/")
-                            Dim fnc = fns1.Length - 1
+                            'Decide what URL
 
-                            Dim bfn = Path.GetFileName(filepath)
-                            Dim wrkdir = filepath.Substring(0, filepath.Length - bfn.Length)
+                            'use custom server
+
+                            If (st.parse_boolean(settings_parent.getValue("endpoint caching"))) Then
+                                'Cache
+                                My.Computer.Clipboard.SetText("https://c.pitter.us/" + bfn)
+                            Else
+                                'No Cache
+                                If (st.parse_boolean(settings_parent.getValue("use custom server"))) Then
+                                    My.Computer.Clipboard.SetText(settings_parent.getValue("custom server address") + bfn)
+                                Else
+                                    'don't use custom server
+                                    My.Computer.Clipboard.SetText(response_split(1) + ":" + response_split(2))
+                                End If
+                            End If
 
                             My.Computer.FileSystem.MoveFile(filepath, wrkdir + fns1(fnc))
 

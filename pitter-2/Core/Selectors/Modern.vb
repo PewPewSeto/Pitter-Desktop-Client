@@ -1,7 +1,7 @@
 ﻿Public Class Modern
     Dim Encryption_ As New Encryption
     Dim Settings_ As New Settings
-    Dim Networking As New Networking(Encryption_.DPAPI_decrpyt(Settings_.getValue("username")), Encryption_.DPAPI_decrpyt(Settings_.getValue("password")))
+    Dim Networking As New Networking(Encryption_.DPAPI_decrpyt(Settings_.getValue("username")), Encryption_.DPAPI_decrpyt(Settings_.getValue("password")), Settings_)
 
     Dim fd As New FormDecision
 
