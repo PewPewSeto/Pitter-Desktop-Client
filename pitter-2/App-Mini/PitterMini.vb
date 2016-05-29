@@ -73,7 +73,7 @@ Public Class PitterMini
         Me.Icon = My.Resources.norm
         listeningForInput = True
         Me.Show()
-        
+
     End Sub
 
     Private Sub ContextMenuStrip1_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles ContextMenuStrip1.Opening

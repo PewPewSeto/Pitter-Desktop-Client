@@ -20,7 +20,7 @@
         Catch ex As Exception
             'We're not using the webapp then
         End Try
-       
+
         Try
             Dim client As New Net.WebClient
             Dim simg As New Bitmap(x2 - x1, y2 - y1)
@@ -91,17 +91,12 @@
         Me.BringToFront()
         Me.Opacity = 0.5
 
-
         fd.choice.Passive.Stop()
         Try
             fd.choice.BrowserEventListener.Stop()
         Catch ex As Exception
             'We're not using the webapp then
         End Try
-        
-
-
-
 
         Me.Show()
     End Sub

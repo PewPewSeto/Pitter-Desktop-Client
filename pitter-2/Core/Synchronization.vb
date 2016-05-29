@@ -6,7 +6,6 @@ Public Class Synchronization
     Dim Settings_super As Settings
     Dim client As New Net.WebClient
 
-
     Public Sub New(ByVal networking As Networking, ByVal settings As Settings)
         Networking_super = networking
         Settings_super = settings
@@ -17,7 +16,6 @@ Public Class Synchronization
             Dim json_string As String = Networking_super.get_settings()
             Dim l_json As JObject = JObject.Parse(json_string)
             Dim updated As Boolean = False
-
 
             Dim keys As IList(Of String) = l_json.Properties().[Select](Function(p) p.Name).ToList()
 
