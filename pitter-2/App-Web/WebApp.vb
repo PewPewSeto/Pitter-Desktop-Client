@@ -345,10 +345,18 @@ Public Class WebApp
         killproc()
     End Sub
 
-    Private Sub TaskbarIcon_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles TaskbarIcon.MouseDoubleClick
-        Me.WindowState = FormWindowState.Normal
-        Me.ShowInTaskbar = True
+    Private Sub TaskbarIcon_MouseClick(sender As Object, e As MouseEventArgs) Handles TaskbarIcon.MouseClick
+        If StringTool.parse_boolean(Settings_.getValue("tray click twice to open")) = False Then
+            Me.WindowState = FormWindowState.Normal
+            Me.ShowInTaskbar = True
+        End If
+    End Sub
 
+    Private Sub TaskbarIcon_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles TaskbarIcon.MouseDoubleClick
+        If StringTool.parse_boolean(Settings_.getValue("tray click twice to open")) Then
+            Me.WindowState = FormWindowState.Normal
+            Me.ShowInTaskbar = True
+        End If
     End Sub
 
     Private Sub PitterToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PitterToolStripMenuItem.Click

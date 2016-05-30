@@ -5,6 +5,7 @@ Public Class Synchronization
     Dim Networking_super As Networking
     Dim Settings_super As Settings
     Dim client As New Net.WebClient
+    Dim stringtool As New StringTool
 
     Public Sub New(ByVal networking As Networking, ByVal settings As Settings)
         Networking_super = networking
@@ -27,7 +28,9 @@ Public Class Synchronization
 
                 End If
             Next
-            If updated Then Settings_super.setValue("notify sync", "true")
+            If stringtool.parse_boolean(Settings_super.getValue("synchronization notification")) Then
+                If updated Then Settings_super.setValue("notify sync", "true")
+            End If
         Catch ex As Exception
             'Well, TRY AGAIN!
         End Try
