@@ -70,7 +70,7 @@ Namespace norvanco.http
             URL = url__1
             coFormFields = New Hashtable()
             ResponseText = New StringBuilder()
-            BufferSize = 1024 * 10
+            BufferSize = 65536
             BeginBoundary = "ou812--------------8c405ee4e38917c"
             TransferHttpVersion = HttpVersion.Version11
             FileContentType = "text/xml"
@@ -231,6 +231,7 @@ Namespace norvanco.http
             coRequest = DirectCast(WebRequest.Create(URL), HttpWebRequest)
             ' Set use HTTP 1.0 or 1.1.
             coRequest.ProtocolVersion = TransferHttpVersion
+            coRequest.Timeout = 300 * 1000
             coRequest.Method = "POST"
             coRequest.ContentType = Convert.ToString("multipart/form-data; boundary=") & BeginBoundary
             coRequest.Headers.Add("Cache-Control", "no-cache")
