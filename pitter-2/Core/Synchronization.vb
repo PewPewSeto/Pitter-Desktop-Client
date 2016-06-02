@@ -32,7 +32,7 @@ Public Class Synchronization
                 End If
             Next
             If stringtool.parse_boolean(Settings_super.getValue("synchronization notification")) Then
-                parent.notification("Settings Synchronized", "Settings from the cloud have been saved to this machine.", 5000, ToolTipIcon.Info, False)
+                If updated Then parent.notification("Settings Synchronized", "Settings from the cloud have been saved to this machine.", 5000, ToolTipIcon.Info, False)
             End If
         Catch ex As Exception
             'Well, TRY AGAIN!
