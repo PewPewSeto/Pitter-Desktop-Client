@@ -13,7 +13,7 @@ Public Class Settings
 recheck:
         'recheck will be used to check if the settings file is locked
         If locked Then
-            'Debugger.Log(1, 1, lockee + " is currently locking the settings..." + vbNewLine)
+            Debugger.Log(1, 1, lockee + " is currently locking the settings..." + vbNewLine)
             GoTo recheck
         Else
             locked = True
