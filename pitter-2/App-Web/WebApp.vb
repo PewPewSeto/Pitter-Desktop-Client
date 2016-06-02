@@ -111,7 +111,7 @@ Public Class WebApp
                 Synchronization.updateThread()
 
                 'Start updater thread
-                updater.start_updater_thread()
+                'updater.start_updater_thread()
 
                 Return True
             End If
