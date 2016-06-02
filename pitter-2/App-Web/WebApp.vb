@@ -55,6 +55,12 @@ Public Class WebApp
                     Return System.Drawing.Imaging.ImageFormat.Png
                 Case "jpg", "JPG", "jpeg", "JPEG"
                     Return System.Drawing.Imaging.ImageFormat.Jpeg
+                Case "bmp", "BMP"
+                    Return System.Drawing.Imaging.ImageFormat.Bmp
+                Case "tiff", "TIFF"
+                    Return System.Drawing.Imaging.ImageFormat.Tiff
+                Case "gif", "gif"
+                    Return System.Drawing.Imaging.ImageFormat.Gif
                 Case Else
                     'Not defined in settings, append it and retry.
                     Settings_.setValue("image format", "jpg") 'By default for now, we should use jpg
