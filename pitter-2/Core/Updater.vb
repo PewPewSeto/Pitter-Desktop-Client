@@ -1,7 +1,7 @@
 ﻿Imports System.Threading
 
 Public Class Updater
-    Dim thread As New Thread(AddressOf updater_thread)
+
 
     Dim parent As WebApp
     Dim settings As Settings
@@ -82,6 +82,7 @@ Public Class Updater
     End Function
     Public Sub start_updater_thread()
         Debugger.Log(1, 1, "[Updater]: Thread Initialized" + vbNewLine)
+        Dim thread As New Thread(AddressOf updater_thread)
         thread.IsBackground = True
         thread.Start()
     End Sub
