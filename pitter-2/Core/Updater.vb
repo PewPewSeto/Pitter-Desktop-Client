@@ -42,7 +42,7 @@ Public Class Updater
             Debugger.Log(1, 1, "[Updater]: Routine Starting" + vbNewLine)
             check_for_update()
             'Sleep 10 minutes
-            Threading.Thread.Sleep(10 * (60 * 1000))
+            thread.Sleep(10 * (60 * 1000))
         End While
     End Sub
     Private Function check_version_differences()
