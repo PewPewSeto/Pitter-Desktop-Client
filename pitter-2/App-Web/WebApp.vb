@@ -12,7 +12,7 @@ Public Class WebApp
     Dim StringTool As New StringTool
     Dim Networking As New Networking(Encryption_.DPAPI_decrpyt(Settings_.getValue("username")), Encryption_.DPAPI_decrpyt(Settings_.getValue("password")), Settings_)
     Dim Capture_ As New Capture(Encryption_, Settings_, Networking, StringTool)
-    Dim Synchronization As New Synchronization(Networking, Settings_)
+    Dim Synchronization As New Synchronization(Me, Networking, Settings_)
     Dim updater As New Updater(Me, Settings_)
 
     Public listeningForInput As Boolean = False
@@ -327,10 +327,6 @@ Public Class WebApp
         'This timer should only be used for passive variables or any other form of background processes
         settings_locked = Settings_.locked
 
-        If StringTool.parse_boolean(Settings_.getValue("notify sync")) Then
-            Settings_.setValue("notify sync", "false")
-            notification("Settings Synchronized", "Settings from the cloud have been saved to this machine.", 5000, ToolTipIcon.Info, False)
-        End If
     End Sub
 
     Private Sub Cleaner_Tick(sender As Object, e As EventArgs) Handles Cleaner.Tick

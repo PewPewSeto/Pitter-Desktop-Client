@@ -6,8 +6,11 @@ Public Class Synchronization
     Dim Settings_super As Settings
     Dim client As New Net.WebClient
     Dim stringtool As New StringTool
+    Dim parent As WebApp
 
-    Public Sub New(ByVal networking As Networking, ByVal settings As Settings)
+
+    Public Sub New(ByVal p_parent As WebApp, ByVal networking As Networking, ByVal settings As Settings)
+        parent = p_parent
         Networking_super = networking
         Settings_super = settings
     End Sub
@@ -29,7 +32,7 @@ Public Class Synchronization
                 End If
             Next
             If stringtool.parse_boolean(Settings_super.getValue("synchronization notification")) Then
-                If updated Then Settings_super.setValue("notify sync", "true")
+                parent.notification("Settings Synchronized", "Settings from the cloud have been saved to this machine.", 5000, ToolTipIcon.Info, False)
             End If
         Catch ex As Exception
             'Well, TRY AGAIN!
