@@ -20,10 +20,7 @@ C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\bin\Debug\awesom
 C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\bin\Debug\inspector.pak
 C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\bin\Debug\xinput9_1_0.dll
 C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\bin\Debug\pdf_js.pak
-C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\Pitter.LoginMini.resources
-C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\Pitter.PitterMini.resources
 C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\Pitter.WebApp.resources
-C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\Pitter.Runtime.resources
 C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\Pitter.Legacy.resources
 C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\Pitter.Modern.resources
 C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\Pitter.Resources.resources

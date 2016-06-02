@@ -13,6 +13,7 @@ Public Class WebApp
     Dim Networking As New Networking(Encryption_.DPAPI_decrpyt(Settings_.getValue("username")), Encryption_.DPAPI_decrpyt(Settings_.getValue("password")), Settings_)
     Dim Capture_ As New Capture(Encryption_, Settings_, Networking, StringTool)
     Dim Synchronization As New Synchronization(Networking, Settings_)
+    Dim updater As New Updater(Me, Settings_)
 
     Public listeningForInput As Boolean = False
     Dim listeningEnabled As Boolean = True
@@ -74,7 +75,7 @@ Public Class WebApp
 
     Public Sub init_resize()
         Me.Size = New Size(My.Computer.Screen.WorkingArea.Width * 0.85, My.Computer.Screen.WorkingArea.Height * 0.85)
-
+        Me.Location = New Size(My.Computer.Screen.WorkingArea.Width * 0.05, My.Computer.Screen.WorkingArea.Height * 0.05)
     End Sub
     Public Function login_routine()
         If Settings_.getValue("username") <> "" And Settings_.getValue("password") <> "" Then
@@ -108,6 +109,9 @@ Public Class WebApp
                 'Start Sync Thread
                 Synchronization.sync()
                 Synchronization.updateThread()
+
+                'Start updater thread
+                updater.start_updater_thread()
 
                 Return True
             End If
@@ -161,7 +165,11 @@ Public Class WebApp
     End Sub
 
     Private Sub Pitter_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Me.Show()
+        'Check for other pitters
+        check_for_other_pitters()
+
+        'check for updates before continuing
+        updater.check_for_update()
 
         'Check to see if the save directory exists
         directory_check()
@@ -175,8 +183,10 @@ Public Class WebApp
 
         'Check if we need to prompt for login
         If login_routine() = False Then
-            WebControl1.Source = New Uri("https://panel.pitter.us/")
+            WebControl1.Source = New Uri("https://panel.pitter.us/dashboard")
         End If
+
+        Me.Close()
 
     End Sub
 
@@ -313,11 +323,6 @@ Public Class WebApp
             Next
         End If
     End Sub
-
-    Private Sub Awesomium_Windows_Forms_WebControl_ShowCreatedWebView(sender As Object, e As Awesomium.Core.ShowCreatedWebViewEventArgs) Handles WebControl1.ShowCreatedWebView
-
-    End Sub
-
     Private Sub Passive_Tick(sender As Object, e As EventArgs) Handles Passive.Tick
         'This timer should only be used for passive variables or any other form of background processes
         settings_locked = Settings_.locked
@@ -334,35 +339,27 @@ Public Class WebApp
         Catch ex As Exception
             'This function will sometimes be called, but it is safe to suppress.
         End Try
-
-    End Sub
-
-    Private Sub Pitter_Move(sender As Object, e As EventArgs) Handles Me.Move
-
     End Sub
 
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
         killproc()
     End Sub
-
+    Public Sub restore()
+        Me.WindowState = FormWindowState.Normal
+        Me.ShowInTaskbar = True
+        Me.BringToFront()
+    End Sub
     Private Sub TaskbarIcon_MouseClick(sender As Object, e As MouseEventArgs) Handles TaskbarIcon.MouseClick
         If StringTool.parse_boolean(Settings_.getValue("tray click twice to open")) = False Then
-            Me.WindowState = FormWindowState.Normal
-            Me.ShowInTaskbar = True
+            restore()
         End If
     End Sub
 
     Private Sub TaskbarIcon_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles TaskbarIcon.MouseDoubleClick
         If StringTool.parse_boolean(Settings_.getValue("tray click twice to open")) Then
-            Me.WindowState = FormWindowState.Normal
-            Me.ShowInTaskbar = True
+            restore()
         End If
     End Sub
-
-    Private Sub PitterToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PitterToolStripMenuItem.Click
-
-    End Sub
-
     Private Sub FileToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles FileToolStripMenuItem.Click
         Capture_.uploadFile()
     End Sub
@@ -388,13 +385,19 @@ Public Class WebApp
     End Sub
 
     Private Sub ForceUpdateToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ForceUpdateToolStripMenuItem.Click
-        Dim client As New Net.WebClient
-        client.DownloadFile("https://download.pitter.us/pitter-webapp-updater.exe", Settings_.working_directory + "update.exe")
-        Process.Start(Settings_.working_directory + "update.exe")
-        killproc()
+        
     End Sub
 
     Private Sub SynchronizeSettingsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SynchronizeSettingsToolStripMenuItem.Click
         Synchronization.sync()
+    End Sub
+    Public Sub check_for_other_pitters()
+        Dim current_pid = Process.GetCurrentProcess.Id
+
+        For Each p As Process In Process.GetProcesses
+            If p.ProcessName = "pitter" And p.Id <> current_pid Then
+                p.Kill()
+            End If
+        Next
     End Sub
 End Class

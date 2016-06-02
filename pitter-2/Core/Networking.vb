@@ -7,7 +7,6 @@ Imports Pitter.norvanco.http
 Public Class Networking
     Dim Encryption As New Encryption
     Dim settings_parent As Settings
-    Dim fd As New FormDecision
     Dim st As New StringTool
 
     Dim username As String
@@ -29,7 +28,7 @@ Public Class Networking
         End Using
 
     End Function
-    Public Sub upload(ByVal filepath As String)
+    Public Sub upload(ByVal filepath As String, ByVal rename As Boolean)
         If filepath <> "" And My.Computer.FileSystem.FileExists(filepath) Then
             Dim infoReader As System.IO.FileInfo
             infoReader = My.Computer.FileSystem.GetFileInfo(filepath)
@@ -74,27 +73,27 @@ Public Class Networking
 
                             My.Computer.FileSystem.MoveFile(filepath, wrkdir + fns1(fnc))
 
-                            fd.choice.notification("Upload Complete", "A link to the uploaded file has been added to your clipboard.", 5000, ToolTipIcon.Info, True)
+                            webapp.notification("Upload Complete", "A link to the uploaded file has been added to your clipboard.", 5000, ToolTipIcon.Info, True)
 
                         Case "failed"
-                            fd.choice.notification("Upload Failed", "An unknown error occured while uploading the file.", 5000, ToolTipIcon.Error, False)
+                            webapp.notification("Upload Failed", "An unknown error occured while uploading the file.", 5000, ToolTipIcon.Error, False)
 
                         Case "restricted"
-                            fd.choice.notification("Account Suspended", "The file you attempted to upload has been discarded.", 5000, ToolTipIcon.Warning, False)
+                            webapp.notification("Account Suspended", "The file you attempted to upload has been discarded.", 5000, ToolTipIcon.Warning, False)
 
                         Case "invalid"
-                            fd.choice.notification("Invalid Credentials", "Pitter failed to exchange credentials to the server.", 5000, ToolTipIcon.Error, False)
+                            webapp.notification("Invalid Credentials", "Pitter failed to exchange credentials to the server.", 5000, ToolTipIcon.Error, False)
                     End Select
 
                 Catch ex As Exception
                     Dim ex_f As String() = ex.ToString.Split(vbNewLine)
-                    fd.choice.notification("Ambigious Error while Uploading", ex_f(0), 5000, ToolTipIcon.Error, False)
+                    webapp.notification("Ambigious Error while Uploading", ex_f(0), 5000, ToolTipIcon.Error, False)
                     MsgBox(ex.ToString)
                 End Try
             Else
-                fd.choice.notification("Max Filesize Exceeded", "The uploaded file exceeds 100MB in size, and cannot be processed.", 5000, ToolTipIcon.Error, False)
+                webapp.notification("Max Filesize Exceeded", "The uploaded file exceeds 100MB in size, and cannot be processed.", 5000, ToolTipIcon.Error, False)
             End If
         End If
-        fd.choice.isCurrentlyUploading = False
+        webapp.isCurrentlyUploading = False
     End Sub
 End Class

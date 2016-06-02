@@ -3,8 +3,6 @@
     Dim Settings_ As New Settings
     Dim Networking As New Networking(Encryption_.DPAPI_decrpyt(Settings_.getValue("username")), Encryption_.DPAPI_decrpyt(Settings_.getValue("password")), Settings_)
 
-    Dim fd As New FormDecision
-
     Dim click As Integer = 0
 
     Dim x1 As Integer
@@ -14,9 +12,9 @@
     Dim p1 As New Panel
     Dim move As Boolean = Nothing
     Public Sub upload()
-        fd.choice.Passive.Start()
+        webapp.Passive.Start()
         Try
-            fd.choice.BrowserEventListener.Start()
+            webapp.BrowserEventListener.Start()
         Catch ex As Exception
             'We're not using the webapp then
         End Try
@@ -28,16 +26,16 @@
 
             g.CopyFromScreen(x1, y1, 0, 0, New Size(x2 - x1, y2 - y1), CopyPixelOperation.SourceCopy)
 
-            simg.Save(fd.choice.save_location + "temp." + fd.choice.get_image_save_type(True), fd.choice.get_image_save_type(False))
+            simg.Save(webapp.save_location + "temp." + webapp.get_image_save_type(True), webapp.get_image_save_type(False))
 
             'upload
-            Networking.upload(fd.choice.save_location + "temp." + fd.choice.get_image_save_type(True))
-            fd.choice.isCurrentlyUploading = False
+            Networking.upload(webapp.save_location + "temp." + webapp.get_image_save_type(True), True)
+            webapp.isCurrentlyUploading = False
             Me.Close()
 
         Catch ex As Exception
-            fd.choice.notification("Invalid Selection Region", "You attempted to select an invalid region of the screen, please work diagnally down from the top left to the bottom right.", 5000, ToolTipIcon.Info, False)
-            fd.choice.isCurrentlyUploading = False
+            webapp.notification("Invalid Selection Region", "You attempted to select an invalid region of the screen, please work diagnally down from the top left to the bottom right.", 5000, ToolTipIcon.Info, False)
+            webapp.isCurrentlyUploading = False
             Me.Close()
         End Try
 
@@ -77,8 +75,8 @@
     End Sub
     Private Sub selector_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         If e.KeyCode = Keys.Escape Then
-            fd.choice.listeningForInput = True
-            fd.choice.isCurrentlyUploading = False
+            webapp.listeningForInput = True
+            webapp.isCurrentlyUploading = False
             Me.Close()
         End If
     End Sub
@@ -91,9 +89,9 @@
         Me.BringToFront()
         Me.Opacity = 0.5
 
-        fd.choice.Passive.Stop()
+        webapp.Passive.Stop()
         Try
-            fd.choice.BrowserEventListener.Stop()
+            webapp.BrowserEventListener.Stop()
         Catch ex As Exception
             'We're not using the webapp then
         End Try

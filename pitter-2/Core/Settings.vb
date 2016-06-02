@@ -13,13 +13,13 @@ Public Class Settings
 recheck:
         'recheck will be used to check if the settings file is locked
         If locked Then
-            Debugger.Log(1, 1, lockee + " is currently locking the settings..." + vbNewLine)
+            'Debugger.Log(1, 1, lockee + " is currently locking the settings..." + vbNewLine)
             GoTo recheck
         Else
             locked = True
         End If
     End Sub
-    Public Function create()
+    Public Sub create()
         Dim created As Boolean = False
         lock("create")
         If My.Computer.FileSystem.FileExists(settings_location) = False Then
@@ -27,15 +27,9 @@ recheck:
             created = True
         End If
         locked = False
-        If created Then
-            fill()
-        End If
 
-    End Function
-    Public Function version_uodate()
-        lock("version update") 'Hold the thread until the configuration file is available
-        locked = False
-    End Function
+    End Sub
+
     Public Function setValue(ByVal key As String, ByVal value As String)
         create() 'Check to see if the settings file exists
         lock("set value key " + key) 'Hold the thread until the configuration file is available

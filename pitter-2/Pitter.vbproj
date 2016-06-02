@@ -97,32 +97,15 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App-Mini\LoginMini.Designer.vb">
-      <DependentUpon>LoginMini.vb</DependentUpon>
-    </Compile>
-    <Compile Include="App-Mini\LoginMini.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="App-Mini\PitterMini.Designer.vb">
-      <DependentUpon>PitterMini.vb</DependentUpon>
-    </Compile>
-    <Compile Include="App-Mini\PitterMini.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="App-Web\WebApp.Designer.vb">
       <DependentUpon>WebApp.vb</DependentUpon>
     </Compile>
     <Compile Include="App-Web\WebApp.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Core\Updater.vb" />
     <Compile Include="External\include\MultipartForm.vb" />
     <Compile Include="Core\Networking.vb" />
-    <Compile Include="Init\Runtime.Designer.vb">
-      <DependentUpon>Runtime.vb</DependentUpon>
-    </Compile>
-    <Compile Include="Init\Runtime.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Core\Authentication.vb" />
     <Compile Include="Core\Capture.vb" />
     <Compile Include="Core\Encryption.vb" />
@@ -140,8 +123,8 @@
     </Compile>
     <Compile Include="Core\Settings.vb" />
     <Compile Include="Core\Synchronization.vb" />
+    <Compile Include="HashEngine.vb" />
     <Compile Include="Utils\CharacterMapping.vb" />
-    <Compile Include="Utils\FormDecision.vb" />
     <Compile Include="Utils\StringTool.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -160,17 +143,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="App-Mini\LoginMini.resx">
-      <DependentUpon>LoginMini.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="App-Mini\PitterMini.resx">
-      <DependentUpon>PitterMini.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="App-Web\WebApp.resx">
       <DependentUpon>WebApp.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Init\Runtime.resx">
-      <DependentUpon>Runtime.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Core\Selectors\Legacy.resx">
       <DependentUpon>Legacy.vb</DependentUpon>
