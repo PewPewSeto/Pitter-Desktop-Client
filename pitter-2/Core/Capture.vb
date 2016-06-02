@@ -114,7 +114,7 @@ Public Class Capture
         ElseIf My.Computer.Clipboard.ContainsFileDropList Then
             If My.Computer.Clipboard.GetFileDropList.Count = 1 Then
                 WebApp.isCurrentlyUploading = True
-                Networking.upload(My.Computer.Clipboard.GetFileDropList.Item(0), True)
+                Networking.upload(My.Computer.Clipboard.GetFileDropList.Item(0), False)
                 WebApp.isCurrentlyUploading = False
             ElseIf My.Computer.Clipboard.GetFileDropList.Count > 1 Then
                 WebApp.isCurrentlyUploading = True

@@ -71,7 +71,9 @@ Public Class Networking
                                 End If
                             End If
 
-                            My.Computer.FileSystem.MoveFile(filepath, wrkdir + fns1(fnc))
+                            If rename Then
+                                My.Computer.FileSystem.MoveFile(filepath, wrkdir + fns1(fnc))
+                            End If
 
                             WebApp.notification("Upload Complete", "A link to the uploaded file has been added to your clipboard.", 5000, ToolTipIcon.Info, True)
 

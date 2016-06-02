@@ -139,9 +139,6 @@ Public Class WebApp
 
     End Sub
 
-    Private Sub Pitter_FormClosed(sender As Object, e As FormClosedEventArgs) Handles Me.FormClosed
-
-    End Sub
     Public Sub killproc()
         Settings_.locked = True
         'kill proc
