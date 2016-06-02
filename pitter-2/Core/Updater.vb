@@ -7,9 +7,13 @@ Public Class Updater
     Dim settings As Settings
     Dim hashengine As New HashEngine
 
-    Dim client As New Net.WebClient
+
 
     Dim dev_dirs As String() = {"bin\Debug", "obj\Debug"}
+
+    Dim override_dev = True
+
+
     Public Sub New(ByVal p_parent As WebApp, ByVal p_settings As Settings)
         parent = p_parent
         settings = p_settings
@@ -18,7 +22,7 @@ Public Class Updater
         Debugger.Log(1, 1, "[Updater]: Checking for Update" + vbNewLine)
         'This function may appear redundant, but is for the webapp.
         Try
-            If are_we_developer() = False Then
+            If are_we_developer() = False Or override_dev Then
                 'Developer versions should never be updated. Ever.
                 If check_version_differences() = True Then
                     'Update
@@ -50,6 +54,7 @@ Public Class Updater
         Debugger.Log(1, 1, "[Updater]: SHA1 Hash of Local File: " + installed_hash + vbNewLine)
         'get network hash
         Try
+            Dim client As New Net.WebClient
             server_hash = RemoveWhitespace(client.DownloadString("https://download.pitter.us/pitter.exe.sha1"))
             Debugger.Log(1, 1, "[Updater]: SHA1 Hash of Server File: " + server_hash + vbNewLine)
         Catch ex As Exception
