@@ -12,9 +12,9 @@
     Dim p1 As New Panel
     Dim move As Boolean = Nothing
     Public Sub upload()
-        webapp.Passive.Start()
+        WebApp.Passive.Start()
         Try
-            webapp.BrowserEventListener.Start()
+            WebApp.BrowserEventListener.Start()
         Catch ex As Exception
             'We're not using the webapp then
         End Try
@@ -26,16 +26,16 @@
 
             g.CopyFromScreen(x1, y1, 0, 0, New Size(x2 - x1, y2 - y1), CopyPixelOperation.SourceCopy)
 
-            simg.Save(webapp.save_location + "temp." + webapp.get_image_save_type(True), webapp.get_image_save_type(False))
+            simg.Save(WebApp.save_location + "temp." + WebApp.get_image_save_type(True), WebApp.get_image_save_type(False))
 
             'upload
-            Networking.upload(webapp.save_location + "temp." + webapp.get_image_save_type(True), True)
-            webapp.isCurrentlyUploading = False
+            Networking.upload(WebApp.save_location + "temp." + WebApp.get_image_save_type(True), True)
+            WebApp.isCurrentlyUploading = False
             Me.Close()
 
         Catch ex As Exception
-            webapp.notification("Invalid Selection Region", "You attempted to select an invalid region of the screen, please work diagnally down from the top left to the bottom right.", 5000, ToolTipIcon.Info, False)
-            webapp.isCurrentlyUploading = False
+            WebApp.notification("Invalid Selection Region", "You attempted to select an invalid region of the screen, please work diagnally down from the top left to the bottom right.", 5000, ToolTipIcon.Info, False)
+            WebApp.isCurrentlyUploading = False
             Me.Close()
         End Try
 
@@ -75,8 +75,8 @@
     End Sub
     Private Sub selector_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         If e.KeyCode = Keys.Escape Then
-            webapp.listeningForInput = True
-            webapp.isCurrentlyUploading = False
+            WebApp.listeningForInput = True
+            WebApp.isCurrentlyUploading = False
             Me.Close()
         End If
     End Sub
@@ -89,9 +89,9 @@
         Me.BringToFront()
         Me.Opacity = 0.5
 
-        webapp.Passive.Stop()
+        WebApp.Passive.Stop()
         Try
-            webapp.BrowserEventListener.Stop()
+            WebApp.BrowserEventListener.Stop()
         Catch ex As Exception
             'We're not using the webapp then
         End Try

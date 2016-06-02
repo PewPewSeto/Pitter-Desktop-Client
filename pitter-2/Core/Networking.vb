@@ -73,27 +73,27 @@ Public Class Networking
 
                             My.Computer.FileSystem.MoveFile(filepath, wrkdir + fns1(fnc))
 
-                            webapp.notification("Upload Complete", "A link to the uploaded file has been added to your clipboard.", 5000, ToolTipIcon.Info, True)
+                            WebApp.notification("Upload Complete", "A link to the uploaded file has been added to your clipboard.", 5000, ToolTipIcon.Info, True)
 
                         Case "failed"
-                            webapp.notification("Upload Failed", "An unknown error occured while uploading the file.", 5000, ToolTipIcon.Error, False)
+                            WebApp.notification("Upload Failed", "An unknown error occured while uploading the file.", 5000, ToolTipIcon.Error, False)
 
                         Case "restricted"
-                            webapp.notification("Account Suspended", "The file you attempted to upload has been discarded.", 5000, ToolTipIcon.Warning, False)
+                            WebApp.notification("Account Suspended", "The file you attempted to upload has been discarded.", 5000, ToolTipIcon.Warning, False)
 
                         Case "invalid"
-                            webapp.notification("Invalid Credentials", "Pitter failed to exchange credentials to the server.", 5000, ToolTipIcon.Error, False)
+                            WebApp.notification("Invalid Credentials", "Pitter failed to exchange credentials to the server.", 5000, ToolTipIcon.Error, False)
                     End Select
 
                 Catch ex As Exception
                     Dim ex_f As String() = ex.ToString.Split(vbNewLine)
-                    webapp.notification("Ambigious Error while Uploading", ex_f(0), 5000, ToolTipIcon.Error, False)
+                    WebApp.notification("Ambigious Error while Uploading", ex_f(0), 5000, ToolTipIcon.Error, False)
                     MsgBox(ex.ToString)
                 End Try
             Else
-                webapp.notification("Max Filesize Exceeded", "The uploaded file exceeds 100MB in size, and cannot be processed.", 5000, ToolTipIcon.Error, False)
+                WebApp.notification("Max Filesize Exceeded", "The uploaded file exceeds 100MB in size, and cannot be processed.", 5000, ToolTipIcon.Error, False)
             End If
         End If
-        webapp.isCurrentlyUploading = False
+        WebApp.isCurrentlyUploading = False
     End Sub
 End Class

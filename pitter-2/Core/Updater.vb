@@ -2,17 +2,13 @@
 
 Public Class Updater
 
-
     Dim parent As WebApp
     Dim settings As Settings
     Dim hashengine As New HashEngine
 
-
-
     Dim dev_dirs As String() = {"bin\Debug", "obj\Debug"}
 
     Dim override_dev = True
-
 
     Public Sub New(ByVal p_parent As WebApp, ByVal p_settings As Settings)
         parent = p_parent
@@ -42,7 +38,7 @@ Public Class Updater
             Debugger.Log(1, 1, "[Updater]: Routine Starting" + vbNewLine)
             check_for_update()
             'Sleep 10 minutes
-            thread.Sleep(10 * (60 * 1000))
+            Thread.Sleep(10 * (60 * 1000))
         End While
     End Sub
     Private Function check_version_differences()

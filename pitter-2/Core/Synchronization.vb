@@ -8,7 +8,6 @@ Public Class Synchronization
     Dim stringtool As New StringTool
     Dim parent As WebApp
 
-
     Public Sub New(ByVal p_parent As WebApp, ByVal networking As Networking, ByVal settings As Settings)
         parent = p_parent
         Networking_super = networking

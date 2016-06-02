@@ -20,29 +20,29 @@
             Me.Opacity = 0.0
 
             g.CopyFromScreen(x1, y1, 0, 0, New Size(wx, wy), CopyPixelOperation.SourceCopy)
-            simg.Save(webapp.save_location + "temp." + webapp.get_image_save_type(True), webapp.get_image_save_type(False))
+            simg.Save(WebApp.save_location + "temp." + WebApp.get_image_save_type(True), WebApp.get_image_save_type(False))
             g.Dispose()
 
-            webapp.isCurrentlyUploading = True
+            WebApp.isCurrentlyUploading = True
 
             Networking.upload(WebApp.save_location + "temp." + WebApp.get_image_save_type(True), True)
 
-            webapp.listeningForInput = True
-            webapp.isCurrentlyUploading = False
+            WebApp.listeningForInput = True
+            WebApp.isCurrentlyUploading = False
 
             Me.Close()
 
         ElseIf e.KeyCode = Keys.Escape Then
 
-            webapp.listeningForInput = True
-            webapp.isCurrentlyUploading = False
+            WebApp.listeningForInput = True
+            WebApp.isCurrentlyUploading = False
             Me.Close()
 
         End If
     End Sub
 
     Private Sub selector_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        webapp.listeningForInput = False
+        WebApp.listeningForInput = False
 
         Me.Size = New Size(470, 300)
         Me.Opacity = 0.6

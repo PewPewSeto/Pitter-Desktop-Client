@@ -33,11 +33,7 @@ Public Class WebApp
         TaskbarIcon.BalloonTipText = message 'Body
         TaskbarIcon.ShowBalloonTip(time) 'Time we should dispaly for
         If chime And StringTool.parse_boolean(Settings_.getValue("chime")) = True Then 'Chime was true
-            If osInfo.Version.Major <> 10 Then 'Check if we're running 10
-                'If we're not 10, then we should chime.
-                'Windows 10 has a built in chime, and would be bad if we used redundancy.
-                My.Computer.Audio.Play(My.Resources.complete, AudioPlayMode.Background) 'Play the chime
-            End If
+            My.Computer.Audio.Play(My.Resources.complete, AudioPlayMode.Background) 'Play the chime
         End If
     End Sub
 
@@ -381,7 +377,7 @@ Public Class WebApp
     End Sub
 
     Private Sub ForceUpdateToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ForceUpdateToolStripMenuItem.Click
-        
+
     End Sub
 
     Private Sub SynchronizeSettingsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SynchronizeSettingsToolStripMenuItem.Click

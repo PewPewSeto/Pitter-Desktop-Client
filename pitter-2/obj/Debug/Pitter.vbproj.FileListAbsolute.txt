@@ -1,5 +1,4 @@
 C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\bin\Debug\pitter.exe.config
-C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\Pitter.vbprojResolveAssemblyReference.cache
 C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\bin\Debug\pitter.exe
 C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\bin\Debug\pitter.pdb
 C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\bin\Debug\pitter.xml

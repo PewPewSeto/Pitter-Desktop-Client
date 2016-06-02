@@ -31,7 +31,7 @@ Public Class Capture
     Public Shared Function GetActiveWindowHandle() As System.IntPtr
     End Function
     Public Sub captureFullScreen()
-        webapp.isCurrentlyUploading = True
+        WebApp.isCurrentlyUploading = True
         Dim W As Integer = My.Computer.Screen.Bounds.Width
         Dim H As Integer = My.Computer.Screen.Bounds.Height
         Dim simg As Bitmap
@@ -51,9 +51,9 @@ Public Class Capture
         End If
 
         g.Save()
-        simg.Save(webapp.save_location + "temp." + webapp.get_image_save_type(True), webapp.get_image_save_type(False))
+        simg.Save(WebApp.save_location + "temp." + WebApp.get_image_save_type(True), WebApp.get_image_save_type(False))
         g.Dispose()
-        Networking.upload(webapp.save_location + "temp." + webapp.get_image_save_type(True), True)
+        Networking.upload(WebApp.save_location + "temp." + WebApp.get_image_save_type(True), True)
     End Sub
 
     Public Sub CaptureWindow(ByVal r As Rectangle)
@@ -84,18 +84,18 @@ Public Class Capture
         gr.CopyFromScreen(windowRect.left, windowRect.top, 0, 0, New Size(width, height))
         gr.Save()
         gr.Save()
-        img.Save(webapp.save_location + "temp." + webapp.get_image_save_type(True), webapp.get_image_save_type(False))
+        img.Save(WebApp.save_location + "temp." + WebApp.get_image_save_type(True), WebApp.get_image_save_type(False))
 
         gr.Dispose()
 
-        Networking.upload(webapp.save_location + "temp." + webapp.get_image_save_type(True), True)
+        Networking.upload(WebApp.save_location + "temp." + WebApp.get_image_save_type(True), True)
     End Sub
     Public Sub captureClipboard()
         Dim client As New Net.WebClient
         If My.Computer.Clipboard.ContainsText Then
             'Save file and upload
-            File.WriteAllText(webapp.save_location + "temp.txt", My.Computer.Clipboard.GetText)
-            Networking.upload(webapp.save_location + "temp.txt", True)
+            File.WriteAllText(WebApp.save_location + "temp.txt", My.Computer.Clipboard.GetText)
+            Networking.upload(WebApp.save_location + "temp.txt", True)
 
         ElseIf My.Computer.Clipboard.ContainsImage Then
             'Save Image and upload
@@ -104,37 +104,37 @@ Public Class Capture
             If oDataObj.GetDataPresent(System.Windows.Forms.DataFormats.Bitmap) Then
 
                 Dim oImgObj As System.Drawing.Image = oDataObj.GetData(DataFormats.Bitmap, True)
-                oImgObj.Save(webapp.save_location + "temp." + webapp.get_image_save_type(True), webapp.get_image_save_type(False))
+                oImgObj.Save(WebApp.save_location + "temp." + WebApp.get_image_save_type(True), WebApp.get_image_save_type(False))
 
-                webapp.isCurrentlyUploading = True
-                Networking.upload(webapp.save_location + "temp." + webapp.get_image_save_type(True), True)
-                webapp.isCurrentlyUploading = False
+                WebApp.isCurrentlyUploading = True
+                Networking.upload(WebApp.save_location + "temp." + WebApp.get_image_save_type(True), True)
+                WebApp.isCurrentlyUploading = False
 
             End If
         ElseIf My.Computer.Clipboard.ContainsFileDropList Then
             If My.Computer.Clipboard.GetFileDropList.Count = 1 Then
-                webapp.isCurrentlyUploading = True
+                WebApp.isCurrentlyUploading = True
                 Networking.upload(My.Computer.Clipboard.GetFileDropList.Item(0), True)
-                webapp.isCurrentlyUploading = False
+                WebApp.isCurrentlyUploading = False
             ElseIf My.Computer.Clipboard.GetFileDropList.Count > 1 Then
-                webapp.isCurrentlyUploading = True
-                webapp.notification("Files will be compressed", "You have multiple files in your clipboard. They will be compressed into a single .zip", 5000, ToolTipIcon.Info, False)
-                If My.Computer.FileSystem.FileExists(webapp.save_location + "temp.zip") Then My.Computer.FileSystem.DeleteFile(webapp.save_location + "temp.zip")
-                If My.Computer.FileSystem.FileExists(webapp.save_location + "zipdir") = False Then MkDir(webapp.save_location + "zipdir")
+                WebApp.isCurrentlyUploading = True
+                WebApp.notification("Files will be compressed", "You have multiple files in your clipboard. They will be compressed into a single .zip", 5000, ToolTipIcon.Info, False)
+                If My.Computer.FileSystem.FileExists(WebApp.save_location + "temp.zip") Then My.Computer.FileSystem.DeleteFile(WebApp.save_location + "temp.zip")
+                If My.Computer.FileSystem.FileExists(WebApp.save_location + "zipdir") = False Then MkDir(WebApp.save_location + "zipdir")
                 For Each File In My.Computer.Clipboard.GetFileDropList
                     Dim fn() As String = File.ToString.Split("\")
                     Dim fnl As Integer = fn.Length - 1
-                    My.Computer.FileSystem.CopyFile(File, webapp.save_location + "zipdir\" + fn(fnl))
+                    My.Computer.FileSystem.CopyFile(File, WebApp.save_location + "zipdir\" + fn(fnl))
                 Next
-                ZipFile.CreateFromDirectory(webapp.save_location + "zipdir\", webapp.save_location + "temp.zip")
-                Networking.upload(webapp.save_location + "temp.zip", True)
-                My.Computer.FileSystem.DeleteDirectory(webapp.save_location + "zipdir\", FileIO.DeleteDirectoryOption.DeleteAllContents)
-                webapp.isCurrentlyUploading = False
+                ZipFile.CreateFromDirectory(WebApp.save_location + "zipdir\", WebApp.save_location + "temp.zip")
+                Networking.upload(WebApp.save_location + "temp.zip", True)
+                My.Computer.FileSystem.DeleteDirectory(WebApp.save_location + "zipdir\", FileIO.DeleteDirectoryOption.DeleteAllContents)
+                WebApp.isCurrentlyUploading = False
             End If
 
         Else
             'ERROR OCCURED WHILE UPLOADING
-            webapp.notification("Invalid File in Clipboard", "Pitter cannot upload the file located in your clipboard.", 5000, ToolTipIcon.Error, False)
+            WebApp.notification("Invalid File in Clipboard", "Pitter cannot upload the file located in your clipboard.", 5000, ToolTipIcon.Error, False)
         End If
     End Sub
     Public Sub uploadFile()
