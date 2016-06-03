@@ -151,15 +151,10 @@ Public Class WebApp
     End Sub
     Private Sub Pitter_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         'PROCESS CHECK
-
-        Dim p = Process.GetProcessesByName("explorer")
-        If p.Length = 0 Then
-            killproc()
-        Else
-            Me.WindowState = FormWindowState.Minimized
-            Me.ShowInTaskbar = False
+        Me.WindowState = FormWindowState.Minimized
+        Me.ShowInTaskbar = False
             e.Cancel = True
-        End If
+
 
     End Sub
 
@@ -234,6 +229,11 @@ Public Class WebApp
     End Sub
 
     Private Sub DesktopEventListener_Tick(sender As Object, e As EventArgs) Handles DesktopEventListener.Tick
+        'Process check
+        Dim p = Process.GetProcessesByName("explorer")
+        If p.Length = 0 Then
+            killproc()
+        End If
         'Todo: HEAVILY MODIFY
 
         If listeningForInput = True And isCurrentlyUploading = False And listeningForInput = True Then
