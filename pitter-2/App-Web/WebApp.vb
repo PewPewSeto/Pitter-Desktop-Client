@@ -241,7 +241,7 @@ Public Class WebApp
         End If
         'Todo: HEAVILY MODIFY
 
-        If listeningForInput = True And isCurrentlyUploading = False And listeningForInput = True Then
+        If listeningForInput = True And isCurrentlyUploading = False And listeningEnabled = True Then
             Dim Result As Integer
             For i = 1 To 255
                 Result = GetAsyncKeyState(i)
