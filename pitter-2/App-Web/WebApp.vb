@@ -24,6 +24,7 @@ Public Class WebApp
     Public save_location As String = My.Computer.FileSystem.SpecialDirectories.MyDocuments + "\Pitter\"
     Dim osInfo As System.OperatingSystem = System.Environment.OSVersion
     Public passbackSettingsUpdated As Boolean = False
+    Dim pil_modes As String() = {"Pause Keybind Listener", "Listen for Keybinds"}
 
     <DllImport("user32.dll")> Shared Function GetAsyncKeyState(ByVal vKey As System.Windows.Forms.Keys) As Short
     End Function
@@ -332,6 +333,17 @@ Public Class WebApp
         'This timer should only be used for passive variables or any other form of background processes
         settings_locked = Settings_.locked
 
+        'Pause Listener Button
+        If listeningEnabled Then
+            If PauseInputListenerToolStripMenuItem.Text <> pil_modes(0) Then
+                PauseInputListenerToolStripMenuItem.Text = pil_modes(0)
+            End If
+        Else
+            If PauseInputListenerToolStripMenuItem.Text <> pil_modes(1) Then
+                PauseInputListenerToolStripMenuItem.Text = pil_modes(1)
+            End If
+        End If
+
     End Sub
 
     Private Sub Cleaner_Tick(sender As Object, e As EventArgs) Handles Cleaner.Tick
@@ -404,5 +416,16 @@ Public Class WebApp
 
     Private Sub Awesomium_Windows_Forms_WebControl_ShowCreatedWebView(sender As Object, e As Core.ShowCreatedWebViewEventArgs) Handles WebControl1.ShowCreatedWebView
 
+    End Sub
+
+    Private Sub PauseInputListenerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PauseInputListenerToolStripMenuItem.Click
+        If listeningEnabled = False Then
+            listeningEnabled = True
+            GoTo end1
+        ElseIf listeningEnabled = True Then
+            listeningEnabled = False
+            GoTo end1
+        End If
+end1:
     End Sub
 End Class
