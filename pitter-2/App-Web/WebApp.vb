@@ -386,7 +386,7 @@ Public Class WebApp
     End Sub
 
     Private Sub ForceUpdateToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ForceUpdateToolStripMenuItem.Click
-
+        updater.update(True)
     End Sub
 
     Private Sub SynchronizeSettingsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SynchronizeSettingsToolStripMenuItem.Click
