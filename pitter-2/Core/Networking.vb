@@ -50,7 +50,6 @@ Public Class Networking
                     Dim bfn = Path.GetFileName(filepath)
 
                     Dim wrkdir = filepath.Substring(0, filepath.Length - bfn.Length)
-
                     Select Case response_split(0)
                         Case "success"
 
@@ -80,7 +79,7 @@ Public Class Networking
                         Case "failed"
                             WebApp.notification("Upload Failed", "An unknown error occured while uploading the file.", 5000, ToolTipIcon.Error, False)
 
-                        Case "restricted"
+                        Case "restricted", "suspended"
                             WebApp.notification("Account Suspended", "The file you attempted to upload has been discarded.", 5000, ToolTipIcon.Warning, False)
 
                         Case "invalid"
@@ -90,7 +89,6 @@ Public Class Networking
                 Catch ex As Exception
                     Dim ex_f As String() = ex.ToString.Split(vbNewLine)
                     WebApp.notification("Ambigious Error while Uploading", ex_f(0), 5000, ToolTipIcon.Error, False)
-                    MsgBox(ex.ToString)
                 End Try
             Else
                 WebApp.notification("Max Filesize Exceeded", "The uploaded file exceeds 100MB in size, and cannot be processed.", 5000, ToolTipIcon.Error, False)

@@ -348,7 +348,7 @@ Public Class WebApp
     Public Sub restore()
         Me.WindowState = FormWindowState.Normal
         Me.ShowInTaskbar = True
-        Me.BringToFront()
+        Me.Show()
     End Sub
     Private Sub TaskbarIcon_MouseClick(sender As Object, e As MouseEventArgs) Handles TaskbarIcon.MouseClick
         If StringTool.parse_boolean(Settings_.getValue("tray click twice to open")) = False And e.Button = MouseButtons.Left Then
