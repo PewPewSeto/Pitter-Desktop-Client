@@ -182,10 +182,12 @@ Public Class WebApp
 
         'Check if we need to prompt for login
         If login_routine() = False Then
-            WebControl1.Source = New Uri("https://panel.pitter.us/dashboard")
+            WebControl1.Source = New Uri("https://panel.pitter.us/login")
+        Else
+            Me.Close()
         End If
 
-        Me.Close()
+
 
     End Sub
 
@@ -194,7 +196,7 @@ Public Class WebApp
             Dim element_id = (WebControl1.ExecuteJavascriptWithResult("document.elementFromPoint(parseInt(" + e.X.ToString + "), parseInt(" + e.Y.ToString + ")).id;").ToString)
             Select Case element_id 'Conditional based on ID
                 Case "submit-b" 'Element with ID was clicked
-                    If WebControl1.Source = New Uri("https://panel.pitter.us/") Or WebControl1.Source = New Uri("https://panel.pitter.us/login.php") Then 'Check for login url
+                    If WebControl1.Source = New Uri("https://panel.pitter.us/login") Or WebControl1.Source = New Uri("https://panel.pitter.us/login?new=true") Then 'Check for login url
                         grab_login_information()
                     End If
 
@@ -345,7 +347,7 @@ Public Class WebApp
         Me.BringToFront()
     End Sub
     Private Sub TaskbarIcon_MouseClick(sender As Object, e As MouseEventArgs) Handles TaskbarIcon.MouseClick
-        If StringTool.parse_boolean(Settings_.getValue("tray click twice to open")) = False Then
+        If StringTool.parse_boolean(Settings_.getValue("tray click twice to open")) = False And e.Button = MouseButtons.Left Then
             restore()
         End If
     End Sub
@@ -394,5 +396,9 @@ Public Class WebApp
                 p.Kill()
             End If
         Next
+    End Sub
+
+    Private Sub Awesomium_Windows_Forms_WebControl_ShowCreatedWebView(sender As Object, e As Core.ShowCreatedWebViewEventArgs) Handles WebControl1.ShowCreatedWebView
+
     End Sub
 End Class
