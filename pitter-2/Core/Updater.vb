@@ -90,8 +90,9 @@ Public Class Updater
         If visible Then
             Process.Start(settings.working_directory + "update.exe")
         Else
-            Process.Start(settings.working_directory + "update.exe", "h")
+            Process.Start(settings.working_directory + "update.exe", "-h")
         End If
+        settings.setValue("updated", "true")
         WebApp.killproc()
     End Sub
 End Class

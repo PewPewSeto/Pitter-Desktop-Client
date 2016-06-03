@@ -4,7 +4,7 @@ Imports System.IO
 Imports System.Net
 
 Public Class WebApp
-
+    Dim hashengine As New HashEngine
     Dim Auth_ As New Authentication
     Dim Encryption_ As New Encryption
     Dim Settings_ As New Settings
@@ -182,7 +182,11 @@ Public Class WebApp
             Me.Close()
         End If
 
-
+        'Check if we updated
+        If StringTool.parse_boolean(Settings_.getValue("updated")) = True Then
+            Settings_.setValue("updated", "false")
+            notification("Pitter has been updated", "You are now running build " + hashengine.hash_generator("sha1", Settings_.working_directory + "pitter.exe"), 5000, ToolTipIcon.Info, False)
+        End If
 
     End Sub
 
