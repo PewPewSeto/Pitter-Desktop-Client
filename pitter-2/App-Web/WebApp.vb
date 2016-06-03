@@ -77,7 +77,7 @@ Public Class WebApp
 
     Public Sub init_resize()
         Me.Size = New Size(My.Computer.Screen.WorkingArea.Width * 0.85, My.Computer.Screen.WorkingArea.Height * 0.85)
-        Me.Location = New Size(My.Computer.Screen.WorkingArea.Width * 0.05, My.Computer.Screen.WorkingArea.Height * 0.05)
+        Me.Location = New Size(My.Computer.Screen.WorkingArea.Width * 0.065, My.Computer.Screen.WorkingArea.Height * 0.065)
     End Sub
     Public Function login_routine()
         If Settings_.getValue("username") <> "" And Settings_.getValue("password") <> "" Then
@@ -105,7 +105,7 @@ Public Class WebApp
             'Check to make sure that the token is not false
             If auth_token <> "false" Then
                 'we have a valid auth token
-                WebControl1.Source = New Uri("https://panel.pitter.us/login.php?token=" + auth_token)
+                WebControl1.Source = New Uri("https://panel.pitter.us/login?token=" + auth_token)
                 listeningForInput = True
 
                 'Start Sync Thread
@@ -214,7 +214,7 @@ Public Class WebApp
                 'Clear memory footprint
 
                 'Hidden Login Check
-                If WebControl1.Source = New Uri("https://panel.pitter.us/") Or WebControl1.Source = New Uri("https://panel.pitter.us/login.php") Then 'Check for login url
+                If WebControl1.Source = New Uri("https://panel.pitter.us/login") Or WebControl1.Source = New Uri("https://panel.pitter.us/login?new=true") Then 'Check for login url
                     Try
                         'Check for hidden variable
                         Dim h_var As String = WebControl1.ExecuteJavascriptWithResult("$(""#pressed"").val()")
