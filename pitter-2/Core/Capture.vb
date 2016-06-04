@@ -66,10 +66,8 @@ Public Class Capture
 
         If r = Nothing Then
             GetWindowRect(GetForegroundWindow, windowRect)
-            windowRect.left -= 5
-            windowRect.top -= 5
-            width = windowRect.right - windowRect.left + 5
-            height = windowRect.bottom - windowRect.top + 5
+            width = windowRect.right - windowRect.left
+            height = windowRect.bottom - windowRect.top
         Else
             windowRect.left = r.Left + 1
             windowRect.top = r.Top + 1

@@ -44,6 +44,8 @@ Partial Class WebApp
         Me.ExitToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.Passive = New System.Windows.Forms.Timer(Me.components)
         Me.Cleaner = New System.Windows.Forms.Timer(Me.components)
+        Me.RunAsAdministratorToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ToolStripSeparator4 = New System.Windows.Forms.ToolStripSeparator()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -75,11 +77,11 @@ Partial Class WebApp
         '
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PitterToolStripMenuItem, Me.ToolStripSeparator1, Me.UploadToolStripMenuItem, Me.ToolStripSeparator2, Me.PauseInputListenerToolStripMenuItem, Me.ExitToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(181, 126)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(181, 104)
         '
         'PitterToolStripMenuItem
         '
-        Me.PitterToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ForceUpdateToolStripMenuItem, Me.SynchronizeSettingsToolStripMenuItem})
+        Me.PitterToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ForceUpdateToolStripMenuItem, Me.SynchronizeSettingsToolStripMenuItem, Me.ToolStripSeparator4, Me.RunAsAdministratorToolStripMenuItem})
         Me.PitterToolStripMenuItem.Name = "PitterToolStripMenuItem"
         Me.PitterToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.PitterToolStripMenuItem.Text = "Pitter"
@@ -87,13 +89,13 @@ Partial Class WebApp
         'ForceUpdateToolStripMenuItem
         '
         Me.ForceUpdateToolStripMenuItem.Name = "ForceUpdateToolStripMenuItem"
-        Me.ForceUpdateToolStripMenuItem.Size = New System.Drawing.Size(183, 22)
+        Me.ForceUpdateToolStripMenuItem.Size = New System.Drawing.Size(185, 22)
         Me.ForceUpdateToolStripMenuItem.Text = "Force Update"
         '
         'SynchronizeSettingsToolStripMenuItem
         '
         Me.SynchronizeSettingsToolStripMenuItem.Name = "SynchronizeSettingsToolStripMenuItem"
-        Me.SynchronizeSettingsToolStripMenuItem.Size = New System.Drawing.Size(183, 22)
+        Me.SynchronizeSettingsToolStripMenuItem.Size = New System.Drawing.Size(185, 22)
         Me.SynchronizeSettingsToolStripMenuItem.Text = "Synchronize Settings"
         '
         'ToolStripSeparator1
@@ -163,12 +165,22 @@ Partial Class WebApp
         'Passive
         '
         Me.Passive.Enabled = True
-        Me.Passive.Interval = 10
         '
         'Cleaner
         '
         Me.Cleaner.Enabled = True
         Me.Cleaner.Interval = 60000
+        '
+        'RunAsAdministratorToolStripMenuItem
+        '
+        Me.RunAsAdministratorToolStripMenuItem.Name = "RunAsAdministratorToolStripMenuItem"
+        Me.RunAsAdministratorToolStripMenuItem.Size = New System.Drawing.Size(185, 22)
+        Me.RunAsAdministratorToolStripMenuItem.Text = "Run as Administrator"
+        '
+        'ToolStripSeparator4
+        '
+        Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(182, 6)
         '
         'WebApp
         '
@@ -204,4 +216,6 @@ Partial Class WebApp
     Public WithEvents Cleaner As System.Windows.Forms.Timer
     Public WithEvents ContextMenuStrip1 As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents SynchronizeSettingsToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator4 As ToolStripSeparator
+    Friend WithEvents RunAsAdministratorToolStripMenuItem As ToolStripMenuItem
 End Class

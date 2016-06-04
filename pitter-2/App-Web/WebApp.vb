@@ -2,6 +2,7 @@
 Imports System.Environment
 Imports System.IO
 Imports System.Net
+Imports System.Security.Principal
 
 Public Class WebApp
     Dim hashengine As New HashEngine
@@ -25,6 +26,10 @@ Public Class WebApp
     Dim osInfo As System.OperatingSystem = System.Environment.OSVersion
     Public passbackSettingsUpdated As Boolean = False
     Dim pil_modes As String() = {"Pause Keybind Listener", "Listen for Keybinds"}
+
+    Dim identity = WindowsIdentity.GetCurrent()
+    Dim principal = New WindowsPrincipal(identity)
+    Dim isElevated As Boolean = principal.IsInRole(WindowsBuiltInRole.Administrator)
 
     <DllImport("user32.dll")> Shared Function GetAsyncKeyState(ByVal vKey As System.Windows.Forms.Keys) As Short
     End Function
@@ -86,17 +91,17 @@ Public Class WebApp
             Dim decrpyted_username = Encryption_.DPAPI_decrpyt(Settings_.getValue("username"))
             Dim decrpyted_password = Encryption_.DPAPI_decrpyt(Settings_.getValue("password"))
 
-            Dim auth_token As String
+            Dim auth_token As String = ""
 
             'Attempt to get authentication token
             Try
-                auth_token = Auth_.get_auth_token( _
-                    Encryption_.base64_encode( _
-                        decrpyted_username _
-                        ), _
-                    Encryption_.base64_encode( _
-                        decrpyted_password _
-                        ) _
+                auth_token = Auth_.get_auth_token(
+                    Encryption_.base64_encode(
+                        decrpyted_username
+                        ),
+                    Encryption_.base64_encode(
+                        decrpyted_password
+                        )
                     )
             Catch ex As Exception
                 MsgBox("Failed to gather authentication token", MsgBoxStyle.Critical, "Pitter")
@@ -154,7 +159,7 @@ Public Class WebApp
         'PROCESS CHECK
         Me.WindowState = FormWindowState.Minimized
         Me.ShowInTaskbar = False
-            e.Cancel = True
+        e.Cancel = True
 
 
     End Sub
@@ -189,6 +194,34 @@ Public Class WebApp
             notification("Pitter has been updated", "You are now running build " + hashengine.hash_generator("sha1", Settings_.working_directory + "pitter.exe"), 5000, ToolTipIcon.Info, False)
         End If
 
+        'Check if we should run as admin.
+        If StringTool.parse_boolean(Settings_.getValue("run as administrator")) Then
+            If isElevated Then
+                'do nothing but remove context element
+                RunAsAdministratorToolStripMenuItem.Enabled = False
+                RunAsAdministratorToolStripMenuItem.Text = "Running as Admin"
+            Else
+                'We're not running as admin
+
+                Try
+                    Dim procStartInfo As New ProcessStartInfo
+                    Dim procExecuting As New Process
+
+                    With procStartInfo
+                        .UseShellExecute = True
+                        .FileName = Settings_.working_directory + "pitter.exe"
+                        .WindowStyle = ProcessWindowStyle.Normal
+                        .Verb = "runas" 'add this to prompt for elevation
+                    End With
+                    procExecuting = Process.Start(procStartInfo)
+                    killproc()
+                Catch ex As Exception
+                    Settings_.setValue("run as administrator", "false")
+                    killproc()
+                End Try
+
+            End If
+        End If
     End Sub
 
     Private Sub WebControl1_MouseClick(sender As Object, e As MouseEventArgs) Handles WebControl1.MouseClick
@@ -234,11 +267,7 @@ Public Class WebApp
     End Sub
 
     Private Sub DesktopEventListener_Tick(sender As Object, e As EventArgs) Handles DesktopEventListener.Tick
-        'Process check
-        Dim p = Process.GetProcessesByName("explorer")
-        If p.Length = 0 Then
-            killproc()
-        End If
+
         'Todo: HEAVILY MODIFY
 
         If listeningForInput = True And isCurrentlyUploading = False And listeningEnabled = True Then
@@ -427,5 +456,15 @@ Public Class WebApp
             GoTo end1
         End If
 end1:
+    End Sub
+
+    Private Sub RunAsAdministratorToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles RunAsAdministratorToolStripMenuItem.Click
+        Dim re = MsgBox("Certain processes on your system may be unable to be captured as a screenshot, due to the process running as the Administrator account on your system." + vbNewLine + "This feature will allow pitter to elevate itself and run as Administrator to overcome this issue, however is purely experimental." + vbNewLine + vbNewLine + "At any time if you wish to undo this change, you will need to manually change the configuration located at %appdata%\pitter\pitter.config" + vbNewLine + vbNewLine + "Do you wish to continue?", MsgBoxStyle.YesNo)
+
+        If re = MsgBoxResult.Yes Then
+            Settings_.setValue("run as administrator", "true")
+            MsgBox("Please restart Pitter.")
+            killproc()
+        End If
     End Sub
 End Class
