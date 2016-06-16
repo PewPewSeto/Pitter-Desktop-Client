@@ -89,6 +89,7 @@ Public Class Networking
                 Catch ex As Exception
                     Dim ex_f As String() = ex.ToString.Split(vbNewLine)
                     WebApp.notification("Ambigious Error while Uploading", ex_f(0), 5000, ToolTipIcon.Error, False)
+                    MsgBox(ex.ToString)
                 End Try
             Else
                 WebApp.notification("Max Filesize Exceeded", "The uploaded file exceeds 100MB in size, and cannot be processed.", 5000, ToolTipIcon.Error, False)

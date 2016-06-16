@@ -3,6 +3,7 @@ Imports System.Environment
 Imports System.IO
 Imports System.Net
 Imports System.Security.Principal
+Imports Microsoft.Win32
 
 Public Class WebApp
     Dim hashengine As New HashEngine
@@ -111,7 +112,7 @@ Public Class WebApp
             'Check to make sure that the token is not false
             If auth_token <> "false" Then
                 'we have a valid auth token
-                WebControl1.Source = New Uri("https://panel.pitter.us/login?token=" + auth_token)
+                WebBrowser1.Navigate("https://panel.pitter.us/login?token=" + auth_token)
                 listeningForInput = True
 
                 'Start Sync Thread
@@ -132,8 +133,8 @@ Public Class WebApp
     Public Sub grab_login_information()
 
         'Grab email and password
-        Dim g_username As String = WebControl1.ExecuteJavascriptWithResult("$(""#email"").val()")
-        Dim g_password As String = WebControl1.ExecuteJavascriptWithResult("$(""#password"").val()")
+        Dim g_username As String = WebBrowser1.Document.GetElementById("email").GetAttribute("value")
+        Dim g_password As String = WebBrowser1.Document.GetElementById("password").GetAttribute("value")
 
         'Encrypt
         Dim e_g_username = Encryption_.DPAPI_encrypt(g_username)
@@ -165,6 +166,10 @@ Public Class WebApp
     End Sub
 
     Private Sub Pitter_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'Use Newest IE
+        iefix()
+        WebBrowser1.ScriptErrorsSuppressed = True
+
         'Check for other pitters
         check_for_other_pitters()
 
@@ -183,7 +188,7 @@ Public Class WebApp
 
         'Check if we need to prompt for login
         If login_routine() = False Then
-            WebControl1.Source = New Uri("https://panel.pitter.us/login")
+            WebBrowser1.Navigate("https://panel.pitter.us/login")
         Else
             Me.Close()
         End If
@@ -224,46 +229,24 @@ Public Class WebApp
         End If
     End Sub
 
-    Private Sub WebControl1_MouseClick(sender As Object, e As MouseEventArgs) Handles WebControl1.MouseClick
-        Try
-            Dim element_id = (WebControl1.ExecuteJavascriptWithResult("document.elementFromPoint(parseInt(" + e.X.ToString + "), parseInt(" + e.Y.ToString + ")).id;").ToString)
-            Select Case element_id 'Conditional based on ID
-                Case "submit-b" 'Element with ID was clicked
-                    If WebControl1.Source = New Uri("https://panel.pitter.us/login") Or WebControl1.Source = New Uri("https://panel.pitter.us/login?new=true") Then 'Check for login url
-                        grab_login_information()
-                    End If
-
-            End Select
-        Catch ex As Exception
-            'simple suppress
-        End Try
+    Private Sub WebControl1_MouseClick(sender As Object, e As MouseEventArgs)
+        'Try
+        'Dim element_id = (WebControl1.ExecuteJavascriptWithResult("document.elementFromPoint(parseInt(" + e.X.ToString + "), parseInt(" + e.Y.ToString + ")).id;").ToString)
+        'Select Case element_id 'Conditional based on ID
+        'Case "submit-b" 'Element with ID was clicked
+        'If WebBrowser1.Url = New Uri("https://panel.pitter.us/login") Or WebBrowser1.Url = New Uri("https://panel.pitter.us/login?new=true") Then 'Check for login url
+        'grab_login_information()
+        'End If
+        '
+        'End Select
+        'Catch ex As Exception
+        ''simple suppress
+        'End Try
 
     End Sub
 
     Private Sub EventListener_Tick(sender As Object, e As EventArgs) Handles BrowserEventListener.Tick
-        Try
-            'Check if loading
-            If WebControl1.IsLoading = False Then 'Make sure we are not loading
-                'Clear memory footprint
 
-                'Hidden Login Check
-                If WebControl1.Source = New Uri("https://panel.pitter.us/login") Or WebControl1.Source = New Uri("https://panel.pitter.us/login?new=true") Then 'Check for login url
-                    Try
-                        'Check for hidden variable
-                        Dim h_var As String = WebControl1.ExecuteJavascriptWithResult("$(""#pressed"").val()")
-                        'Check if h_var is true
-                        If h_var = "true" Then
-                            grab_login_information()
-                            login_routine()
-                        End If
-                    Catch ex As Exception
-                        'suppress
-                    End Try
-                End If
-            End If
-        Catch ex As Exception
-
-        End Try
     End Sub
 
     Private Sub DesktopEventListener_Tick(sender As Object, e As EventArgs) Handles DesktopEventListener.Tick
@@ -376,11 +359,6 @@ Public Class WebApp
     End Sub
 
     Private Sub Cleaner_Tick(sender As Object, e As EventArgs) Handles Cleaner.Tick
-        Try
-            WebControl1.ReduceMemoryUsage()
-        Catch ex As Exception
-            'This function will sometimes be called, but it is safe to suppress.
-        End Try
     End Sub
 
     Private Sub ExitToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles ExitToolStripMenuItem.Click
@@ -443,10 +421,6 @@ Public Class WebApp
         Next
     End Sub
 
-    Private Sub Awesomium_Windows_Forms_WebControl_ShowCreatedWebView(sender As Object, e As Core.ShowCreatedWebViewEventArgs) Handles WebControl1.ShowCreatedWebView
-
-    End Sub
-
     Private Sub PauseInputListenerToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles PauseInputListenerToolStripMenuItem.Click
         If listeningEnabled = False Then
             listeningEnabled = True
@@ -467,4 +441,71 @@ end1:
             killproc()
         End If
     End Sub
+
+    Private Const BrowserKeyPath As String = "\SOFTWARE\Microsoft\Internet Explorer\MAIN\FeatureControl\FEATURE_BROWSER_EMULATION"
+    Public Sub iefix(Optional ByVal IgnoreIDocDirective As Boolean = False)
+        Dim basekey As String = Microsoft.Win32.Registry.CurrentUser.ToString
+        Dim value As Int32
+        Dim thisAppsName As String = My.Application.Info.AssemblyName & ".exe"
+        ' Value reference: http://msdn.microsoft.com/en-us/library/ee330730%28v=VS.85%29.aspx
+        ' IDOC Reference:  http://msdn.microsoft.com/en-us/library/ms535242%28v=vs.85%29.aspx
+        Select Case (New WebBrowser).Version.Major
+            Case 8
+                If IgnoreIDocDirective Then
+                    value = 8888
+                Else
+                    value = 8000
+                End If
+            Case 9
+                If IgnoreIDocDirective Then
+                    value = 9999
+                Else
+                    value = 9000
+                End If
+            Case 10
+                If IgnoreIDocDirective Then
+                    value = 10001
+                Else
+                    value = 10000
+                End If
+
+            Case 11
+                If IgnoreIDocDirective Then
+                    value = 11001
+                Else
+                    value = 11000
+                End If
+            Case Else
+                Exit Sub
+        End Select
+        If My.Computer.Registry.GetValue(Microsoft.Win32.Registry.CurrentUser.ToString & BrowserKeyPath, Process.GetCurrentProcess.ProcessName & ".exe", Nothing).ToString <> ((New WebBrowser).Version.Major.ToString + "000") Then
+            Microsoft.Win32.Registry.SetValue(Microsoft.Win32.Registry.CurrentUser.ToString & BrowserKeyPath, Process.GetCurrentProcess.ProcessName & ".exe", value, Microsoft.Win32.RegistryValueKind.DWord)
+            updater.update(False)
+        End If
+    End Sub
+
+    Private Sub WebApp_Click(sender As Object, e As EventArgs) Handles Me.Click
+
+
+    End Sub
+
+    Private Sub WebBrowser1_DocumentCompleted(ByVal sender As System.Object, ByVal e As Windows.Forms.WebBrowserDocumentCompletedEventArgs) Handles WebBrowser1.DocumentCompleted
+        AddHandler WebBrowser1.Document.Click, AddressOf getClickedElement
+    End Sub
+
+    Private Sub getClickedElement(ByVal sender As Object, ByVal e As HtmlElementEventArgs)
+        With WebBrowser1.Document.GetElementFromPoint(e.ClientMousePosition)
+            Dim selectedHtmlElement_ID As String = .GetAttribute("id").ToLower
+            Dim selectedHtmlElement_NAME As String = .GetAttribute("name").ToLower
+            Select Case selectedHtmlElement_ID
+                Case "submit-b"
+                    If WebBrowser1.Url = New Uri("https://panel.pitter.us/login") Or WebBrowser1.Url = New Uri("https://panel.pitter.us/login?new=true") Then
+                        grab_login_information()
+                        login_routine()
+                    End If
+            End Select
+        End With
+    End Sub
+
+
 End Class
