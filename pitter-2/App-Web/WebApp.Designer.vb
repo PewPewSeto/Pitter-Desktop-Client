@@ -181,7 +181,7 @@ Partial Class WebApp
         Me.WebBrowser1.Name = "WebBrowser1"
         Me.WebBrowser1.Size = New System.Drawing.Size(935, 523)
         Me.WebBrowser1.TabIndex = 2
-        Me.WebBrowser1.Url = New System.Uri("http://google.com", System.UriKind.Absolute)
+        Me.WebBrowser1.Url = New System.Uri("", System.UriKind.Relative)
         '
         'WebApp
         '
