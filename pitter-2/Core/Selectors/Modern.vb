@@ -103,6 +103,8 @@
     End Sub
 
     Private Sub MovementTracker_Tick(sender As Object, e As EventArgs) Handles MovementTracker.Tick
+        Me.Location = New Point(0, 0)
+        Me.Size = SystemInformation.VirtualScreen.Size
         If move Then
             p1.Size = New Size(Cursor.Position.X - x1, Cursor.Position.Y - y1)
         End If
