@@ -478,10 +478,18 @@ end1:
             Case Else
                 Exit Sub
         End Select
-        If My.Computer.Registry.GetValue(Microsoft.Win32.Registry.CurrentUser.ToString & BrowserKeyPath, Process.GetCurrentProcess.ProcessName & ".exe", Nothing).ToString <> ((New WebBrowser).Version.Major.ToString + "000") Then
+        Try
+            If My.Computer.Registry.GetValue(Microsoft.Win32.Registry.CurrentUser.ToString & BrowserKeyPath, Process.GetCurrentProcess.ProcessName & ".exe", Nothing).ToString <> ((New WebBrowser).Version.Major.ToString + "000") Then
+                Microsoft.Win32.Registry.SetValue(Microsoft.Win32.Registry.CurrentUser.ToString & BrowserKeyPath, Process.GetCurrentProcess.ProcessName & ".exe", value, Microsoft.Win32.RegistryValueKind.DWord)
+                updater.update(False)
+            End If
+        Catch ex As Exception
+
             Microsoft.Win32.Registry.SetValue(Microsoft.Win32.Registry.CurrentUser.ToString & BrowserKeyPath, Process.GetCurrentProcess.ProcessName & ".exe", value, Microsoft.Win32.RegistryValueKind.DWord)
-            updater.update(False)
-        End If
+                updater.update(False)
+
+        End Try
+
     End Sub
 
     Private Sub WebApp_Click(sender As Object, e As EventArgs) Handles Me.Click
