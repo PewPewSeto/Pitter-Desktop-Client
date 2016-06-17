@@ -37,7 +37,7 @@ Public Class Capture
         Dim simg As Bitmap
         Dim g As Graphics
         If stringtool.parse_boolean(Settings.getValue("fullscreen means all monitors")) = True Then
-            simg = New Bitmap( _
+            simg = New Bitmap(
                         Screen.AllScreens.Sum(Function(s As Screen) s.Bounds.Width),
                         Screen.AllScreens.Max(Function(s As Screen) s.Bounds.Height))
             g = Graphics.FromImage(simg)

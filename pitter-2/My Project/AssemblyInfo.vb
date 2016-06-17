@@ -8,17 +8,17 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("Pitter")> 
-<Assembly: AssemblyDescription("Easy cloud-based file and image uploading")> 
-<Assembly: AssemblyCompany("Pitter LLC")> 
-<Assembly: AssemblyProduct("Pitter")> 
-<Assembly: AssemblyCopyright("Copyright ©  2016")> 
-<Assembly: AssemblyTrademark("")> 
+<Assembly: AssemblyTitle("Pitter")>
+<Assembly: AssemblyDescription("Easy cloud-based file and image uploading")>
+<Assembly: AssemblyCompany("Pitter LLC")>
+<Assembly: AssemblyProduct("Pitter")>
+<Assembly: AssemblyCopyright("Copyright ©  2016")>
+<Assembly: AssemblyTrademark("")>
 
-<Assembly: ComVisible(False)> 
+<Assembly: ComVisible(False)>
 
 'The following GUID is for the ID of the typelib if this project is exposed to COM
-<Assembly: Guid("42d176c4-fbda-4704-8a03-b58babe75f7a")> 
+<Assembly: Guid("42d176c4-fbda-4704-8a03-b58babe75f7a")>
 
 ' Version information for an assembly consists of the following four values:
 '
@@ -31,5 +31,5 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")>
 
-<Assembly: AssemblyVersion("1.0.0.0")> 
-<Assembly: AssemblyFileVersion("1.0.0.0")> 
+<Assembly: AssemblyVersion("1.0.0.0")>
+<Assembly: AssemblyFileVersion("1.0.0.0")>

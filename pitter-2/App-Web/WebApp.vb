@@ -162,7 +162,6 @@ Public Class WebApp
         Me.ShowInTaskbar = False
         e.Cancel = True
 
-
     End Sub
 
     Private Sub Pitter_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -486,14 +485,13 @@ end1:
         Catch ex As Exception
 
             Microsoft.Win32.Registry.SetValue(Microsoft.Win32.Registry.CurrentUser.ToString & BrowserKeyPath, Process.GetCurrentProcess.ProcessName & ".exe", value, Microsoft.Win32.RegistryValueKind.DWord)
-                updater.update(False)
+            updater.update(False)
 
         End Try
 
     End Sub
 
     Private Sub WebApp_Click(sender As Object, e As EventArgs) Handles Me.Click
-
 
     End Sub
 
@@ -514,6 +512,5 @@ end1:
             End Select
         End With
     End Sub
-
 
 End Class
