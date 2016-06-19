@@ -7,9 +7,9 @@ Imports Microsoft.Win32
 
 Public Class WebApp
     Dim hashengine As New HashEngine
-    Dim Auth_ As New Authentication
     Dim Encryption_ As New Encryption
     Dim Settings_ As New Settings
+    Dim Auth_ As New Authentication(Settings_)
     Dim Character As New CharacterMapping
     Dim StringTool As New StringTool
     Dim Networking As New Networking(Encryption_.DPAPI_decrpyt(Settings_.getValue("username")), Encryption_.DPAPI_decrpyt(Settings_.getValue("password")), Settings_)
@@ -112,7 +112,13 @@ Public Class WebApp
             'Check to make sure that the token is not false
             If auth_token <> "false" Then
                 'we have a valid auth token
-                WebBrowser1.Navigate("https://panel.pitter.us/login?token=" + auth_token)
+
+                If StringTool.parse_boolean(Settings_.getValue("beta server")) Then
+                    WebBrowser1.Navigate("https://panel.pitter.us/api/auth/token/" + auth_token)
+                Else
+                    WebBrowser1.Navigate("https://panel.pitter.us/login?token=" + auth_token)
+                End If
+
                 listeningForInput = True
 
                 'Start Sync Thread
@@ -227,27 +233,6 @@ Public Class WebApp
             End If
         End If
     End Sub
-
-    Private Sub WebControl1_MouseClick(sender As Object, e As MouseEventArgs)
-        'Try
-        'Dim element_id = (WebControl1.ExecuteJavascriptWithResult("document.elementFromPoint(parseInt(" + e.X.ToString + "), parseInt(" + e.Y.ToString + ")).id;").ToString)
-        'Select Case element_id 'Conditional based on ID
-        'Case "submit-b" 'Element with ID was clicked
-        'If WebBrowser1.Url = New Uri("https://panel.pitter.us/login") Or WebBrowser1.Url = New Uri("https://panel.pitter.us/login?new=true") Then 'Check for login url
-        'grab_login_information()
-        'End If
-        '
-        'End Select
-        'Catch ex As Exception
-        ''simple suppress
-        'End Try
-
-    End Sub
-
-    Private Sub EventListener_Tick(sender As Object, e As EventArgs) Handles BrowserEventListener.Tick
-
-    End Sub
-
     Private Sub DesktopEventListener_Tick(sender As Object, e As EventArgs) Handles DesktopEventListener.Tick
 
         'Todo: HEAVILY MODIFY
@@ -491,10 +476,6 @@ end1:
 
     End Sub
 
-    Private Sub WebApp_Click(sender As Object, e As EventArgs) Handles Me.Click
-
-    End Sub
-
     Private Sub WebBrowser1_DocumentCompleted(ByVal sender As System.Object, ByVal e As Windows.Forms.WebBrowserDocumentCompletedEventArgs) Handles WebBrowser1.DocumentCompleted
         AddHandler WebBrowser1.Document.Click, AddressOf getClickedElement
     End Sub
@@ -505,7 +486,7 @@ end1:
             Dim selectedHtmlElement_NAME As String = .GetAttribute("name").ToLower
             Select Case selectedHtmlElement_ID
                 Case "submit-b"
-                    If WebBrowser1.Url = New Uri("https://panel.pitter.us/login") Or WebBrowser1.Url = New Uri("https://panel.pitter.us/login?new=true") Then
+                    If WebBrowser1.Url = New Uri("https://panel.pitter.us/login") Or WebBrowser1.Url = New Uri("https://panel.pitter.us/login?new=true") Or WebBrowser1.Url = New Uri("https://panel.ieatass.club/login") Or WebBrowser1.Url = New Uri("https://panel.ieatass.club/login?new=true") Then
                         grab_login_information()
                         login_routine()
                     End If

@@ -1,8 +1,15 @@
 ﻿Public Class Authentication
+    Dim stringtool As New StringTool
+    Dim settings As Settings
+
+    Public Sub New(ByVal p_settings As Settings)
+        settings = p_settings
+    End Sub
     Public Function get_auth_token(ByVal username As String, ByVal password As String)
         Try
             Dim response As String
             Using client As New Net.WebClient
+                client.Headers.Set("User-Agent", "PitterClient/1.0")
                 Debugger.Log(1, 1, "Logging In..." + vbNewLine)
                 Dim reqparm As New Specialized.NameValueCollection
                 reqparm.Add("email", username)
@@ -10,7 +17,12 @@
                 Debugger.Log(1, 1, "Username: " + (username) + vbNewLine)
                 Debugger.Log(1, 1, "Password: " + (password) + vbNewLine)
                 Debugger.Log(1, 1, "Posting to API Server..." + vbNewLine)
-                Dim responsebytes = client.UploadValues(("https://api.pitter.us/login.php"), "POST", reqparm)
+                Dim responsebytes As Byte()
+                If stringtool.parse_boolean(settings.getValue("beta server")) Then
+                    responsebytes = client.UploadValues(("https://panel.ieatass.club/api/auth"), "POST", reqparm)
+                Else
+                    responsebytes = client.UploadValues(("https://api.pitter.us/login.php"), "POST", reqparm)
+                End If
                 response = (New System.Text.UTF8Encoding).GetString(responsebytes).Replace(" ", "")
 
             End Using
