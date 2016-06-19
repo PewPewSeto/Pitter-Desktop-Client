@@ -96,7 +96,13 @@ Public Class WebApp
 
             'Attempt to get authentication token
             Try
-                auth_token = Auth_.get_auth_token(
+                If StringTool.parse_boolean(Settings_.getValue("beta server")) Then
+                    auth_token = Auth_.get_auth_token(
+                    decrpyted_username,
+                    decrpyted_password
+                    )
+                Else
+                    auth_token = Auth_.get_auth_token(
                     Encryption_.base64_encode(
                         decrpyted_username
                         ),
@@ -104,6 +110,7 @@ Public Class WebApp
                         decrpyted_password
                         )
                     )
+                End If
             Catch ex As Exception
                 MsgBox("Failed to gather authentication token", MsgBoxStyle.Critical, "Pitter")
                 Application.Exit()

@@ -27,5 +27,4 @@ C:\Users\Andrew Haughie\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debu
 C:\Users\Andrew Haughie\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\Pitter.Modern.resources
 C:\Users\Andrew Haughie\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\Pitter.Resources.resources
 C:\Users\Andrew Haughie\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\Pitter.vbproj.GenerateResource.Cache
-C:\Users\Andrew Haughie\Documents\GitHub\Pitter-Desktop-Client\pitter-2\bin\Debug\pitter.exe.CodeAnalysisLog.xml
-C:\Users\Andrew Haughie\Documents\GitHub\Pitter-Desktop-Client\pitter-2\bin\Debug\pitter.exe.lastcodeanalysissucceeded
+C:\Users\Andrew Haughie\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\Pitter.vbprojResolveAssemblyReference.cache

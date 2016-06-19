@@ -9,7 +9,7 @@
         Try
             Dim response As String
             Using client As New Net.WebClient
-                client.Headers.Add("User-Agent", "PitterClient/1.0")
+                client.Headers("User-Agent") = ("PitterClient/1.0")
                 Debugger.Log(1, 1, "Logging In..." + vbNewLine)
                 Dim reqparm As New Specialized.NameValueCollection
                 reqparm.Add("email", username)
