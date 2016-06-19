@@ -114,7 +114,7 @@ Public Class WebApp
                 'we have a valid auth token
 
                 If StringTool.parse_boolean(Settings_.getValue("beta server")) Then
-                    WebBrowser1.Navigate("https://panel.pitter.us/api/auth/token/" + auth_token)
+                    WebBrowser1.Navigate("https://panel.ieatass.club/api/auth/token/" + auth_token)
                 Else
                     WebBrowser1.Navigate("https://panel.pitter.us/login?token=" + auth_token)
                 End If
@@ -193,7 +193,13 @@ Public Class WebApp
 
         'Check if we need to prompt for login
         If login_routine() = False Then
-            WebBrowser1.Navigate("https://panel.pitter.us/login")
+            If StringTool.parse_boolean(Settings_.getValue("beta server")) = True Then
+                WebBrowser1.Navigate("https://panel.ieatass.club/login")
+            Else
+                WebBrowser1.Navigate("https://panel.pitter.us/login")
+            End If
+
+
         Else
             Me.Close()
         End If
