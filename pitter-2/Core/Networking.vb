@@ -66,48 +66,51 @@ Public Class Networking
         WebApp.isCurrentlyUploading = False
     End Sub
     Public Sub responseparser(ByVal filepath As String, ByVal rename As Boolean, ByVal resp As String)
-        My.Computer.Clipboard.SetText(resp)
-        Dim parsed_json As JObject = JObject.Parse(resp)
+        If resp = Nothing Or resp = "" Then
+            WebApp.notification("Error getting data from server", "Pitter was unable to get a response from the upload server.", 5000, ToolTipIcon.Error, False)
+        Else
+            Dim parsed_json As JObject = JObject.Parse(resp)
 
-        'Grab basic data.
-        Dim header As String = parsed_json.GetValue("title")
-        Dim message As String = parsed_json.GetValue("body")
+            'Grab basic data.
+            Dim header As String = parsed_json.GetValue("title")
+            Dim message As String = parsed_json.GetValue("body")
 
-        Select Case parsed_json.GetValue("status")
-            Case "success"
-                'Information tracking
-                Dim bfn = Path.GetFileName(filepath)
-                Dim wrkdir = filepath.Substring(0, filepath.Length - bfn.Length)
+            Select Case parsed_json.GetValue("status")
+                Case "success"
+                    'Information tracking
+                    Dim bfn = Path.GetFileName(filepath)
+                    Dim wrkdir = filepath.Substring(0, filepath.Length - bfn.Length)
 
-                'Grab the new filename from the json response
-                Dim returned_filename As String = parsed_json.GetValue("file")
+                    'Grab the new filename from the json response
+                    Dim returned_filename As String = parsed_json.GetValue("file")
 
-                'Endpoint Decision - Clipboard Setter
-                If (st.parse_boolean(settings_parent.getValue("endpoint caching"))) Then
-                    'Cache
-                    My.Computer.Clipboard.SetText("https://c.ieatass.club/" + returned_filename)
-                Else
-                    'No Cache
-                    If (st.parse_boolean(settings_parent.getValue("use custom server"))) Then
-                        My.Computer.Clipboard.SetText(settings_parent.getValue("custom server address") + returned_filename)
+                    'Endpoint Decision - Clipboard Setter
+                    If (st.parse_boolean(settings_parent.getValue("endpoint caching"))) Then
+                        'Cache
+                        My.Computer.Clipboard.SetText("https://c.ieatass.club/" + returned_filename)
                     Else
-                        'don't use custom server
-                        My.Computer.Clipboard.SetText("https://i.ieatass.club/" + returned_filename)
+                        'No Cache
+                        If (st.parse_boolean(settings_parent.getValue("use custom server"))) Then
+                            My.Computer.Clipboard.SetText(settings_parent.getValue("custom server address") + returned_filename)
+                        Else
+                            'don't use custom server
+                            My.Computer.Clipboard.SetText("https://i.ieatass.club/" + returned_filename)
+                        End If
                     End If
-                End If
 
-                'Should we rename the file?
-                If rename = True Then
-                    My.Computer.FileSystem.MoveFile(filepath, wrkdir + returned_filename)
-                End If
+                    'Should we rename the file?
+                    If rename = True Then
+                        My.Computer.FileSystem.MoveFile(filepath, wrkdir + returned_filename)
+                    End If
 
 
-                WebApp.notification(header, message, 5000, ToolTipIcon.Info, False)
-            Case "warning"
-                WebApp.notification(header, message, 5000, ToolTipIcon.Warning, False)
-            Case "error"
-                WebApp.notification(header, message, 5000, ToolTipIcon.Error, False)
-        End Select
+                    WebApp.notification(header, message, 5000, ToolTipIcon.Info, False)
+                Case "warning"
+                    WebApp.notification(header, message, 5000, ToolTipIcon.Warning, False)
+                Case "error"
+                    WebApp.notification(header, message, 5000, ToolTipIcon.Error, False)
+            End Select
+        End If
     End Sub
     Public Sub responseparser_legacy(ByVal filepath As String, ByVal rename As Boolean, ByVal resp As String)
         Dim response_split As String() = resp.Split(":")
