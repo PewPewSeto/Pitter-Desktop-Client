@@ -57,7 +57,6 @@ Public Class Networking
                 Catch ex As Exception
                     Dim ex_f As String() = ex.ToString.Split(vbNewLine)
                     WebApp.notification("Ambigious Error while Uploading", ex_f(0), 5000, ToolTipIcon.Error, False)
-                    MsgBox(ex.ToString)
                 End Try
             Else
                 WebApp.notification("Max Filesize Exceeded", "The uploaded file exceeds 100MB in size, and cannot be processed.", 5000, ToolTipIcon.Error, False)
@@ -69,7 +68,6 @@ Public Class Networking
         If resp = Nothing Or resp = "" Then
             WebApp.notification("Error getting data from server", "Pitter was unable to get a response from the upload server.", 5000, ToolTipIcon.Error, False)
         Else
-            My.Computer.Clipboard.SetText(resp)
             Dim parsed_json As JObject = JObject.Parse(resp)
 
             'Grab basic data.
