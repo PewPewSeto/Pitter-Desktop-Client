@@ -69,6 +69,7 @@ Public Class Networking
         If resp = Nothing Or resp = "" Then
             WebApp.notification("Error getting data from server", "Pitter was unable to get a response from the upload server.", 5000, ToolTipIcon.Error, False)
         Else
+            My.Computer.Clipboard.SetText(resp)
             Dim parsed_json As JObject = JObject.Parse(resp)
 
             'Grab basic data.
