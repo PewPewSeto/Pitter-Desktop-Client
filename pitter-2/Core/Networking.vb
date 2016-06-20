@@ -38,8 +38,8 @@ Public Class Networking
                 Try
                     If st.parse_boolean(settings_parent.getValue("beta server")) Then
                         Dim mpf As New MultipartForm("https://api.ieatass.club/upload")
-                        mpf.setField("email", Encryption.base64_encode(username))
-                        mpf.setField("password", Encryption.base64_encode(password))
+                        mpf.setField("email", username)
+                        mpf.setField("password", password)
                         mpf.sendFile(filepath)
                         Dim resp = mpf.ResponseText.ToString
                         responseparser(filepath, rename, resp)
@@ -66,6 +66,7 @@ Public Class Networking
         WebApp.isCurrentlyUploading = False
     End Sub
     Public Sub responseparser(ByVal filepath As String, ByVal rename As Boolean, ByVal resp As String)
+        My.Computer.Clipboard.SetText(resp)
         Dim parsed_json As JObject = JObject.Parse(resp)
 
         'Grab basic data.

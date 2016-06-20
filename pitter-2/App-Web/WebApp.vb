@@ -205,8 +205,6 @@ Public Class WebApp
             Else
                 WebBrowser1.Navigate("https://panel.pitter.us/login")
             End If
-
-
         Else
             Me.Close()
         End If
