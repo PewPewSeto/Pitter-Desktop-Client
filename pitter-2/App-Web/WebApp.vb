@@ -56,17 +56,17 @@ Public Class WebApp
                 Return t_r
             End If
         Else
-            Select Case Settings_.getValue("image format")
+            Select Case Settings_.getValue("image format").ToString.ToLower
 
-                Case "png", "PNG"
+                Case "png"
                     Return System.Drawing.Imaging.ImageFormat.Png
-                Case "jpg", "JPG", "jpeg", "JPEG"
+                Case "jpg", "jpeg"
                     Return System.Drawing.Imaging.ImageFormat.Jpeg
-                Case "bmp", "BMP"
+                Case "bmp"
                     Return System.Drawing.Imaging.ImageFormat.Bmp
-                Case "tiff", "TIFF"
+                Case "tiff"
                     Return System.Drawing.Imaging.ImageFormat.Tiff
-                Case "gif", "gif"
+                Case "gif"
                     Return System.Drawing.Imaging.ImageFormat.Gif
                 Case Else
                     'Not defined in settings, append it and retry.
