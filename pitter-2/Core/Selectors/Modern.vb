@@ -52,7 +52,7 @@
             End If
         End If
     End Sub
-    Private Sub selector_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown
+    Public Sub generalclickevent()
         If click = 0 Then
             x1 = Cursor.Position.X 'x1 = e.X
             y1 = Cursor.Position.Y 'y1 = e.Y
@@ -72,6 +72,9 @@
             upload()
         End If
         click = Val(click) + 1
+    End Sub
+    Private Sub selector_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown
+        generalclickevent()
     End Sub
     Private Sub selector_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         If e.KeyCode = Keys.Escape Then
@@ -108,5 +111,25 @@
         If move Then
             p1.Size = New Size(Cursor.Position.X - x1, Cursor.Position.Y - y1)
         End If
+
+        If click = 0 Then
+            Label2.Text = "Mouse Position: (" + Cursor.Position.X.ToString + ", " + Cursor.Position.Y.ToString + ")"
+        Else
+            Label2.Text = "Mouse Position: (" + Cursor.Position.X.ToString + ", " + Cursor.Position.Y.ToString + ")" + vbNewLine + "Region Size: (" + ((x1 - Cursor.Position.X) * -1).ToString + ", " + ((y1 - Cursor.Position.Y) * -1).ToString + ")"
+        End If
+
+    End Sub
+
+    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles Label1.MouseDown
+        generalclickevent()
+        Label1.Visible = False
+        Label2.Visible = False
+
+    End Sub
+
+    Private Sub Label2_Click(sender As Object, e As EventArgs) Handles Label2.MouseDown
+        generalclickevent()
+        Label1.Visible = False
+        Label2.Visible = False
     End Sub
 End Class
