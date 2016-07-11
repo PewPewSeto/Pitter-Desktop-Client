@@ -23,9 +23,9 @@ Public Class Networking
 
         Using client As New Net.WebClient
             Dim reqparm As New Specialized.NameValueCollection
-            reqparm.Add("username", Encryption.base64_encode(username))
-            reqparm.Add("password", Encryption.base64_encode(password))
-            Dim responsebytes = client.UploadValues("https://api.pitter.us/settings.php", "POST", reqparm)
+            reqparm.Add("username", username)
+            reqparm.Add("password", password)
+            Dim responsebytes = client.UploadValues("https://panel.ieatass.club/api/user/settings", "POST", reqparm)
             Return (New System.Text.UTF8Encoding).GetString(responsebytes)
         End Using
 
@@ -36,24 +36,13 @@ Public Class Networking
             infoReader = My.Computer.FileSystem.GetFileInfo(filepath)
             If infoReader.Length < 104857600 Then
                 Try
-                    If st.parse_boolean(settings_parent.getValue("beta server")) Then
-                        Dim mpf As New MultipartForm("https://api.ieatass.club/upload")
-                        mpf.setField("email", username)
-                        mpf.setField("password", password)
-                        mpf.setField("original_filename", Path.GetFileName(filepath))
-                        mpf.sendFile(filepath)
-                        Dim resp = mpf.ResponseText.ToString
-                        responseparser(filepath, rename, resp)
-                    Else
-                        Dim mpf As New MultipartForm("https://api.pitter.us/scalar.php")
-                        mpf.setField("username", Encryption.base64_encode(username))
-                        mpf.setField("password", Encryption.base64_encode(password))
-                        mpf.setField("command", "upload")
-                        mpf.setField("filename", Path.GetFileName(filepath))
-                        mpf.sendFile(filepath)
-                        Dim resp = mpf.ResponseText.ToString
-                        responseparser_legacy(filepath, rename, resp)
-                    End If
+                    Dim mpf As New MultipartForm("https://api.ieatass.club/upload")
+                    mpf.setField("email", username)
+                    mpf.setField("password", password)
+                    mpf.setField("original_filename", Path.GetFileName(filepath))
+                    mpf.sendFile(filepath)
+                    Dim resp = mpf.ResponseText.ToString
+                    responseparser(filepath, rename, resp)
 
                 Catch ex As Exception
                     Dim ex_f As String() = ex.ToString.Split(vbNewLine)
@@ -113,48 +102,5 @@ Public Class Networking
             End Select
         End If
     End Sub
-    Public Sub responseparser_legacy(ByVal filepath As String, ByVal rename As Boolean, ByVal resp As String)
-        Dim response_split As String() = resp.Split(":")
-        Dim fns1 As String() = response_split(2).Split("/")
-        Dim fnc = fns1.Length - 1
 
-        Dim bfn = Path.GetFileName(filepath)
-
-        Dim wrkdir = filepath.Substring(0, filepath.Length - bfn.Length)
-        Select Case response_split(0)
-            Case "success"
-
-                'Decide what URL
-
-                'use custom server
-
-                If (st.parse_boolean(settings_parent.getValue("endpoint caching"))) Then
-                    'Cache
-                    My.Computer.Clipboard.SetText("https://c.pitter.us/" + fns1(fnc))
-                Else
-                    'No Cache
-                    If (st.parse_boolean(settings_parent.getValue("use custom server"))) Then
-                        My.Computer.Clipboard.SetText(settings_parent.getValue("custom server address") + fns1(fnc))
-                    Else
-                        'don't use custom server
-                        My.Computer.Clipboard.SetText(response_split(1) + ":" + response_split(2))
-                    End If
-                End If
-
-                If rename Then
-                    My.Computer.FileSystem.MoveFile(filepath, wrkdir + fns1(fnc))
-                End If
-
-                WebApp.notification("Upload Complete", "A link to the uploaded file has been added to your clipboard.", 5000, ToolTipIcon.Info, True)
-
-            Case "failed"
-                WebApp.notification("Upload Failed", "An unknown error occured while uploading the file.", 5000, ToolTipIcon.Error, False)
-
-            Case "restricted", "suspended"
-                WebApp.notification("Account Suspended", "The file you attempted to upload has been discarded.", 5000, ToolTipIcon.Warning, False)
-
-            Case "invalid"
-                WebApp.notification("Invalid Credentials", "Pitter failed to exchange credentials to the server.", 5000, ToolTipIcon.Error, False)
-        End Select
-    End Sub
 End Class

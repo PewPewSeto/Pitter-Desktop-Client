@@ -96,21 +96,10 @@ Public Class WebApp
 
             'Attempt to get authentication token
             Try
-                If StringTool.parse_boolean(Settings_.getValue("beta server")) Then
-                    auth_token = Auth_.get_auth_token(
+                auth_token = Auth_.get_auth_token(
                     decrpyted_username,
                     decrpyted_password
                     )
-                Else
-                    auth_token = Auth_.get_auth_token(
-                    Encryption_.base64_encode(
-                        decrpyted_username
-                        ),
-                    Encryption_.base64_encode(
-                        decrpyted_password
-                        )
-                    )
-                End If
             Catch ex As Exception
                 MsgBox("Failed to gather authentication token", MsgBoxStyle.Critical, "Pitter")
                 Application.Exit()
@@ -120,11 +109,7 @@ Public Class WebApp
             If auth_token <> "false" Then
                 'we have a valid auth token
 
-                If StringTool.parse_boolean(Settings_.getValue("beta server")) Then
-                    WebBrowser1.Navigate("https://panel.ieatass.club/api/auth/token/" + auth_token)
-                Else
-                    WebBrowser1.Navigate("https://panel.pitter.us/login?token=" + auth_token)
-                End If
+                WebBrowser1.Navigate("https://panel.ieatass.club/api/auth/token/" + auth_token)
 
                 listeningForInput = True
 
@@ -200,11 +185,7 @@ Public Class WebApp
 
         'Check if we need to prompt for login
         If login_routine() = False Then
-            If StringTool.parse_boolean(Settings_.getValue("beta server")) = True Then
-                WebBrowser1.Navigate("https://panel.ieatass.club/login")
-            Else
-                WebBrowser1.Navigate("https://panel.pitter.us/login")
-            End If
+            WebBrowser1.Navigate("https://panel.ieatass.club/login")
         Else
             Me.Close()
         End If

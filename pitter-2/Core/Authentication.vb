@@ -18,11 +18,7 @@
                 Debugger.Log(1, 1, "Password: " + (password) + vbNewLine)
                 Debugger.Log(1, 1, "Posting to API Server..." + vbNewLine)
                 Dim responsebytes As Byte()
-                If stringtool.parse_boolean(settings.getValue("beta server")) Then
-                    responsebytes = client.UploadValues(("https://panel.ieatass.club/api/auth"), "POST", reqparm)
-                Else
-                    responsebytes = client.UploadValues(("https://api.pitter.us/login.php"), "POST", reqparm)
-                End If
+                responsebytes = client.UploadValues(("https://panel.ieatass.club/api/auth"), "POST", reqparm)
                 response = (New System.Text.UTF8Encoding).GetString(responsebytes).Replace(" ", "")
 
             End Using
