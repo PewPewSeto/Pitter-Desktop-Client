@@ -25,7 +25,7 @@ Public Class Networking
             Dim reqparm As New Specialized.NameValueCollection
             reqparm.Add("username", username)
             reqparm.Add("password", password)
-            Dim responsebytes = client.UploadValues("https://panel.ieatass.club/api/user/settings", "POST", reqparm)
+            Dim responsebytes = client.UploadValues("https://panel.ieatass.club/api/user/settings/client", "POST", reqparm)
             Return (New System.Text.UTF8Encoding).GetString(responsebytes)
         End Using
 

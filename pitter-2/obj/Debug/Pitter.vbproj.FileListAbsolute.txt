@@ -12,7 +12,6 @@ C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\bin\Debug\Newton
 C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\pitter.exe
 C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\pitter.xml
 C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\pitter.pdb
-C:\Users\Elycin\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\Pitter.vbprojResolveAssemblyReference.cache
 C:\Users\Andrew Haughie\Documents\GitHub\Pitter-Desktop-Client\pitter-2\bin\Debug\pitter.exe.config
 C:\Users\Andrew Haughie\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\pitter.exe
 C:\Users\Andrew Haughie\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\pitter.xml
