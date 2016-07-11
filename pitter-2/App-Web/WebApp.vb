@@ -156,10 +156,13 @@ Public Class WebApp
     End Sub
     Private Sub Pitter_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         'PROCESS CHECK
-        Me.WindowState = FormWindowState.Minimized
-        Me.ShowInTaskbar = False
-        e.Cancel = True
-
+        If (e.CloseReason = CloseReason.WindowsShutDown) Then
+            killproc()
+        Else
+            Me.WindowState = FormWindowState.Minimized
+            Me.ShowInTaskbar = False
+            e.Cancel = True
+        End If
     End Sub
 
     Private Sub Pitter_Load(sender As Object, e As EventArgs) Handles MyBase.Load

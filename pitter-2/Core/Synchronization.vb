@@ -15,8 +15,9 @@ Public Class Synchronization
     End Sub
 
     Public Sub sync()
+        Dim json_string As String
         Try
-            Dim json_string As String = Networking_super.get_settings()
+            json_string = Networking_super.get_settings()
             Dim l_json As JObject = JObject.Parse(json_string)
             Dim updated As Boolean = False
 
@@ -35,6 +36,7 @@ Public Class Synchronization
             End If
         Catch ex As Exception
             'Well, TRY AGAIN!
+
         End Try
 
     End Sub
