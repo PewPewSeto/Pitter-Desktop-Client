@@ -66,20 +66,20 @@ Public Class Capture
 
         If r = Nothing Then
             GetWindowRect(GetForegroundWindow, windowRect)
-            width = windowRect.right - windowRect.left
-            height = windowRect.bottom - windowRect.top
+            width = (windowRect.right - 8) - (windowRect.left + 8)
+            height = (windowRect.bottom - 9) - (windowRect.top)
         Else
-            windowRect.left = r.Left + 1
-            windowRect.top = r.Top + 1
-            width = r.Width - 1
-            height = r.Height - 1
+            windowRect.left = r.Left + 8
+            windowRect.top = r.Top + 8
+            width = r.Width - 8
+            height = r.Height - 8
             windowRect.right = windowRect.left + width
             windowRect.bottom = windowRect.top + height
         End If
 
         Dim img As Bitmap = New Bitmap(width, height)
         Dim gr As Graphics = Graphics.FromImage(img)
-        gr.CopyFromScreen(windowRect.left, windowRect.top, 0, 0, New Size(width, height))
+        gr.CopyFromScreen((windowRect.left + 8), windowRect.top + 3, 0, 0, New Size(width, height))
         gr.Save()
         gr.Save()
         img.Save(WebApp.save_location + "temp." + WebApp.get_image_save_type(True), WebApp.get_image_save_type(False))

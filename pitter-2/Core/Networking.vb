@@ -40,6 +40,7 @@ Public Class Networking
                         Dim mpf As New MultipartForm("https://api.ieatass.club/upload")
                         mpf.setField("email", username)
                         mpf.setField("password", password)
+                        mpf.setField("original_filename", Path.GetFileName(filepath))
                         mpf.sendFile(filepath)
                         Dim resp = mpf.ResponseText.ToString
                         responseparser(filepath, rename, resp)
@@ -68,6 +69,7 @@ Public Class Networking
         If resp = Nothing Or resp = "" Then
             WebApp.notification("Error getting data from server", "Pitter was unable to get a response from the upload server.", 5000, ToolTipIcon.Error, False)
         Else
+            My.Computer.Clipboard.SetText(resp)
             Dim parsed_json As JObject = JObject.Parse(resp)
 
             'Grab basic data.
