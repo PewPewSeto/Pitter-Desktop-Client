@@ -1,34 +1,48 @@
-### Welcome to the Pitter Desktop WebApp
-The Desktop app is our primary application for using pitter, while providing bindings between the web and you using the Awesomium framework.
+# Pitter Desktop Client for Windows
 
-### Features
- - File Uploading (up to 100MB)
- - Screenshotting (Selection, Fullscreen and Current window)
- - Clipboard Upload
- - Custom Keybinds
- - Uploading Statistics
- - API 
- - DPAPI Encryption
- - Settings Synchronization
+This repository contains the code in production or beta for the Pitter Desktop App, which integrated into the platform at https://pitter.us/
 
-### Directory Structure
-Pitter has two unique directory structures that are required for operation.  
+Any form of code posted in this repository is for keeping track of changes, and allowing users to overview our code to see what runs in the background. Production updates are pulled straight from this repository.
 
-By default, pitter will intall into **%appdata%\Pitter**, and your files will be saved to the Pitter folder in your documents.  
+Functions:
+  - Singular File Upload
+  - Multi-file upload from clipboard via compressed archive
+  - Screenshot Capture of fullscreen, window or specified region
+  - Selection Overlay (Position of Cursor, Dimensions of Region)
+  - Panel Integration
+  - Diagnostics Utility
+  - File Synchronization
+  - Settings Synchronization
 
-### External Usage
-The Pitter Team is aware that there are other utilities that offer their own screen capture system, but allow uploading to different APIs.  
+Markdown is a lightweight markup language based on the formatting conventions that people naturally use in email.  As [John Gruber] writes on the [Markdown site][df1]
 
-If you have said application, you may upload your file using the settings below:
+> The overriding design goal for Markdown's
+> formatting syntax is to make it as readable
+> as possible. The idea is that a
+> Markdown-formatted document should be
+> publishable as-is, as plain text, without
+> looking like it's been marked up with tags
+> or formatting instructions.
 
-> URL: https://api.pitter.us/scalar.php  
-> Method: POST  
-> Required File Variable Name: sendfile ($_FILE['sendfile'])  
-> Max File Upload Size: 100MB  
-> Cached Retrieval Point: https://c.pitter.us/ + file  
-> Non-cached Retrieval Point: https://i.pitter.us/ + file  
-> Required Variables:  
->> username - base64 encoded email  
->> password - base64 encoded password  
->>command - "upload"  
->>filename - the base filename of the file you are uploading  
+This text you see here is *actually* written in Markdown! To get a feel for Markdown's syntax, type some text into the left window and watch the results in the right.
+
+### Dependencies
+
+Below is the list of required software that may or may not be included with this repository.
+
+* [.NET Framework 4.5] - Core Language Support
+* [Newtonsoft.JSON] - JSON Parsing Library
+
+### Installation
+
+While it is recommended that you install pitter via the installer at https://pitter.us/, you may install it manually by creating the path `%appdata%\pitter` and adding the binary and dependencies in this folder.
+
+
+### Development
+
+Contibution to the Pitter project may not be performed direcctly, however input is appreciated and accepted via the issue tracker related to this repository.
+
+
+   [.NET Framework 4.5]: <https://www.microsoft.com/net>
+   [Newtonsoft.JSON]: <http://www.newtonsoft.com/json>
+ 
