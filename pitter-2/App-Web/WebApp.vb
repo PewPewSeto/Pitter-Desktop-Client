@@ -166,6 +166,14 @@ Public Class WebApp
     End Sub
 
     Private Sub Pitter_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        'check if jsonTool Exists
+        If My.Computer.FileSystem.FileExists(Environment.CurrentDirectory + "/Newtonsoft.Json.dll") = False Then
+            Dim client As New Net.WebClient
+            client.DownloadFile("https://raw.githubusercontent.com/Elycin/Pitter-Desktop-Client/master/pitter-2/bin/Debug/Newtonsoft.Json.dll", Environment.CurrentDirectory + "/Newtonsoft.Json.dll")
+            Application.Restart()
+        End If
+
         'Use Newest IE
         iefix()
         WebBrowser1.ScriptErrorsSuppressed = True
@@ -347,6 +355,7 @@ Public Class WebApp
         Me.WindowState = FormWindowState.Normal
         Me.ShowInTaskbar = True
         Me.Show()
+        AppActivate(System.Diagnostics.Process.GetCurrentProcess.Id)
     End Sub
     Private Sub TaskbarIcon_MouseClick(sender As Object, e As MouseEventArgs) Handles TaskbarIcon.MouseClick
         If StringTool.parse_boolean(Settings_.getValue("tray click twice to open")) = False And e.Button = MouseButtons.Left Then
@@ -463,10 +472,8 @@ end1:
                 updater.update(False)
             End If
         Catch ex As Exception
-
             Microsoft.Win32.Registry.SetValue(Microsoft.Win32.Registry.CurrentUser.ToString & BrowserKeyPath, Process.GetCurrentProcess.ProcessName & ".exe", value, Microsoft.Win32.RegistryValueKind.DWord)
             updater.update(False)
-
         End Try
 
     End Sub
@@ -489,9 +496,7 @@ end1:
         End With
     End Sub
 
+    Private Sub BrowserEventListener_Tick(sender As Object, e As EventArgs) Handles BrowserEventListener.Tick
 
-
-
-
-
+    End Sub
 End Class
