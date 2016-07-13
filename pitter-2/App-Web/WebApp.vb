@@ -109,7 +109,7 @@ Public Class WebApp
             If auth_token <> "false" Then
                 'we have a valid auth token
 
-                WebBrowser1.Navigate("https://panel.ieatass.club/api/auth/token/" + auth_token)
+                WebBrowser1.Navigate("https://panel.pitter.us/api/auth/token/" + auth_token)
 
                 listeningForInput = True
 
@@ -196,7 +196,7 @@ Public Class WebApp
 
         'Check if we need to prompt for login
         If login_routine() = False Then
-            WebBrowser1.Navigate("https://panel.ieatass.club/login")
+            WebBrowser1.Navigate("https://panel.pitter.us/login")
         Else
             Me.Close()
         End If

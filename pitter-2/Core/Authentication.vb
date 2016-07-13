@@ -18,7 +18,7 @@
                 Debugger.Log(1, 1, "Password: " + (password) + vbNewLine)
                 Debugger.Log(1, 1, "Posting to API Server..." + vbNewLine)
                 Dim responsebytes As Byte()
-                responsebytes = client.UploadValues(("https://panel.ieatass.club/api/auth"), "POST", reqparm)
+                responsebytes = client.UploadValues(("https://panel.pitter.us/api/auth"), "POST", reqparm)
                 response = (New System.Text.UTF8Encoding).GetString(responsebytes).Replace(" ", "")
 
             End Using

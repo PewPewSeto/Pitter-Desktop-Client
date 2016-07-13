@@ -25,7 +25,7 @@ Public Class Networking
             Dim reqparm As New Specialized.NameValueCollection
             reqparm.Add("username", username)
             reqparm.Add("password", password)
-            Dim responsebytes = client.UploadValues("https://panel.ieatass.club/api/user/settings/client", "POST", reqparm)
+            Dim responsebytes = client.UploadValues("https://panel.pitter.us/api/user/settings/client", "POST", reqparm)
             Return (New System.Text.UTF8Encoding).GetString(responsebytes)
         End Using
 
@@ -36,7 +36,7 @@ Public Class Networking
             infoReader = My.Computer.FileSystem.GetFileInfo(filepath)
             If infoReader.Length < 104857600 Then
                 Try
-                    Dim mpf As New MultipartForm("https://api.ieatass.club/upload")
+                    Dim mpf As New MultipartForm("https://api.pitter.us/upload")
                     mpf.setField("email", username)
                     mpf.setField("password", password)
                     mpf.setField("original_filename", Path.GetFileName(filepath))
@@ -77,14 +77,14 @@ Public Class Networking
                     'Endpoint Decision - Clipboard Setter
                     If (st.parse_boolean(settings_parent.getValue("endpoint caching"))) Then
                         'Cache
-                        My.Computer.Clipboard.SetText("https://c.ieatass.club/" + returned_filename)
+                        My.Computer.Clipboard.SetText("https://c.pitter.us/" + returned_filename)
                     Else
                         'No Cache
                         If (st.parse_boolean(settings_parent.getValue("use custom server"))) Then
                             My.Computer.Clipboard.SetText(settings_parent.getValue("custom server address") + returned_filename)
                         Else
                             'don't use custom server
-                            My.Computer.Clipboard.SetText("https://i.ieatass.club/" + returned_filename)
+                            My.Computer.Clipboard.SetText("https://i.pitter.us/" + returned_filename)
                         End If
                     End If
 
