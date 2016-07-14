@@ -93,7 +93,6 @@ Public Class Networking
                         My.Computer.FileSystem.MoveFile(filepath, wrkdir + returned_filename)
                     End If
 
-
                     WebApp.notification(header, message, 5000, ToolTipIcon.Info, False)
                 Case "warning"
                     WebApp.notification(header, message, 5000, ToolTipIcon.Warning, False)

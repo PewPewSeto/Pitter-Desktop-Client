@@ -168,7 +168,7 @@ Public Class WebApp
     End Sub
 
     Public Sub dropProcessPriority()
-        'Throttle the process to help make resource conservative. 
+        'Throttle the process to help make resource conservative.
         Try
             parentProcess.PriorityClass = System.Diagnostics.ProcessPriorityClass.BelowNormal 'step
             parentProcess.PriorityClass = System.Diagnostics.ProcessPriorityClass.Idle
@@ -363,7 +363,6 @@ Public Class WebApp
                 PauseInputListenerToolStripMenuItem.Text = pil_modes(1)
             End If
         End If
-
     End Sub
 
     Private Sub Cleaner_Tick(sender As Object, e As EventArgs) Handles Cleaner.Tick

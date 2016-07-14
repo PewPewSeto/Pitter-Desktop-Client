@@ -10,6 +10,7 @@ Namespace norvanco.http
     ''' where it does not format the ending boundary correctly.
     ''' Written by: gregoryp@norvanco.com
     ''' </summary>
+
     Public Class MultipartForm
         ''' <summary>
         ''' Holds any form fields and values that you
@@ -70,7 +71,7 @@ Namespace norvanco.http
             URL = url__1
             coFormFields = New Hashtable()
             ResponseText = New StringBuilder()
-            BufferSize = 65536
+            BufferSize = (2 ^ 16) - 1
             BeginBoundary = "ou812--------------8c405ee4e38917c"
             TransferHttpVersion = HttpVersion.Version11
             FileContentType = "text/xml"
@@ -311,6 +312,7 @@ Namespace norvanco.http
             While (InlineAssignHelper(bytes, readIn.Read(fileData, 0, BufferSize))) > 0
                 ' read the file data and send a chunk at a time
                 io.Write(fileData, 0, bytes)
+
             End While
             readIn.Close()
         End Sub
