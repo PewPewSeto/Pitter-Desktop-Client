@@ -13,7 +13,7 @@ Public Class WebApp
     Dim Character As New CharacterMapping
     Dim StringTool As New StringTool
     Dim Networking As New Networking(Encryption_.DPAPI_decrpyt(Settings_.getValue("username")), Encryption_.DPAPI_decrpyt(Settings_.getValue("password")), Settings_)
-    Dim Capture_ As New Capture(Encryption_, Settings_, Networking, StringTool)
+    Dim Capture_ As New Capture(Me, Encryption_, Settings_, Networking, StringTool)
     Dim Synchronization As New Synchronization(Me, Networking, Settings_)
     Dim updater As New Updater(Me, Settings_)
 
@@ -171,7 +171,6 @@ Public Class WebApp
         'Throttle the process to help make resource conservative.
         Try
             parentProcess.PriorityClass = System.Diagnostics.ProcessPriorityClass.BelowNormal 'step
-            parentProcess.PriorityClass = System.Diagnostics.ProcessPriorityClass.Idle
         Catch ex As Exception
             'This might fail if we're administrator, but we tried.
         End Try
@@ -186,11 +185,6 @@ Public Class WebApp
 
     Private Sub Pitter_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        Using g As Graphics = Me.CreateGraphics()
-            Me.AutoScaleDimensions = New System.Drawing.SizeF(g.DpiX, g.DpiY)
-            Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-            Me.Hide()
-        End Using
 
         'Throttle process
         dropProcessPriority()

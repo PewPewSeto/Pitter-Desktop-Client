@@ -20,6 +20,17 @@
         End Try
 
         Try
+            Dim tg As Graphics = Me.CreateGraphics
+
+            Dim scalex = tg.DpiX / 96.0F
+            Dim scaley = tg.DpiY / 96.0F
+
+            x1 = Math.Round(x1 * scalex)
+            x2 = Math.Round(x2 * scalex)
+
+            y1 = Math.Round(y1 * scaley)
+            y2 = Math.Round(y2 * scaley)
+
             Dim client As New Net.WebClient
             Dim simg As New Bitmap(x2 - x1, y2 - y1)
             Dim g As Graphics = Graphics.FromImage(simg)
@@ -34,6 +45,7 @@
             Me.Close()
 
         Catch ex As Exception
+            MsgBox(ex.ToString)
             WebApp.notification("Invalid Selection Region", "You attempted to select an invalid region of the screen, please work diagnally down from the top left to the bottom right.", 5000, ToolTipIcon.Info, False)
             WebApp.isCurrentlyUploading = False
             Me.Close()
@@ -85,10 +97,6 @@
     End Sub
 
     Private Sub selector_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Using g As Graphics = Me.CreateGraphics()
-            Me.AutoScaleDimensions = New System.Drawing.SizeF(g.DpiX, g.DpiY)
-            Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
-        End Using
 
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Location = New Point(0, 0)

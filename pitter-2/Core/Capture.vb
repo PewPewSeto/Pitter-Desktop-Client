@@ -6,8 +6,10 @@ Public Class Capture
     Dim Settings As Settings
     Dim Networking As Networking
     Dim stringtool As New StringTool
+    Dim parent As WebApp
 
-    Sub New(ByVal enc_c As Encryption, ByVal set_c As Settings, ByVal net_c As Networking, ByVal str_c As StringTool)
+    Sub New(ByVal pparent As WebApp, ByVal enc_c As Encryption, ByVal set_c As Settings, ByVal net_c As Networking, ByVal str_c As StringTool)
+        parent = pparent
         Encryption = enc_c
         Settings = set_c
         Networking = net_c
@@ -36,13 +38,18 @@ Public Class Capture
         Dim H As Integer = My.Computer.Screen.Bounds.Height
         Dim simg As Bitmap
         Dim g As Graphics
+        Dim tg As Graphics = parent.CreateGraphics
+
+        Dim scalex = tg.DpiX / 96.0F
+        Dim scaley = tg.DpiY / 96.0F
+
         If stringtool.parse_boolean(Settings.getValue("fullscreen means all monitors")) = True Then
             simg = New Bitmap(
                         Screen.AllScreens.Sum(Function(s As Screen) s.Bounds.Width),
                         Screen.AllScreens.Max(Function(s As Screen) s.Bounds.Height))
             g = Graphics.FromImage(simg)
-            g.CopyFromScreen(SystemInformation.VirtualScreen.X,
-                       SystemInformation.VirtualScreen.Y,
+            g.CopyFromScreen(Math.Round(SystemInformation.VirtualScreen.X * scalex),
+                       Math.Round(SystemInformation.VirtualScreen.Y * scaley),
                        0, 0, SystemInformation.VirtualScreen.Size)
         Else
             simg = New Bitmap(W, H)
