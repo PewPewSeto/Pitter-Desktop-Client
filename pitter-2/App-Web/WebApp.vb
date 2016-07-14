@@ -32,6 +32,8 @@ Public Class WebApp
     Dim principal = New WindowsPrincipal(identity)
     Dim isElevated As Boolean = principal.IsInRole(WindowsBuiltInRole.Administrator)
 
+    Dim parentProcess As System.Diagnostics.Process = System.Diagnostics.Process.GetCurrentProcess()
+
     <DllImport("user32.dll")> Shared Function GetAsyncKeyState(ByVal vKey As System.Windows.Forms.Keys) As Short
     End Function
     Public Sub notification(ByVal title As String, ByVal message As String, ByVal time As Integer, ByVal icon As ToolTipIcon, ByVal chime As Boolean)
@@ -165,7 +167,26 @@ Public Class WebApp
         End If
     End Sub
 
+    Public Sub dropProcessPriority()
+        'Throttle the process to help make resource conservative. 
+        Try
+            parentProcess.PriorityClass = System.Diagnostics.ProcessPriorityClass.BelowNormal 'step
+            parentProcess.PriorityClass = System.Diagnostics.ProcessPriorityClass.Idle
+        Catch ex As Exception
+            'This might fail if we're administrator, but we tried.
+        End Try
+
+        'Drop affinity.
+        Try
+            parentProcess.ProcessorAffinity = 1
+        Catch ex As Exception
+            'This might fail if we're administrator, but we tried.
+        End Try
+    End Sub
+
     Private Sub Pitter_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'Throttle process
+        dropProcessPriority()
 
         'check if jsonTool Exists
         If My.Computer.FileSystem.FileExists(Environment.CurrentDirectory + "/Newtonsoft.Json.dll") = False Then
