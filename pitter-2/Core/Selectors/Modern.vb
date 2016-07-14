@@ -41,8 +41,7 @@
             Dim simg As New Bitmap(or_x2 - or_x1, or_y2 - or_y1)
             Dim g As Graphics = Graphics.FromImage(simg)
 
-            'g.CopyFromScreen(x1, y1, 0, 0, New Size(x1 - x2, y2 - y1), CopyPixelOperation.SourceCopy)
-            g.CopyFromScreen(x1, y1, 0, 0, New Size((or_x1 - or_x2) * -1, (or_x1 - or_x2) * -1), CopyPixelOperation.SourceCopy)
+            g.CopyFromScreen(x1, y1, 0, 0, New Size(x2 - x1, y2 - y1), CopyPixelOperation.SourceCopy)
 
 
             simg.Save(WebApp.save_location + "temp." + WebApp.get_image_save_type(True), WebApp.get_image_save_type(False))
