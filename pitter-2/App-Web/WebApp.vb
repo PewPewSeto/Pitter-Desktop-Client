@@ -185,6 +185,13 @@ Public Class WebApp
     End Sub
 
     Private Sub Pitter_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        Using g As Graphics = Me.CreateGraphics()
+            Me.AutoScaleDimensions = New System.Drawing.SizeF(g.DpiX, g.DpiY)
+            Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
+            Me.Hide()
+        End Using
+
         'Throttle process
         dropProcessPriority()
 

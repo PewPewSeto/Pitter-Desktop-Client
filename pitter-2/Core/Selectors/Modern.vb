@@ -85,6 +85,11 @@
     End Sub
 
     Private Sub selector_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Using g As Graphics = Me.CreateGraphics()
+            Me.AutoScaleDimensions = New System.Drawing.SizeF(g.DpiX, g.DpiY)
+            Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi
+        End Using
+
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Location = New Point(0, 0)
         Me.Size = SystemInformation.VirtualScreen.Size
