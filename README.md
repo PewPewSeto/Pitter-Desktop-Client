@@ -13,6 +13,7 @@ Functions:
   - Diagnostics Utility
   - File Synchronization
   - Settings Synchronization
+  - Processor efficiency (Application will limit itself to one core, on the lowest priority possible)
 
 
 ### Dependencies
