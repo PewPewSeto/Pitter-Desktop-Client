@@ -48,6 +48,8 @@ Public Class Capture
                         Screen.AllScreens.Sum(Function(s As Screen) s.Bounds.Width),
                         Screen.AllScreens.Max(Function(s As Screen) s.Bounds.Height))
             g = Graphics.FromImage(simg)
+
+
             g.CopyFromScreen(Math.Round(SystemInformation.VirtualScreen.X * scalex),
                        Math.Round(SystemInformation.VirtualScreen.Y * scaley),
                        0, 0, SystemInformation.VirtualScreen.Size)

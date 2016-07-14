@@ -25,6 +25,12 @@
             Dim scale_x = tg.DpiX / 96.0F
             Dim scale_y = tg.DpiY / 96.0F
 
+            Dim or_x1 = x1
+            Dim or_x2 = x2
+
+            Dim or_y1 = y1
+            Dim or_y2 = y2
+
             x1 = Math.Round(x1 * scale_x)
             x2 = Math.Round(x2 * scale_x)
 
@@ -32,10 +38,12 @@
             y2 = Math.Round(y2 * scale_y)
 
             Dim client As New Net.WebClient
-            Dim simg As New Bitmap(x2 - x1, y2 - y1)
+            Dim simg As New Bitmap(or_x2 - or_x1, or_y2 - or_y1)
             Dim g As Graphics = Graphics.FromImage(simg)
 
-            g.CopyFromScreen(x1, y1, 0, 0, New Size(x2 - x1, y2 - y1), CopyPixelOperation.SourceCopy)
+            'g.CopyFromScreen(x1, y1, 0, 0, New Size(x1 - x2, y2 - y1), CopyPixelOperation.SourceCopy)
+            g.CopyFromScreen(x1, y1, 0, 0, New Size((or_x1 - or_x2) * -1, (or_x1 - or_x2) * -1), CopyPixelOperation.SourceCopy)
+
 
             simg.Save(WebApp.save_location + "temp." + WebApp.get_image_save_type(True), WebApp.get_image_save_type(False))
 
