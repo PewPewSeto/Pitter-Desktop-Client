@@ -22,14 +22,14 @@
         Try
             Dim tg As Graphics = Me.CreateGraphics
 
-            Dim scalex = tg.DpiX / 96.0F
-            Dim scaley = tg.DpiY / 96.0F
+            Dim scale_x = tg.DpiX / 96.0F
+            Dim scale_y = tg.DpiY / 96.0F
 
-            x1 = Math.Round(x1 * scalex)
-            x2 = Math.Round(x2 * scalex)
+            x1 = Math.Round(x1 * scale_x)
+            x2 = Math.Round(x2 * scale_x)
 
-            y1 = Math.Round(y1 * scaley)
-            y2 = Math.Round(y2 * scaley)
+            y1 = Math.Round(y1 * scale_y)
+            y2 = Math.Round(y2 * scale_y)
 
             Dim client As New Net.WebClient
             Dim simg As New Bitmap(x2 - x1, y2 - y1)
