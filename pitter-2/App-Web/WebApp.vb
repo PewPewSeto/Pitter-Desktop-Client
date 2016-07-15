@@ -12,9 +12,9 @@ Public Class WebApp
     Dim Auth_ As New Authentication(Settings_)
     Dim Character As New CharacterMapping
     Dim StringTool As New StringTool
-    Dim Networking As New Networking(Encryption_.DPAPI_decrpyt(Settings_.getValue("username")), Encryption_.DPAPI_decrpyt(Settings_.getValue("password")), Settings_)
-    Dim Capture_ As New Capture(Me, Encryption_, Settings_, Networking, StringTool)
-    Dim Synchronization As New Synchronization(Me, Networking, Settings_)
+    Dim Networking As Networking 'REDIM
+    Dim Capture_ As Capture
+    Dim Synchronization As Synchronization
     Dim updater As New Updater(Me, Settings_)
 
     Public listeningForInput As Boolean = False
@@ -114,6 +114,11 @@ Public Class WebApp
                 WebBrowser1.Navigate("https://panel.pitter.us/api/auth/token/" + auth_token)
 
                 listeningForInput = True
+
+                'REDIM
+                Networking = New Networking(Encryption_.DPAPI_decrpyt(Settings_.getValue("username")), Encryption_.DPAPI_decrpyt(Settings_.getValue("password")), Settings_)
+                Capture_ = New Capture(Me, Encryption_, Settings_, Networking, StringTool)
+                Synchronization = New Synchronization(Me, Networking, Settings_)
 
                 'Start Sync Thread
                 Synchronization.sync()
