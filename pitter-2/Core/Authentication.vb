@@ -30,7 +30,7 @@
                 Return response
             End If
         Catch ex As Exception
-            MsgBox("Pitter's frontend server's appear to be offline at this time." + vbNewLine + "We are sorry for the inconvenience and hope to be back up soon.", MsgBoxStyle.Information, "Pitter Server Status")
+            MsgBox("Pitter's frontend servers appear to be offline at this time." + vbNewLine + "We are sorry for the inconvenience and hope to be back up soon.", MsgBoxStyle.Information, "Pitter Server Status")
             MsgBox(ex.ToString)
             Application.Exit()
 
