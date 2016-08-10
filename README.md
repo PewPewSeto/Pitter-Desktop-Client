@@ -30,7 +30,7 @@ While it is recommended that you install pitter via the installer at https://pit
 
 ### Development
 
-Contibution to the Pitter project may not be performed direcctly, however input is appreciated and accepted via the issue tracker related to this repository.
+Contibution to the Pitter project may not be performed directly, however input is appreciated and accepted via the issue tracker related to this repository.
 
 
    [.NET Framework 4.5]: <https://www.microsoft.com/net>
