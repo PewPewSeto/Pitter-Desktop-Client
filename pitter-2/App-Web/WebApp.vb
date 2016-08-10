@@ -36,7 +36,6 @@ Public Class WebApp
     Dim parentProcess As System.Diagnostics.Process = System.Diagnostics.Process.GetCurrentProcess()
     Dim clicked_link As String
 
-
     <DllImport("user32.dll")> Shared Function GetAsyncKeyState(ByVal vKey As System.Windows.Forms.Keys) As Short
     End Function
     Public Sub notification(ByVal title As String, ByVal message As String, ByVal time As Integer, ByVal icon As ToolTipIcon, ByVal chime As Boolean)
@@ -192,7 +191,6 @@ Public Class WebApp
     End Sub
 
     Private Sub Pitter_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
 
         'Throttle process
         dropProcessPriority()
@@ -524,8 +522,6 @@ end1:
 
             End Try
 
-
-
             'Element action
 
             Select Case selectedHtmlElement_ID
@@ -540,6 +536,13 @@ end1:
 
     Private Sub WebBrowser1_NewWindow(sender As Object, e As CancelEventArgs) Handles WebBrowser1.NewWindow
         e.Cancel = True
+
+        'Check if we're clicking a thunbnail.
+        If clicked_link.Contains("thumb.php?src=") Then
+            clicked_link = clicked_link.Replace("thumb.php?src=", "").Replace("&x=100&y=100&f=0", "")
+        End If
         Process.Start(clicked_link)
+
+
     End Sub
 End Class

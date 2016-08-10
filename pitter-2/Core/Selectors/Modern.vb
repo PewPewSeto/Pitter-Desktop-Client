@@ -43,7 +43,6 @@
 
             g.CopyFromScreen(x1, y1, 0, 0, New Size(x2 - x1, y2 - y1), CopyPixelOperation.SourceCopy)
 
-
             simg.Save(WebApp.save_location + "temp." + WebApp.get_image_save_type(True), WebApp.get_image_save_type(False))
 
             'upload
