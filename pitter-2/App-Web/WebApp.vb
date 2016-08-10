@@ -4,6 +4,7 @@ Imports System.IO
 Imports System.Net
 Imports System.Security.Principal
 Imports Microsoft.Win32
+Imports System.ComponentModel
 
 Public Class WebApp
     Dim hashengine As New HashEngine
@@ -33,6 +34,8 @@ Public Class WebApp
     Dim isElevated As Boolean = principal.IsInRole(WindowsBuiltInRole.Administrator)
 
     Dim parentProcess As System.Diagnostics.Process = System.Diagnostics.Process.GetCurrentProcess()
+    Dim clicked_link As String
+
 
     <DllImport("user32.dll")> Shared Function GetAsyncKeyState(ByVal vKey As System.Windows.Forms.Keys) As Short
     End Function
@@ -512,6 +515,19 @@ end1:
         With WebBrowser1.Document.GetElementFromPoint(e.ClientMousePosition)
             Dim selectedHtmlElement_ID As String = .GetAttribute("id").ToLower
             Dim selectedHtmlElement_NAME As String = .GetAttribute("name").ToLower
+
+            'Attempt to see if we're clicking a link
+            'Grab the hfef
+            Try
+                clicked_link = .GetAttribute("href")
+            Catch ex As Exception
+
+            End Try
+
+
+
+            'Element action
+
             Select Case selectedHtmlElement_ID
                 Case "submit-b"
                     If WebBrowser1.Url = New Uri("https://panel.pitter.us/login") Or WebBrowser1.Url = New Uri("https://panel.pitter.us/login?new=true") Or WebBrowser1.Url = New Uri("https://panel.ieatass.club/login") Or WebBrowser1.Url = New Uri("https://panel.ieatass.club/login?new=true") Then
@@ -524,5 +540,10 @@ end1:
 
     Private Sub BrowserEventListener_Tick(sender As Object, e As EventArgs) Handles BrowserEventListener.Tick
 
+    End Sub
+
+    Private Sub WebBrowser1_NewWindow(sender As Object, e As CancelEventArgs) Handles WebBrowser1.NewWindow
+        e.Cancel = True
+        Process.Start(clicked_link)
     End Sub
 End Class
