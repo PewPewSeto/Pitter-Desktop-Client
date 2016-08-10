@@ -538,10 +538,6 @@ end1:
         End With
     End Sub
 
-    Private Sub BrowserEventListener_Tick(sender As Object, e As EventArgs) Handles BrowserEventListener.Tick
-
-    End Sub
-
     Private Sub WebBrowser1_NewWindow(sender As Object, e As CancelEventArgs) Handles WebBrowser1.NewWindow
         e.Cancel = True
         Process.Start(clicked_link)
