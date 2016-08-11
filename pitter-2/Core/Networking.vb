@@ -50,21 +50,21 @@ Public Class Networking
 
                     Catch ex As Exception
                         Dim ex_f As String() = ex.ToString.Split(vbNewLine)
-                        WebApp.notification("Ambigious Error while Uploading", ex_f(0), 5000, ToolTipIcon.Error, False)
+                        parent.notification("Ambigious Error while Uploading", ex_f(0), 5000, ToolTipIcon.Error, False)
                     End Try
                 Else
-                    WebApp.notification("Max Filesize Exceeded", "The uploaded file exceeds 100MB in size, and cannot be processed.", 5000, ToolTipIcon.Error, False)
+                    parent.notification("Max Filesize Exceeded", "The uploaded file exceeds 100MB in size, and cannot be processed.", 5000, ToolTipIcon.Error, False)
                 End If
             End If
         Else
-            WebApp.notification("Internet Conntection Unavailable", "The application is unable to reach our servers. Please check that you are connected to the internet.", 5000, ToolTipIcon.Error, False)
+            parent.notification("Internet Conntection Unavailable", "Pitter is unable to reach our servers. Please check that you are connected to the internet.", 5000, ToolTipIcon.Error, False)
         End If
 
         WebApp.isCurrentlyUploading = False
     End Sub
     Public Sub responseparser(ByVal filepath As String, ByVal rename As Boolean, ByVal resp As String)
         If resp = Nothing Or resp = "" Then
-            WebApp.notification("Error getting data from server", "Pitter was unable to get a response from the upload server.", 5000, ToolTipIcon.Error, False)
+            parent.notification("Error getting data from server", "Pitter was unable to get a response from the upload server.", 5000, ToolTipIcon.Error, False)
         Else
             My.Computer.Clipboard.SetText(resp)
             Dim parsed_json As JObject = JObject.Parse(resp)
@@ -101,11 +101,11 @@ Public Class Networking
                         My.Computer.FileSystem.MoveFile(filepath, wrkdir + returned_filename)
                     End If
 
-                    WebApp.notification(header, message, 5000, ToolTipIcon.Info, False)
+                    parent.notification(header, message, 5000, ToolTipIcon.Info, False)
                 Case "warning"
-                    WebApp.notification(header, message, 5000, ToolTipIcon.Warning, False)
+                    parent.notification(header, message, 5000, ToolTipIcon.Warning, False)
                 Case "error"
-                    WebApp.notification(header, message, 5000, ToolTipIcon.Error, False)
+                    parent.notification(header, message, 5000, ToolTipIcon.Error, False)
             End Select
         End If
     End Sub
