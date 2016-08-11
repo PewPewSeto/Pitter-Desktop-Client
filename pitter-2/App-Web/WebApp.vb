@@ -168,7 +168,7 @@ Public Class WebApp
         If (e.CloseReason = CloseReason.WindowsShutDown) Then
             killproc()
         Else
-            Me.WindowState = FormWindowState.Minimized
+            Me.Hide()
             Me.ShowInTaskbar = False
             e.Cancel = True
         End If
