@@ -3,7 +3,7 @@
     Dim Settings_ As New Settings
     Dim Networking As Networking
     Dim click As Integer = 0
-
+    Dim parent As WebApp
     Dim x1 As Integer
     Dim x2 As Integer
     Dim y1 As Integer
@@ -11,21 +11,21 @@
     Dim p1 As New Panel
     Dim move As Boolean = Nothing
 
-    Sub New(ByVal parent As WebApp)
+    Sub New(ByVal parent_form As WebApp, parent_networking As Networking)
 
         ' This call is required by the designer.
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        Networking = New Networking(parent, Encryption_.DPAPI_decrpyt(Settings_.getValue("username")), Encryption_.DPAPI_decrpyt(Settings_.getValue("password")), Settings_)
-
+        parent = parent_form
+        Networking = parent_networking
     End Sub
 
 
     Public Sub upload()
-        WebApp.Passive.Start()
+        parent.Passive.Start()
         Try
-            WebApp.BrowserEventListener.Start()
+            parent.BrowserEventListener.Start()
         Catch ex As Exception
             'We're not using the webapp then
         End Try
@@ -54,17 +54,17 @@
 
             g.CopyFromScreen(x1, y1, 0, 0, New Size(x2 - x1, y2 - y1), CopyPixelOperation.SourceCopy)
 
-            simg.Save(WebApp.save_location + "temp." + WebApp.get_image_save_type(True), WebApp.get_image_save_type(False))
+            simg.Save(parent.save_location + "temp." + parent.get_image_save_type(True), parent.get_image_save_type(False))
 
             'upload
-            Networking.upload(WebApp.save_location + "temp." + WebApp.get_image_save_type(True), True)
-            WebApp.isCurrentlyUploading = False
+            Networking.upload(parent.save_location + "temp." + parent.get_image_save_type(True), True)
+            parent.isCurrentlyUploading = False
             Me.Close()
 
         Catch ex As Exception
             MsgBox(ex.ToString)
-            WebApp.notification("Invalid Selection Region", "You attempted to select an invalid region of the screen, please work diagnally down from the top left to the bottom right.", 5000, ToolTipIcon.Info, False)
-            WebApp.isCurrentlyUploading = False
+            parent.notification("Invalid Selection Region", "You attempted to select an invalid region of the screen, please work diagnally down from the top left to the bottom right.", 5000, ToolTipIcon.Info, False)
+            parent.isCurrentlyUploading = False
             Me.Close()
         End Try
 
@@ -107,8 +107,8 @@
     End Sub
     Private Sub selector_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         If e.KeyCode = Keys.Escape Then
-            WebApp.listeningForInput = True
-            WebApp.isCurrentlyUploading = False
+            parent.listeningForInput = True
+            parent.isCurrentlyUploading = False
             Me.Close()
         End If
     End Sub
@@ -122,9 +122,9 @@
         Me.BringToFront()
         Me.Opacity = 0.5
 
-        WebApp.Passive.Stop()
+        parent.Passive.Stop()
         Try
-            WebApp.BrowserEventListener.Stop()
+            parent.BrowserEventListener.Stop()
         Catch ex As Exception
             'We're not using the webapp then
         End Try

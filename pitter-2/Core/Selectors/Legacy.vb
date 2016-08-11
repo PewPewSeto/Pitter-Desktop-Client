@@ -2,15 +2,16 @@
     Dim Encryption_ As New Encryption
     Dim Settings_ As New Settings
     Dim Networking As Networking
+    Dim parent As WebApp
 
-    Sub New(ByVal parent As WebApp)
+    Sub New(ByVal parent_form As WebApp, ByVal parent_networking As Networking)
 
         ' This call is required by the designer.
         InitializeComponent()
 
         ' Add any initialization after the InitializeComponent() call.
-        Networking = New Networking(parent, Encryption_.DPAPI_decrpyt(Settings_.getValue("username")), Encryption_.DPAPI_decrpyt(Settings_.getValue("password")), Settings_)
-
+        parent = parent_form
+        Networking = parent_networking
     End Sub
 
     Private Sub selector_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
@@ -30,29 +31,29 @@
             Me.Opacity = 0.0
 
             g.CopyFromScreen(x1, y1, 0, 0, New Size(wx, wy), CopyPixelOperation.SourceCopy)
-            simg.Save(WebApp.save_location + "temp." + WebApp.get_image_save_type(True), WebApp.get_image_save_type(False))
+            simg.Save(parent.save_location + "temp." + parent.get_image_save_type(True), parent.get_image_save_type(False))
             g.Dispose()
 
-            WebApp.isCurrentlyUploading = True
+            parent.isCurrentlyUploading = True
 
-            Networking.upload(WebApp.save_location + "temp." + WebApp.get_image_save_type(True), True)
+            Networking.upload(parent.save_location + "temp." + parent.get_image_save_type(True), True)
 
-            WebApp.listeningForInput = True
-            WebApp.isCurrentlyUploading = False
+            parent.listeningForInput = True
+            parent.isCurrentlyUploading = False
 
             Me.Close()
 
         ElseIf e.KeyCode = Keys.Escape Then
 
-            WebApp.listeningForInput = True
-            WebApp.isCurrentlyUploading = False
+            parent.listeningForInput = True
+            parent.isCurrentlyUploading = False
             Me.Close()
 
         End If
     End Sub
 
     Private Sub selector_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        WebApp.listeningForInput = False
+        parent.listeningForInput = False
 
         Me.Size = New Size(470, 300)
         Me.Opacity = 0.6

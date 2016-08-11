@@ -545,11 +545,11 @@ end1:
     End Sub
 
     Private Sub newSelector()
-        Dim tmpSelector As New Modern(Me)
+        Dim tmpSelector As New Modern(Me, Networking)
         tmpSelector.Show()
     End Sub
     Private Sub newLegacySelector()
-        Dim tmpSelector As New Legacy(Me)
+        Dim tmpSelector As New Legacy(Me, Networking)
         tmpSelector.Show()
     End Sub
 End Class
