@@ -7,6 +7,7 @@ Imports Newtonsoft.Json
 Imports Newtonsoft.Json.Linq
 
 Public Class Networking
+    Dim parent As WebApp
     Dim Encryption As New Encryption
     Dim settings_parent As Settings
     Dim st As New StringTool
@@ -14,7 +15,8 @@ Public Class Networking
     Dim username As String
     Dim password As String
 
-    Sub New(ByVal passed_username As String, ByVal passed_password As String, ByVal settings As Settings)
+    Sub New(ByVal passedparent As WebApp, ByVal passed_username As String, ByVal passed_password As String, ByVal settings As Settings)
+        parent = passedparent
         username = passed_username
         password = passed_password
         settings_parent = settings
@@ -31,27 +33,33 @@ Public Class Networking
 
     End Function
     Public Sub upload(ByVal filepath As String, ByVal rename As Boolean)
-        If filepath <> "" And My.Computer.FileSystem.FileExists(filepath) Then
-            Dim infoReader As System.IO.FileInfo
-            infoReader = My.Computer.FileSystem.GetFileInfo(filepath)
-            If infoReader.Length < 104857600 Then
-                Try
-                    Dim mpf As New MultipartForm("https://api.pitter.us/upload")
-                    mpf.setField("email", username)
-                    mpf.setField("password", password)
-                    mpf.setField("original_filename", Path.GetFileName(filepath))
-                    mpf.sendFile(filepath)
-                    Dim resp = mpf.ResponseText.ToString
-                    responseparser(filepath, rename, resp)
 
-                Catch ex As Exception
-                    Dim ex_f As String() = ex.ToString.Split(vbNewLine)
-                    WebApp.notification("Ambigious Error while Uploading", ex_f(0), 5000, ToolTipIcon.Error, False)
-                End Try
-            Else
-                WebApp.notification("Max Filesize Exceeded", "The uploaded file exceeds 100MB in size, and cannot be processed.", 5000, ToolTipIcon.Error, False)
+        If My.Computer.Network.IsAvailable Then
+            If filepath <> "" And My.Computer.FileSystem.FileExists(filepath) Then
+                Dim infoReader As System.IO.FileInfo
+                infoReader = My.Computer.FileSystem.GetFileInfo(filepath)
+                If infoReader.Length < 104857600 Then
+                    Try
+                        Dim mpf As New MultipartForm("https://api.pitter.us/upload")
+                        mpf.setField("email", username)
+                        mpf.setField("password", password)
+                        mpf.setField("original_filename", Path.GetFileName(filepath))
+                        mpf.sendFile(filepath)
+                        Dim resp = mpf.ResponseText.ToString
+                        responseparser(filepath, rename, resp)
+
+                    Catch ex As Exception
+                        Dim ex_f As String() = ex.ToString.Split(vbNewLine)
+                        WebApp.notification("Ambigious Error while Uploading", ex_f(0), 5000, ToolTipIcon.Error, False)
+                    End Try
+                Else
+                    WebApp.notification("Max Filesize Exceeded", "The uploaded file exceeds 100MB in size, and cannot be processed.", 5000, ToolTipIcon.Error, False)
+                End If
             End If
+        Else
+            WebApp.notification("Internet Conntection Unavailable", "The application is unable to reach our servers. Please check that you are connected to the internet.", 5000, ToolTipIcon.Error, False)
         End If
+
         WebApp.isCurrentlyUploading = False
     End Sub
     Public Sub responseparser(ByVal filepath As String, ByVal rename As Boolean, ByVal resp As String)

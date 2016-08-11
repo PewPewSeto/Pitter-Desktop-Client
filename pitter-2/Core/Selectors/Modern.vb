@@ -1,8 +1,7 @@
 ﻿Public Class Modern
     Dim Encryption_ As New Encryption
     Dim Settings_ As New Settings
-    Dim Networking As New Networking(Encryption_.DPAPI_decrpyt(Settings_.getValue("username")), Encryption_.DPAPI_decrpyt(Settings_.getValue("password")), Settings_)
-
+    Dim Networking As Networking
     Dim click As Integer = 0
 
     Dim x1 As Integer
@@ -11,6 +10,18 @@
     Dim y2 As Integer
     Dim p1 As New Panel
     Dim move As Boolean = Nothing
+
+    Sub New(ByVal parent As WebApp)
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        Networking = New Networking(parent, Encryption_.DPAPI_decrpyt(Settings_.getValue("username")), Encryption_.DPAPI_decrpyt(Settings_.getValue("password")), Settings_)
+
+    End Sub
+
+
     Public Sub upload()
         WebApp.Passive.Start()
         Try

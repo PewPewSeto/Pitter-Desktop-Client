@@ -1,7 +1,17 @@
 ﻿Public Class Legacy
     Dim Encryption_ As New Encryption
     Dim Settings_ As New Settings
-    Dim Networking As New Networking(Encryption_.DPAPI_decrpyt(Settings_.getValue("username")), Encryption_.DPAPI_decrpyt(Settings_.getValue("password")), Settings_)
+    Dim Networking As Networking
+
+    Sub New(ByVal parent As WebApp)
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        Networking = New Networking(parent, Encryption_.DPAPI_decrpyt(Settings_.getValue("username")), Encryption_.DPAPI_decrpyt(Settings_.getValue("password")), Settings_)
+
+    End Sub
 
     Private Sub selector_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
         If e.KeyCode = Keys.Return Then

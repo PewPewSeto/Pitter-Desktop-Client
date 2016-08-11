@@ -118,7 +118,7 @@ Public Class WebApp
                 listeningForInput = True
 
                 'REDIM
-                Networking = New Networking(Encryption_.DPAPI_decrpyt(Settings_.getValue("username")), Encryption_.DPAPI_decrpyt(Settings_.getValue("password")), Settings_)
+                Networking = New Networking(Me, Encryption_.DPAPI_decrpyt(Settings_.getValue("username")), Encryption_.DPAPI_decrpyt(Settings_.getValue("password")), Settings_)
                 Capture_ = New Capture(Me, Encryption_, Settings_, Networking, StringTool)
                 Synchronization = New Synchronization(Me, Networking, Settings_)
 
@@ -294,9 +294,9 @@ Public Class WebApp
                                 If GetAsyncKeyState(Character.keyValidator(Integer.Parse(Settings_.getValue("key 4")), True)) <> 0 And StringTool.parse_boolean(Settings_.getValue("printscreen key means selection")) = False Then
                                     'Selector
                                     If StringTool.parse_boolean(Settings_.getValue("use old selector")) = False Then
-                                        Modern.Show()
+                                        newSelector()
                                     Else
-                                        Legacy.Show()
+                                        newLegacySelector()
                                     End If
                                 End If
 
@@ -319,9 +319,9 @@ Public Class WebApp
                             If GetAsyncKeyState(Character.keyValidator(Integer.Parse(Settings_.getValue("key 4")), False)) <> 0 And StringTool.parse_boolean(Settings_.getValue("printscreen key means selection")) = False Then
                                 'Selector
                                 If StringTool.parse_boolean(Settings_.getValue("use old selector")) = False Then
-                                    Modern.Show()
+                                    newSelector()
                                 Else
-                                    Legacy.Show()
+                                    newLegacySelector()
                                 End If
                             End If
 
@@ -341,9 +341,9 @@ Public Class WebApp
                             If GetAsyncKeyState(Keys.PrintScreen) Then 'PrintScreen Key
                                 'Selector
                                 If StringTool.parse_boolean(Settings_.getValue("use old selector")) = False Then
-                                    Modern.Show()
+                                    newSelector()
                                 Else
-                                    Legacy.Show()
+                                    newLegacySelector()
                                 End If
                             End If
                         End If
@@ -413,9 +413,9 @@ Public Class WebApp
 
     Private Sub SelectionToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SelectionToolStripMenuItem.Click
         If StringTool.parse_boolean(Settings_.getValue("use old selector")) = False Then
-            Modern.Show()
+            newSelector()
         Else
-            Legacy.Show()
+            newLegacySelector()
         End If
     End Sub
 
@@ -542,7 +542,14 @@ end1:
             clicked_link = clicked_link.Replace("thumb.php?src=", "").Replace("&x=100&y=100&f=0", "")
         End If
         Process.Start(clicked_link)
+    End Sub
 
-
+    Private Sub newSelector()
+        Dim tmpSelector As New Modern(Me)
+        tmpSelector.Show()
+    End Sub
+    Private Sub newLegacySelector()
+        Dim tmpSelector As New Legacy(Me)
+        tmpSelector.Show()
     End Sub
 End Class

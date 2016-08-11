@@ -132,7 +132,7 @@
     </Compile>
     <Compile Include="Core\Settings.vb" />
     <Compile Include="Core\Synchronization.vb" />
-    <Compile Include="HashEngine.vb" />
+    <Compile Include="Utils\HashEngine.vb" />
     <Compile Include="Utils\CharacterMapping.vb" />
     <Compile Include="Utils\StringTool.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
