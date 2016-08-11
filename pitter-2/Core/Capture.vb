@@ -145,7 +145,7 @@ Public Class Capture
     End Sub
     Public Sub uploadFile()
         Dim ofd As New OpenFileDialog
-        ofd.ShowDialog(WebApp)
+        ofd.ShowDialog(parent)
         Networking.upload(ofd.FileName, False)
     End Sub
 End Class
