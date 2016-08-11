@@ -19,7 +19,6 @@ C:\Users\Andrew Haughie\Documents\GitHub\Pitter-Desktop-Client\pitter-2\bin\Debu
 C:\Users\Andrew Haughie\Documents\GitHub\Pitter-Desktop-Client\pitter-2\bin\Debug\pitter.xml
 C:\Users\Andrew Haughie\Documents\GitHub\Pitter-Desktop-Client\pitter-2\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Andrew Haughie\Documents\GitHub\Pitter-Desktop-Client\pitter-2\bin\Debug\Newtonsoft.Json.xml
-C:\Users\Andrew Haughie\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\Pitter.vbprojResolveAssemblyReference.cache
 C:\Users\Andrew Haughie\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\Pitter.WebApp.resources
 C:\Users\Andrew Haughie\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\Pitter.Legacy.resources
 C:\Users\Andrew Haughie\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\Pitter.Modern.resources
@@ -28,3 +27,5 @@ C:\Users\Andrew Haughie\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debu
 C:\Users\Andrew Haughie\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\pitter.exe
 C:\Users\Andrew Haughie\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\pitter.xml
 C:\Users\Andrew Haughie\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\pitter.pdb
+C:\Users\Andrew Haughie\Documents\GitHub\Pitter-Desktop-Client\pitter-2\bin\Debug\pitter.exe.CodeAnalysisLog.xml
+C:\Users\Andrew Haughie\Documents\GitHub\Pitter-Desktop-Client\pitter-2\bin\Debug\pitter.exe.lastcodeanalysissucceeded
