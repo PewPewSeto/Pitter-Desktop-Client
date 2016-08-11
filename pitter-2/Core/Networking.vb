@@ -59,7 +59,6 @@ Public Class Networking
         Else
             parent.notification("Internet Conntection Unavailable", "Pitter is unable to reach our servers. Please check that you are connected to the internet.", 5000, ToolTipIcon.Error, False)
         End If
-
         WebApp.isCurrentlyUploading = False
     End Sub
     Public Sub responseparser(ByVal filepath As String, ByVal rename As Boolean, ByVal resp As String)
