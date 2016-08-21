@@ -23,7 +23,7 @@ Partial Class WebApp
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
-        Me.BrowserEventListener = New System.Windows.Forms.Timer(Me.components)
+        Me.BrowserRelogEvent = New System.Windows.Forms.Timer(Me.components)
         Me.DesktopEventListener = New System.Windows.Forms.Timer(Me.components)
         Me.TaskbarIcon = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.ContextMenuStrip1 = New System.Windows.Forms.ContextMenuStrip(Me.components)
@@ -49,10 +49,9 @@ Partial Class WebApp
         Me.ContextMenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
-        'BrowserEventListener
+        'BrowserRelogEvent
         '
-        Me.BrowserEventListener.Enabled = True
-        Me.BrowserEventListener.Interval = 10
+        Me.BrowserRelogEvent.Interval = 900000
         '
         'DesktopEventListener
         '
@@ -209,7 +208,7 @@ Partial Class WebApp
     Friend WithEvents ToolStripSeparator2 As System.Windows.Forms.ToolStripSeparator
     Friend WithEvents PauseInputListenerToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents ForceUpdateToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
-    Public WithEvents BrowserEventListener As System.Windows.Forms.Timer
+    Public WithEvents BrowserRelogEvent As System.Windows.Forms.Timer
     Public WithEvents DesktopEventListener As System.Windows.Forms.Timer
     Public WithEvents TaskbarIcon As System.Windows.Forms.NotifyIcon
     Public WithEvents Passive As System.Windows.Forms.Timer

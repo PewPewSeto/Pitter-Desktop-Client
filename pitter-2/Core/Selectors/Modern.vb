@@ -25,7 +25,7 @@
     Public Sub upload()
         parent.Passive.Start()
         Try
-            parent.BrowserEventListener.Start()
+            parent.BrowserRelogEvent.Start()
         Catch ex As Exception
             'We're not using the webapp then
         End Try
@@ -124,7 +124,7 @@
 
         parent.Passive.Stop()
         Try
-            parent.BrowserEventListener.Stop()
+            parent.BrowserRelogEvent.Stop()
         Catch ex As Exception
             'We're not using the webapp then
         End Try

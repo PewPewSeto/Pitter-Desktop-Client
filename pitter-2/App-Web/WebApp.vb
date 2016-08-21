@@ -43,9 +43,16 @@ Public Class WebApp
         TaskbarIcon.BalloonTipTitle = title 'Title
         TaskbarIcon.BalloonTipText = message 'Body
         TaskbarIcon.ShowBalloonTip(time) 'Time we should dispaly for
+
+        'Check if we should Chime.
         If chime And StringTool.parse_boolean(Settings_.getValue("chime")) = True Then 'Chime was true
             My.Computer.Audio.Play(My.Resources.complete, AudioPlayMode.Background) 'Play the chime
         End If
+
+        'Reset the relog timer after uploading.
+        BrowserRelogEvent.Stop()
+        BrowserRelogEvent.Start()
+
     End Sub
 
     Public Function get_image_save_type(ByVal format_only As Boolean)
@@ -226,6 +233,8 @@ Public Class WebApp
         If login_routine() = False Then
             WebBrowser1.Navigate("https://panel.pitter.us/login")
         Else
+            BrowserRelogEvent.Start()
+            'hide
             Me.Close()
         End If
 
@@ -551,5 +560,15 @@ end1:
     Private Sub newLegacySelector()
         Dim tmpSelector As New Legacy(Me, Networking)
         tmpSelector.Show()
+    End Sub
+
+    Private Sub BrowserRelogEvent_Tick(sender As Object, e As EventArgs) Handles BrowserRelogEvent.Tick
+        'This function will automatically login the user every 15 minutes to prevent the login screen from showing.
+        Dim cur_url As String = WebBrowser1.Url.ToString
+
+        'Restore the last position.
+        If login_routine() = True Then
+            WebBrowser1.Navigate(cur_url)
+        End If
     End Sub
 End Class
