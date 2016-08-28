@@ -58,11 +58,13 @@
 
             'upload
             Networking.upload(parent.save_location + "temp." + parent.get_image_save_type(True), True)
+            parent.listeningForInput = True
             parent.isCurrentlyUploading = False
             Me.Close()
 
         Catch ex As Exception
             parent.notification("Invalid Selection Region", "You attempted to select an invalid region of the screen, please work diagnally down from the top left to the bottom right.", 5000, ToolTipIcon.Info, False)
+            parent.listeningForInput = True
             parent.isCurrentlyUploading = False
             Me.Close()
         End Try
@@ -77,6 +79,7 @@
                 Me.Hide()
                 Me.Visible = False
                 upload()
+                parent.listeningForInput = True
             End If
         End If
     End Sub
@@ -115,6 +118,7 @@
     End Sub
 
     Private Sub selector_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        parent.listeningForInput = False
         Me.Show()
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Location = New Point(0, 0)
