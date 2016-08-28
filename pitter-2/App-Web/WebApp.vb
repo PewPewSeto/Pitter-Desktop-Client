@@ -10,7 +10,7 @@ Public Class WebApp
     Dim hashengine As New HashEngine
     Dim Encryption_ As New Encryption
     Dim Settings_ As New Settings
-    Dim Auth_ As New Authentication(Settings_)
+    Dim Auth_ As New Authentication(Me, Settings_)
     Dim Character As New CharacterMapping
     Dim StringTool As New StringTool
     Dim Networking As Networking 'REDIM

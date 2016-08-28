@@ -1,8 +1,10 @@
 ﻿Public Class Authentication
     Dim stringtool As New StringTool
     Dim settings As Settings
+    Dim parent As WebApp
 
-    Public Sub New(ByVal p_settings As Settings)
+    Public Sub New(ByVal parent_p As WebApp, ByVal p_settings As Settings)
+        parent = parent_p
         settings = p_settings
     End Sub
     Public Function get_auth_token(ByVal username As String, ByVal password As String)
@@ -31,8 +33,9 @@
             End If
         Catch ex As Exception
             MsgBox("Pitter's frontend servers appear to be offline at this time." + vbNewLine + "We are sorry for the inconvenience and hope to be back up soon.", MsgBoxStyle.Information, "Pitter Server Status")
-            MsgBox(ex.ToString)
             Application.Exit()
+            parent.Close()
+
 
         End Try
     End Function
