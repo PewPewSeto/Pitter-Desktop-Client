@@ -547,8 +547,8 @@ end1:
         e.Cancel = True
 
         'Check if we're clicking a thunbnail.
-        If clicked_link.Contains("thumb.php?src=") Then
-            clicked_link = clicked_link.Replace("thumb.php?src=", "").Replace("&x=100&y=100&f=0", "")
+        If clicked_link.Contains("thumb/") Then
+            clicked_link = clicked_link.Replace("thumb/", "")
         End If
         Process.Start(clicked_link)
     End Sub
