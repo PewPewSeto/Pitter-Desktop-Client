@@ -32,11 +32,8 @@
                 Return response
             End If
         Catch ex As Exception
-            MsgBox("Pitter's frontend servers appear to be offline at this time." + vbNewLine + "We are sorry for the inconvenience and hope to be back up soon.", MsgBoxStyle.Information, "Pitter Server Status")
-            Application.Exit()
-            parent.Close()
-
-
+            MsgBox("There was an error while attempting to contact our servers. Please try launching pitter again.", MsgBoxStyle.Information, "Pitter Server Status")
+            parent.killproc()
         End Try
     End Function
 End Class
