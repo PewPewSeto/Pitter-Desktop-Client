@@ -62,7 +62,6 @@
             Me.Close()
 
         Catch ex As Exception
-            MsgBox(ex.ToString)
             parent.notification("Invalid Selection Region", "You attempted to select an invalid region of the screen, please work diagnally down from the top left to the bottom right.", 5000, ToolTipIcon.Info, False)
             parent.isCurrentlyUploading = False
             Me.Close()
@@ -104,6 +103,8 @@
     End Sub
     Private Sub selector_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown
         generalclickevent()
+        Label1.Visible = False
+        Label2.Visible = False
     End Sub
     Private Sub selector_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         If e.KeyCode = Keys.Escape Then
@@ -114,7 +115,7 @@
     End Sub
 
     Private Sub selector_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
+        Me.Show()
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None
         Me.Location = New Point(0, 0)
         Me.Size = SystemInformation.VirtualScreen.Size
@@ -129,7 +130,7 @@
             'We're not using the webapp then
         End Try
 
-        Me.Show()
+
     End Sub
     Private Sub selector_resize(sender As Object, e As EventArgs) Handles MyBase.Resize
         Me.Text = "Selector Window (" + Me.Size.Width.ToString + "," + Me.Size.Height.ToString + ")"
@@ -150,16 +151,20 @@
 
     End Sub
 
-    Private Sub Label1_Click(sender As Object, e As EventArgs) Handles Label1.MouseDown
-        generalclickevent()
-        Label1.Visible = False
-        Label2.Visible = False
+
+
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+        If Me.Size <> SystemInformation.VirtualScreen.Size Then
+            Me.Size = SystemInformation.VirtualScreen.Size
+            Me.WindowState = FormWindowState.Normal
+            Me.Refresh()
+        End If
+        If Me.Location <> New Point(0, 0) Then
+            Me.Location = New Point(0, 0)
+            Me.Refresh()
+        End If
 
     End Sub
 
-    Private Sub Label2_Click(sender As Object, e As EventArgs) Handles Label2.MouseDown
-        generalclickevent()
-        Label1.Visible = False
-        Label2.Visible = False
-    End Sub
+
 End Class
