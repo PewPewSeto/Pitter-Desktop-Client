@@ -532,14 +532,22 @@ end1:
             End Try
 
             'Element action
+            Try
+                Select Case selectedHtmlElement_ID
+                    Case "submit-b"
+                        If WebBrowser1.Url = New Uri("https://panel.pitter.us/login") Or WebBrowser1.Url = New Uri("https://panel.pitter.us/login?new=true") Or WebBrowser1.Url = New Uri("https://panel.ieatass.club/login") Or WebBrowser1.Url = New Uri("https://panel.ieatass.club/login?new=true") Then
+                            grab_login_information()
+                            login_routine()
+                        End If
+                End Select
+            Catch ex As Exception
+                Try
+                    grab_login_information()
+                    login_routine()
+                Catch ex2 As Exception
 
-            Select Case selectedHtmlElement_ID
-                Case "submit-b"
-                    If WebBrowser1.Url = New Uri("https://panel.pitter.us/login") Or WebBrowser1.Url = New Uri("https://panel.pitter.us/login?new=true") Or WebBrowser1.Url = New Uri("https://panel.ieatass.club/login") Or WebBrowser1.Url = New Uri("https://panel.ieatass.club/login?new=true") Then
-                        grab_login_information()
-                        login_routine()
-                    End If
-            End Select
+                End Try
+            End Try
         End With
     End Sub
 
