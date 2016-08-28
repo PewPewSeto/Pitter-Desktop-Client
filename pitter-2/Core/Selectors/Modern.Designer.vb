@@ -26,7 +26,7 @@ Partial Class Modern
         Me.MovementTracker = New System.Windows.Forms.Timer(Me.components)
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.WindowTracker = New System.Windows.Forms.Timer(Me.components)
         Me.SuspendLayout()
         '
         'MovementTracker
@@ -56,10 +56,10 @@ Partial Class Modern
         Me.Label2.Size = New System.Drawing.Size(0, 13)
         Me.Label2.TabIndex = 1
         '
-        'Timer1
+        'WindowTracker
         '
-        Me.Timer1.Enabled = True
-        Me.Timer1.Interval = 1
+        Me.WindowTracker.Enabled = True
+        Me.WindowTracker.Interval = 1
         '
         'Modern
         '
@@ -82,5 +82,5 @@ Partial Class Modern
     Friend WithEvents MovementTracker As System.Windows.Forms.Timer
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
-    Friend WithEvents Timer1 As Timer
+    Friend WithEvents WindowTracker As Timer
 End Class

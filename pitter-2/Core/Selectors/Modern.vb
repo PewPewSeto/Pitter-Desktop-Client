@@ -105,9 +105,11 @@
         click = Val(click) + 1
     End Sub
     Private Sub selector_MouseDown(sender As Object, e As MouseEventArgs) Handles MyBase.MouseDown
-        generalclickevent()
-        Label1.Visible = False
-        Label2.Visible = False
+        If e.Button = MouseButtons.Left Then
+            generalclickevent()
+            Label1.Visible = False
+            Label2.Visible = False
+        End If
     End Sub
     Private Sub selector_KeyDown(sender As Object, e As KeyEventArgs) Handles MyBase.KeyDown
         If e.KeyCode = Keys.Escape Then
@@ -157,7 +159,7 @@
 
 
 
-    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles WindowTracker.Tick
         If Me.Size <> SystemInformation.VirtualScreen.Size Then
             Me.Size = SystemInformation.VirtualScreen.Size
             Me.WindowState = FormWindowState.Normal
