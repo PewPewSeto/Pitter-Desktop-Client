@@ -520,33 +520,37 @@ end1:
 
     Private Sub getClickedElement(ByVal sender As Object, ByVal e As HtmlElementEventArgs)
         With WebBrowser1.Document.GetElementFromPoint(e.ClientMousePosition)
-            Dim selectedHtmlElement_ID As String = .GetAttribute("id").ToLower
-            Dim selectedHtmlElement_NAME As String = .GetAttribute("name").ToLower
-
-            'Attempt to see if we're clicking a link
-            'Grab the hfef
             Try
-                clicked_link = .GetAttribute("href")
-            Catch ex As Exception
+                Dim selectedHtmlElement_ID As String = .GetAttribute("id").ToLower
+                Dim selectedHtmlElement_NAME As String = .GetAttribute("name").ToLower
 
-            End Try
-
-            'Element action
-            Try
-                Select Case selectedHtmlElement_ID
-                    Case "submit-b"
-                        If WebBrowser1.Url = New Uri("https://panel.pitter.us/login") Or WebBrowser1.Url = New Uri("https://panel.pitter.us/login?new=true") Or WebBrowser1.Url = New Uri("https://panel.ieatass.club/login") Or WebBrowser1.Url = New Uri("https://panel.ieatass.club/login?new=true") Then
-                            grab_login_information()
-                            login_routine()
-                        End If
-                End Select
-            Catch ex As Exception
+                'Attempt to see if we're clicking a link
+                'Grab the hfef
                 Try
-                    grab_login_information()
-                    login_routine()
-                Catch ex2 As Exception
+                    clicked_link = .GetAttribute("href")
+                Catch ex As Exception
 
                 End Try
+
+                'Element action
+                Try
+                    Select Case selectedHtmlElement_ID
+                        Case "submit-b"
+                            If WebBrowser1.Url = New Uri("https://panel.pitter.us/login") Or WebBrowser1.Url = New Uri("https://panel.pitter.us/login?new=true") Or WebBrowser1.Url = New Uri("https://panel.ieatass.club/login") Or WebBrowser1.Url = New Uri("https://panel.ieatass.club/login?new=true") Then
+                                grab_login_information()
+                                login_routine()
+                            End If
+                    End Select
+                Catch ex As Exception
+                    Try
+                        grab_login_information()
+                        login_routine()
+                    Catch ex2 As Exception
+
+                    End Try
+                End Try
+            Catch ex As Exception
+                notification("Please restart pitter", "You need to log back in.", 5000, ToolTipIcon.Info, False)
             End Try
         End With
     End Sub

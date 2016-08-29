@@ -21,7 +21,6 @@
         Networking = parent_networking
     End Sub
 
-
     Public Sub upload()
         parent.Passive.Start()
         Try
@@ -136,7 +135,6 @@
             'We're not using the webapp then
         End Try
 
-
     End Sub
     Private Sub selector_resize(sender As Object, e As EventArgs) Handles MyBase.Resize
         Me.Text = "Selector Window (" + Me.Size.Width.ToString + "," + Me.Size.Height.ToString + ")"
@@ -156,8 +154,6 @@
         End If
 
     End Sub
-
-
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles WindowTracker.Tick
         If Me.Size <> SystemInformation.VirtualScreen.Size Then
