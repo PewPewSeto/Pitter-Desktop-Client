@@ -43,7 +43,7 @@ Public Class Synchronization
 
     Private Sub thr_loop()
         While True
-            Threading.Thread.Sleep(10000)
+            Threading.Thread.Sleep(30000)
             sync()
         End While
     End Sub

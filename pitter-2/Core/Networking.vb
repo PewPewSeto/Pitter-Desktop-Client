@@ -24,6 +24,7 @@ Public Class Networking
     Public Function get_settings()
 
         Using client As New Net.WebClient
+            client.Headers("User-Agent") = ("PitterClient/1.0")
             Dim reqparm As New Specialized.NameValueCollection
             reqparm.Add("username", username)
             reqparm.Add("password", password)
