@@ -1,4 +1,7 @@
-﻿Public Class Authentication
+﻿Imports Newtonsoft
+Imports Newtonsoft.Json.Linq
+
+Public Class Authentication
     Dim stringtool As New StringTool
     Dim settings As Settings
     Dim parent As WebApp
@@ -7,7 +10,7 @@
         parent = parent_p
         settings = p_settings
     End Sub
-    Public Function get_auth_token(ByVal username As String, ByVal password As String)
+    Public Function get_auth_token(ByVal username As String, ByVal password As String, ByVal reinit As Boolean)
         Try
             Dim response As String
             Using client As New Net.WebClient
@@ -21,19 +24,24 @@
                 Debugger.Log(1, 1, "Posting to API Server..." + vbNewLine)
                 Dim responsebytes As Byte()
                 responsebytes = client.UploadValues(("https://panel.pitter.us/api/auth"), "POST", reqparm)
-                response = (New System.Text.UTF8Encoding).GetString(responsebytes).Replace(" ", "")
+                response = (New System.Text.UTF8Encoding).GetString(responsebytes)
 
+                Dim parsed_response = JObject.Parse(response)
+
+                Select Case parsed_response.GetValue("status")
+                    Case "error"
+                        Debugger.Log(1, 1, "Server did not respond with a 1TU token - Invalid Username or Password" + vbNewLine)
+                        Throw New Exception(parsed_response.GetValue("message"))
+                    Case "success"
+                        Debugger.Log(1, 1, "Server has responded with 1TU token: " + response + vbNewLine)
+                        Return parsed_response.GetValue("token")
+                End Select
             End Using
-            If response = "false" Or response = "" Then
-                Debugger.Log(1, 1, "Server did not respond with a 1TU token - Invalid Username or Password" + vbNewLine)
-                Return "false"
-            Else
-                Debugger.Log(1, 1, "Server has responded with 1TU token: " + response + vbNewLine)
-                Return response
-            End If
         Catch ex As Exception
-            MsgBox("There was an error while attempting to contact our servers. Please try launching pitter again.", MsgBoxStyle.Information, "Pitter Server Status")
-            parent.killproc()
+            If reinit = False Then
+                MsgBox("There was an error while attempting to contact our servers. Please try launching pitter again." + vbNewLine + vbNewLine + ex.ToString, MsgBoxStyle.Information, "Pitter Server Status")
+                parent.killproc()
+            End If
         End Try
     End Function
 End Class

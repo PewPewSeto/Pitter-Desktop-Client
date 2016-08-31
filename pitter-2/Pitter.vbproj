@@ -113,7 +113,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Core\Updater.vb" />
-    <Compile Include="External\include\MultipartForm.vb" />
+    <Compile Include="Core\External\include\MultipartForm.vb" />
     <Compile Include="Core\Networking.vb" />
     <Compile Include="Core\Authentication.vb" />
     <Compile Include="Core\Capture.vb" />

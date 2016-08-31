@@ -21,7 +21,7 @@ Public Class WebApp
     Public listeningForInput As Boolean = False
     Dim listeningEnabled As Boolean = True
     Public isCurrentlyUploading As Boolean = False
-
+    Dim auth_init As Boolean = False
     Public settings_locked As Boolean
 
     Public save_location As String = My.Computer.FileSystem.SpecialDirectories.MyDocuments + "\Pitter\"
@@ -109,7 +109,8 @@ Public Class WebApp
             Try
                 auth_token = Auth_.get_auth_token(
                     decrpyted_username,
-                    decrpyted_password
+                    decrpyted_password,
+                    auth_init
                     )
             Catch ex As Exception
                 MsgBox("Failed to gather authentication token", MsgBoxStyle.Critical, "Pitter")
@@ -272,6 +273,9 @@ Public Class WebApp
 
             End If
         End If
+
+        auth_init = True
+
     End Sub
     Private Sub DesktopEventListener_Tick(sender As Object, e As EventArgs) Handles DesktopEventListener.Tick
 

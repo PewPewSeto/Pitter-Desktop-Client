@@ -28,3 +28,18 @@ C:\Users\Andrew Haughie\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debu
 C:\Users\Andrew Haughie\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\pitter.exe
 C:\Users\Andrew Haughie\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\pitter.xml
 C:\Users\Andrew Haughie\Documents\GitHub\Pitter-Desktop-Client\pitter-2\obj\Debug\pitter.pdb
+C:\Users\AccessNowRTA\Source\Repos\pitter-desktop-client\pitter-2\bin\Debug\pitter.exe.config
+C:\Users\AccessNowRTA\Source\Repos\pitter-desktop-client\pitter-2\bin\Debug\pitter.exe
+C:\Users\AccessNowRTA\Source\Repos\pitter-desktop-client\pitter-2\bin\Debug\pitter.pdb
+C:\Users\AccessNowRTA\Source\Repos\pitter-desktop-client\pitter-2\bin\Debug\pitter.xml
+C:\Users\AccessNowRTA\Source\Repos\pitter-desktop-client\pitter-2\bin\Debug\Newtonsoft.Json.dll
+C:\Users\AccessNowRTA\Source\Repos\pitter-desktop-client\pitter-2\bin\Debug\Newtonsoft.Json.xml
+C:\Users\AccessNowRTA\Source\Repos\pitter-desktop-client\pitter-2\obj\Debug\Pitter.vbprojResolveAssemblyReference.cache
+C:\Users\AccessNowRTA\Source\Repos\pitter-desktop-client\pitter-2\obj\Debug\Pitter.WebApp.resources
+C:\Users\AccessNowRTA\Source\Repos\pitter-desktop-client\pitter-2\obj\Debug\Pitter.Legacy.resources
+C:\Users\AccessNowRTA\Source\Repos\pitter-desktop-client\pitter-2\obj\Debug\Pitter.Modern.resources
+C:\Users\AccessNowRTA\Source\Repos\pitter-desktop-client\pitter-2\obj\Debug\Pitter.Resources.resources
+C:\Users\AccessNowRTA\Source\Repos\pitter-desktop-client\pitter-2\obj\Debug\Pitter.vbproj.GenerateResource.Cache
+C:\Users\AccessNowRTA\Source\Repos\pitter-desktop-client\pitter-2\obj\Debug\pitter.exe
+C:\Users\AccessNowRTA\Source\Repos\pitter-desktop-client\pitter-2\obj\Debug\pitter.xml
+C:\Users\AccessNowRTA\Source\Repos\pitter-desktop-client\pitter-2\obj\Debug\pitter.pdb
