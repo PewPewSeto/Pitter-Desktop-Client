@@ -46,6 +46,8 @@ Partial Class WebApp
         Me.Passive = New System.Windows.Forms.Timer(Me.components)
         Me.Cleaner = New System.Windows.Forms.Timer(Me.components)
         Me.WebBrowser1 = New System.Windows.Forms.WebBrowser()
+        Me.ToolStripSeparator5 = New System.Windows.Forms.ToolStripSeparator()
+        Me.OpenStorageLocationToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ContextMenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -67,11 +69,11 @@ Partial Class WebApp
         '
         Me.ContextMenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.PitterToolStripMenuItem, Me.ToolStripSeparator1, Me.UploadToolStripMenuItem, Me.ToolStripSeparator2, Me.PauseInputListenerToolStripMenuItem, Me.ExitToolStripMenuItem})
         Me.ContextMenuStrip1.Name = "ContextMenuStrip1"
-        Me.ContextMenuStrip1.Size = New System.Drawing.Size(181, 104)
+        Me.ContextMenuStrip1.Size = New System.Drawing.Size(181, 126)
         '
         'PitterToolStripMenuItem
         '
-        Me.PitterToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ForceUpdateToolStripMenuItem, Me.SynchronizeSettingsToolStripMenuItem, Me.ToolStripSeparator4, Me.RunAsAdministratorToolStripMenuItem})
+        Me.PitterToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ForceUpdateToolStripMenuItem, Me.SynchronizeSettingsToolStripMenuItem, Me.ToolStripSeparator4, Me.OpenStorageLocationToolStripMenuItem, Me.ToolStripSeparator5, Me.RunAsAdministratorToolStripMenuItem})
         Me.PitterToolStripMenuItem.Name = "PitterToolStripMenuItem"
         Me.PitterToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.PitterToolStripMenuItem.Text = "Pitter"
@@ -79,24 +81,24 @@ Partial Class WebApp
         'ForceUpdateToolStripMenuItem
         '
         Me.ForceUpdateToolStripMenuItem.Name = "ForceUpdateToolStripMenuItem"
-        Me.ForceUpdateToolStripMenuItem.Size = New System.Drawing.Size(185, 22)
+        Me.ForceUpdateToolStripMenuItem.Size = New System.Drawing.Size(195, 22)
         Me.ForceUpdateToolStripMenuItem.Text = "Force Update"
         '
         'SynchronizeSettingsToolStripMenuItem
         '
         Me.SynchronizeSettingsToolStripMenuItem.Name = "SynchronizeSettingsToolStripMenuItem"
-        Me.SynchronizeSettingsToolStripMenuItem.Size = New System.Drawing.Size(185, 22)
+        Me.SynchronizeSettingsToolStripMenuItem.Size = New System.Drawing.Size(195, 22)
         Me.SynchronizeSettingsToolStripMenuItem.Text = "Synchronize Settings"
         '
         'ToolStripSeparator4
         '
         Me.ToolStripSeparator4.Name = "ToolStripSeparator4"
-        Me.ToolStripSeparator4.Size = New System.Drawing.Size(182, 6)
+        Me.ToolStripSeparator4.Size = New System.Drawing.Size(192, 6)
         '
         'RunAsAdministratorToolStripMenuItem
         '
         Me.RunAsAdministratorToolStripMenuItem.Name = "RunAsAdministratorToolStripMenuItem"
-        Me.RunAsAdministratorToolStripMenuItem.Size = New System.Drawing.Size(185, 22)
+        Me.RunAsAdministratorToolStripMenuItem.Size = New System.Drawing.Size(195, 22)
         Me.RunAsAdministratorToolStripMenuItem.Text = "Run as Administrator"
         '
         'ToolStripSeparator1
@@ -182,6 +184,17 @@ Partial Class WebApp
         Me.WebBrowser1.TabIndex = 2
         Me.WebBrowser1.Url = New System.Uri("", System.UriKind.Relative)
         '
+        'ToolStripSeparator5
+        '
+        Me.ToolStripSeparator5.Name = "ToolStripSeparator5"
+        Me.ToolStripSeparator5.Size = New System.Drawing.Size(192, 6)
+        '
+        'OpenStorageLocationToolStripMenuItem
+        '
+        Me.OpenStorageLocationToolStripMenuItem.Name = "OpenStorageLocationToolStripMenuItem"
+        Me.OpenStorageLocationToolStripMenuItem.Size = New System.Drawing.Size(195, 22)
+        Me.OpenStorageLocationToolStripMenuItem.Text = "Open Storage Location"
+        '
         'WebApp
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -218,4 +231,6 @@ Partial Class WebApp
     Friend WithEvents ToolStripSeparator4 As ToolStripSeparator
     Friend WithEvents RunAsAdministratorToolStripMenuItem As ToolStripMenuItem
     Public WithEvents WebBrowser1 As WebBrowser
+    Friend WithEvents OpenStorageLocationToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator5 As ToolStripSeparator
 End Class

@@ -587,4 +587,8 @@ end1:
             WebBrowser1.Navigate(cur_url)
         End If
     End Sub
+
+    Private Sub OpenStorageLocationToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles OpenStorageLocationToolStripMenuItem.Click
+        System.Diagnostics.Process.Start(save_location)
+    End Sub
 End Class
