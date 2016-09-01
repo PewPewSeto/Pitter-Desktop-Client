@@ -14,7 +14,7 @@ Public Class Synchronization
         Settings_super = settings
     End Sub
 
-    Public Sub sync()
+    Public Sub sync_settings()
         Dim json_string As String
         Try
             json_string = Networking_super.get_settings()
@@ -41,15 +41,44 @@ Public Class Synchronization
 
     End Sub
 
-    Private Sub thr_loop()
+    Public Sub sync_files()
+        Try
+            Dim files_json As String = Networking_super.get_files
+            Dim parsed_parent As JArray = JArray.Parse(files_json)
+            For Each row As JObject In parsed_parent
+
+                If My.Computer.FileSystem.FileExists(parent.save_location + row.GetValue("filename").ToString) = False Then
+                    client.DownloadFile("https://i.pitter.us/" + row.GetValue("filename").ToString, parent.save_location + row.GetValue("filename").ToString)
+                End If
+
+            Next
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
+    Private Sub thr_loop_settings()
         While True
             Threading.Thread.Sleep(30000)
-            sync()
+            sync_settings()
         End While
     End Sub
 
-    Public Sub updateThread()
-        Dim thr = New Thread(AddressOf thr_loop)
+    Public Sub updateThread_Settings()
+        Dim thr = New Thread(AddressOf thr_loop_settings)
+        thr.IsBackground = True
+        thr.Start()
+    End Sub
+
+    Private Sub thr_loop_files()
+        While True
+            Threading.Thread.Sleep(10 * (60 * 1000))
+            sync_files()
+        End While
+    End Sub
+
+    Public Sub updateThread_files()
+        Dim thr = New Thread(AddressOf thr_loop_files)
         thr.IsBackground = True
         thr.Start()
     End Sub

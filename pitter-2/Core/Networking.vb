@@ -26,9 +26,22 @@ Public Class Networking
         Using client As New Net.WebClient
             client.Headers("User-Agent") = ("PitterClient/1.0")
             Dim reqparm As New Specialized.NameValueCollection
-            reqparm.Add("username", username)
+            reqparm.Add("email", username)
             reqparm.Add("password", password)
-            Dim responsebytes = client.UploadValues("https://panel.pitter.us/api/user/settings/client", "POST", reqparm)
+            Dim responsebytes = client.UploadValues("https://api.pitter.us/client/get/settings", "POST", reqparm)
+            Return (New System.Text.UTF8Encoding).GetString(responsebytes)
+        End Using
+
+    End Function
+
+    Public Function get_files()
+
+        Using client As New Net.WebClient
+            client.Headers("User-Agent") = ("PitterClient/1.0")
+            Dim reqparm As New Specialized.NameValueCollection
+            reqparm.Add("email", username)
+            reqparm.Add("password", password)
+            Dim responsebytes = client.UploadValues("https://api.pitter.us/client/get/files", "POST", reqparm)
             Return (New System.Text.UTF8Encoding).GetString(responsebytes)
         End Using
 

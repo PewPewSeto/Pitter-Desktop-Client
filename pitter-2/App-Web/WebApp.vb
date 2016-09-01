@@ -130,9 +130,14 @@ Public Class WebApp
                 Capture_ = New Capture(Me, Encryption_, Settings_, Networking, StringTool)
                 Synchronization = New Synchronization(Me, Networking, Settings_)
 
-                'Start Sync Thread
-                Synchronization.sync()
-                Synchronization.updateThread()
+                'Start Settings Sync Thread
+                Synchronization.sync_settings()
+                Synchronization.updateThread_Settings()
+
+                'Start Files Sync Thread
+                Synchronization.sync_files()
+                Synchronization.updateThread_files()
+
 
                 'Start updater thread
                 updater.start_updater_thread()
@@ -361,7 +366,7 @@ Public Class WebApp
                             End If
                         End If
                     Catch ex As Exception
-                        Synchronization.sync() 'We might not have settings yet, download them.
+                        Synchronization.sync_settings() 'We might not have settings yet, download them.
                     End Try
 
                     '1 END
@@ -437,7 +442,7 @@ Public Class WebApp
     End Sub
 
     Private Sub SynchronizeSettingsToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SynchronizeSettingsToolStripMenuItem.Click
-        Synchronization.sync()
+        Synchronization.sync_settings()
     End Sub
     Public Sub check_for_other_pitters()
         Dim current_pid = Process.GetCurrentProcess.Id
