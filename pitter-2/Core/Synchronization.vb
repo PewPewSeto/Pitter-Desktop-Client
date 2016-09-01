@@ -51,6 +51,7 @@ Public Class Synchronization
                     client.DownloadFile("https://i.pitter.us/" + row.GetValue("filename").ToString, parent.save_location + row.GetValue("filename").ToString)
                 End If
 
+
             Next
         Catch ex As Exception
 
