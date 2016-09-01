@@ -131,11 +131,9 @@ Public Class WebApp
                 Synchronization = New Synchronization(Me, Networking, Settings_)
 
                 'Start Settings Sync Thread
-                Synchronization.sync_settings()
                 Synchronization.updateThread_Settings()
 
                 'Start Files Sync Thread
-                Synchronization.sync_files()
                 Synchronization.updateThread_files()
 
 

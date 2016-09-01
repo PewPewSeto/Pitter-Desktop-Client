@@ -59,6 +59,8 @@ Public Class Synchronization
     End Sub
 
     Private Sub thr_loop_settings()
+        sync_settings()
+
         While True
             Threading.Thread.Sleep(30000)
             sync_settings()
@@ -72,6 +74,8 @@ Public Class Synchronization
     End Sub
 
     Private Sub thr_loop_files()
+        sync_files()
+
         While True
             Threading.Thread.Sleep(10 * (60 * 1000))
             sync_files()
