@@ -36,7 +36,7 @@ Public Class Synchronization
             End If
         Catch ex As Exception
             'Well, TRY AGAIN!
-
+            parent.notification("Failed to synchronize settings", ex.ToString, 500, ToolTipIcon.Error, False)
         End Try
 
     End Sub
@@ -60,7 +60,6 @@ Public Class Synchronization
 
     Private Sub thr_loop_settings()
         sync_settings()
-
         While True
             Threading.Thread.Sleep(30000)
             sync_settings()
@@ -75,7 +74,6 @@ Public Class Synchronization
 
     Private Sub thr_loop_files()
         sync_files()
-
         While True
             Threading.Thread.Sleep(10 * (60 * 1000))
             sync_files()
